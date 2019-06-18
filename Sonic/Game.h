@@ -16,7 +16,8 @@ private:
 
 	const Vector2 screenSize;
 	std::unique_ptr<Peripheral> p;
-	std::unique_ptr<SceneManager> sceneManager;
+	//std::unique_ptr<SceneManager> sceneManager;
+	//SceneManager& sceneManager;
 
 public:
 	static Game& Instance()

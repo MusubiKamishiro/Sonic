@@ -30,7 +30,7 @@ void ResultScene::FadeoutUpdate(const Peripheral & p)
 {
 	if (pal <= 0)
 	{
-		sceneManager->ChangeScene(std::make_unique<TitleScene>());
+		SceneManager::Instance().ChangeScene(std::make_unique<TitleScene>());
 	}
 	else
 	{

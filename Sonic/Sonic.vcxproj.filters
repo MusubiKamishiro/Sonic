@@ -54,9 +54,6 @@
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>Scene\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\PauseScene.cpp">
-      <Filter>Scene\ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -84,9 +81,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
-      <Filter>Scene\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\PauseScene.h">
       <Filter>Scene\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

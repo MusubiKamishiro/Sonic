@@ -24,8 +24,7 @@ void TitleScene::FadeoutUpdate(const Peripheral & p)
 {
 	if (pal <= 0)
 	{
-		sceneManager.reset(new SceneManager());
-		sceneManager->ChangeScene(std::make_unique<GamePlayingScene>());
+		SceneManager::Instance().ChangeScene(std::make_unique<GamePlayingScene>());
 	}
 	else
 	{

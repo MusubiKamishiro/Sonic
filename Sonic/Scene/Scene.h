@@ -1,14 +1,14 @@
 #pragma once
 #include <memory>
 
-class SceneManager;
+//class SceneManager;
 class Peripheral;
 
 // (ƒˆ‰¼‘z¸×½)
 class Scene
 {
-private:
-	
+protected:
+	//std::unique_ptr<SceneManager> sceneManager;
 
 public:
 	Scene();

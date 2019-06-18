@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include <memory>
 
-
+class SceneManager;
 
 class TitleScene : public Scene
 {
@@ -16,8 +16,6 @@ private:
 
 	int timeCount;	// Press 'A' Button を点滅させるためのカウント
 
-
-	std::unique_ptr<SceneManager> sceneManager;
 
 public:
 	TitleScene();

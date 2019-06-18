@@ -10,7 +10,7 @@ void PauseScene::FadeoutUpdate(const Peripheral & p)
 {
 }
 
-PauseScene::PauseScene()
+PauseScene::PauseScene() : Scene(sceneManager.get())
 {
 }
 

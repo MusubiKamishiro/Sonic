@@ -18,9 +18,6 @@ private:
 
 	std::shared_ptr<Player> player;
 
-
-	std::unique_ptr<SceneManager> sceneManager;
-	
 public:
 	GamePlayingScene();
 	~GamePlayingScene();

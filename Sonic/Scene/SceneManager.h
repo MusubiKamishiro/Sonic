@@ -7,10 +7,19 @@ class Peripheral;
 class SceneManager
 {
 private:
+	SceneManager();
+	SceneManager(const SceneManager&);
+	void operator=(const SceneManager&);
+
+
 	std::unique_ptr<Scene> scene;
 
 public:
-	SceneManager();
+	static SceneManager& Instance()
+	{
+		static SceneManager instance;
+		return instance;
+	}
 	~SceneManager();
 
 	// @param newScene V‚µ‚¢ƒV[ƒ“

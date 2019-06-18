@@ -3,7 +3,6 @@
 #include <memory>
 #include "Peripheral.h"
 #include "Scene/SceneManager.h"
-#include "Scene/TitleScene.h"
 
 
 
@@ -31,7 +30,8 @@ void Game::Initialize()
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);	// — ‰æ–Ê‚É•`‰æ
 
 	p.reset(new Peripheral());
-	sceneManager.reset(new SceneManager());
+	//sceneManager.reset(new SceneManager());
+	
 
 	InitPeripheral();
 }
@@ -71,7 +71,7 @@ void Game::Run()
 
 		p->Update();
 
-		sceneManager->Update(*p);
+		SceneManager::Instance().Update(*p);
 
 		DxLib::ScreenFlip();
 	}
