@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <DxLib.h>
+#include <memory>
 #include "Peripheral.h"
+#include "Scene/SceneManager.h"
 #include "Scene/TitleScene.h"
 
 
@@ -29,10 +31,9 @@ void Game::Initialize()
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);	// — ‰æ–Ê‚É•`‰æ
 
 	p.reset(new Peripheral());
+	sceneManager.reset(new SceneManager());
 
 	InitPeripheral();
-
-	ChangeScene(new TitleScene());
 }
 
 void Game::InitPeripheral()
@@ -70,8 +71,7 @@ void Game::Run()
 
 		p->Update();
 
-		
-		scene->Update(*p.get());
+		sceneManager->Update(*p);
 
 		DxLib::ScreenFlip();
 	}
@@ -82,12 +82,8 @@ void Game::Terminate()
 	DxLib::DxLib_End();
 }
 
-void Game::ChangeScene(Scene * s)
-{
-	scene.reset(s);
-}
 
-Vector2 Game::GetScreenSize() const
+const Vector2 Game::GetScreenSize() const
 {
 	return screenSize;
 }

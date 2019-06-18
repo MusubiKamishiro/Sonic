@@ -14,6 +14,11 @@ private:
 	void FadeinUpdate(const Peripheral& p);
 	void FadeoutUpdate(const Peripheral& p);
 
+	int timeCount;	// Press 'A' Button を点滅させるためのカウント
+
+
+	std::unique_ptr<SceneManager> sceneManager;
+
 public:
 	TitleScene();
 	~TitleScene();

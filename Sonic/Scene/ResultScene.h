@@ -11,6 +11,9 @@ private:
 
 	int resultImage;
 
+
+	std::unique_ptr<SceneManager> sceneManager;
+
 public:
 	ResultScene();
 	~ResultScene();

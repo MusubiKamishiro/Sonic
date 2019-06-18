@@ -4,6 +4,7 @@
 #include "Geometry.h"
 
 class Peripheral;
+class SceneManager;
 
 class Game
 {
@@ -15,6 +16,7 @@ private:
 
 	const Vector2 screenSize;
 	std::unique_ptr<Peripheral> p;
+	std::unique_ptr<SceneManager> sceneManager;
 
 public:
 	static Game& Instance()
@@ -38,13 +40,7 @@ public:
 	// 最後の最後に一回だけ呼ぶ
 	void Terminate();
 
-	// 現在実行中のｼｰﾝの管理
-	std::shared_ptr<Scene> scene;
-
-	// ｼｰﾝ入れ替え
-	void ChangeScene(Scene* s);
-
 	// 画面サイズの取得
-	Vector2 GetScreenSize()const;
+	const Vector2 GetScreenSize()const;
 };
 

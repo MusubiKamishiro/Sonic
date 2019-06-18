@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "../Geometry.h"
 
+class Player;
 
 class GamePlayingScene : public Scene
 {
@@ -13,11 +14,12 @@ private:
 	void FadeinUpdate(const Peripheral& p);
 	void FadeoutUpdate(const Peripheral& p);
 	
-	Vector2 pos[2];
-	Vector2 ssize;
+	Vector2 ssize;		// âÊñ ÉTÉCÉY
 
-	int bg1;
-	int bg2;
+	std::shared_ptr<Player> player;
+
+
+	std::unique_ptr<SceneManager> sceneManager;
 	
 public:
 	GamePlayingScene();

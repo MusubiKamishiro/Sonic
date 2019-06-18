@@ -127,18 +127,24 @@
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Peripheral.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene\GamePlayingScene.cpp" />
+    <ClCompile Include="Scene\PauseScene.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Peripheral.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Scene\GamePlayingScene.h" />
+    <ClInclude Include="Scene\PauseScene.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
