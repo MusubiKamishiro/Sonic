@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character\Actor.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Geometry.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character\Actor.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />

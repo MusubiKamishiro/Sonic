@@ -11,9 +11,9 @@ class GamePlayingScene : public Scene
 private:
 	void (GamePlayingScene::*updater)(const Peripheral& p);
 
-	void FadeinUpdate(const Peripheral& p);
-	void FadeoutUpdate(const Peripheral& p);
-	void WaitUpdate(const Peripheral& p);
+	void FadeinUpdate(const Peripheral& p)override final;
+	void FadeoutUpdate(const Peripheral& p)override final;
+	void WaitUpdate(const Peripheral& p)override final;
 
 	
 	Vector2 ssize;		// âÊñ ÉTÉCÉY
@@ -24,5 +24,5 @@ public:
 	GamePlayingScene();
 	~GamePlayingScene();
 
-	void Update(const Peripheral& p);
+	void Update(const Peripheral& p)override final;
 };

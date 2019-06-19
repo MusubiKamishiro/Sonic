@@ -8,13 +8,13 @@ class PauseScene : public Scene
 private:
 	void (PauseScene::*updater)(const Peripheral& p);
 
-	void FadeinUpdate(const Peripheral& p);
-	void FadeoutUpdate(const Peripheral& p);
-	void WaitUpdate(const Peripheral& p);
+	void FadeinUpdate(const Peripheral& p)override final;
+	void FadeoutUpdate(const Peripheral& p)override final;
+	void WaitUpdate(const Peripheral& p)override final;
 public:
 	PauseScene();
 	~PauseScene();
 
-	void Update(const Peripheral& p);
+	void Update(const Peripheral& p)override final;
 };
 

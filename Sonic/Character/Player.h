@@ -1,9 +1,10 @@
 #pragma once
+#include "Actor.h"
 #include "../Geometry.h"
 
 class Peripheral;
 
-class Player
+class Player : public Actor
 {
 private:
 	Vector2 pos[2];
@@ -19,8 +20,8 @@ public:
 	Player();
 	~Player();
 
-	void Update(const Peripheral& p);
+	void Update(const Peripheral& p)override final;
 
-	void Draw();
+	void Draw()override final;
 };
 
