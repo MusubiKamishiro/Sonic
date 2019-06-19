@@ -5,7 +5,6 @@
 Scene::Scene() 
 {
 	pal = 0;
-	//sceneManager.reset(scenemanager);
 }
 
 

@@ -3,9 +3,10 @@
 #include <memory>
 #include "../Peripheral.h"
 #include "../Game.h"
-#include "../Player.h"
+#include "../Character/Player.h"
 #include "SceneManager.h"
 #include "ResultScene.h"
+#include "PauseScene.h"
 
 
 
@@ -37,6 +38,10 @@ void GamePlayingScene::FadeoutUpdate(const Peripheral & p)
 	}
 }
 
+void GamePlayingScene::WaitUpdate(const Peripheral & p)
+{
+}
+
 
 GamePlayingScene::GamePlayingScene()
 {
@@ -59,6 +64,11 @@ void GamePlayingScene::Update(const Peripheral& p)
 	player->Update(p);
 	player->Draw();
 	
+	if (p.IsTrigger(0, "pause"))
+	{
+		SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
+	}
+
 
 	// フェードイン,アウトのための幕
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));

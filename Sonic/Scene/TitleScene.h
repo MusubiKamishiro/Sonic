@@ -2,7 +2,6 @@
 #include "Scene.h"
 #include <memory>
 
-class SceneManager;
 
 class TitleScene : public Scene
 {
@@ -13,6 +12,7 @@ private:
 
 	void FadeinUpdate(const Peripheral& p);
 	void FadeoutUpdate(const Peripheral& p);
+	void WaitUpdate(const Peripheral& p);
 
 	int timeCount;	// Press 'A' Button を点滅させるためのカウント
 

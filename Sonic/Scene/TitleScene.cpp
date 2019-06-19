@@ -13,6 +13,7 @@ void TitleScene::FadeinUpdate(const Peripheral & p)
 	if (pal >= 255)
 	{
 		pal = 255;
+		updater = &TitleScene::WaitUpdate;
 	}
 	else
 	{
@@ -29,6 +30,15 @@ void TitleScene::FadeoutUpdate(const Peripheral & p)
 	else
 	{
 		pal -= 20;
+	}
+}
+
+void TitleScene::WaitUpdate(const Peripheral & p)
+{
+	if (p.IsTrigger(0, "attack"))
+	{
+		pal = 255;
+		updater = &TitleScene::FadeoutUpdate;
 	}
 }
 
@@ -50,11 +60,6 @@ void TitleScene::Update(const Peripheral& p)
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, pal);
 	DxLib::DrawExtendGraph(0, 0, Game::Instance().GetScreenSize().x, Game::Instance().GetScreenSize().y, titleImage, true);
 
-	if (p.IsTrigger(0, "attack"))
-	{
-		pal = 255;
-		updater = &TitleScene::FadeoutUpdate;
-	}
 	
 	if ((timeCount / 30 % 2) == 0)
 	{

@@ -13,6 +13,8 @@ private:
 
 	void FadeinUpdate(const Peripheral& p);
 	void FadeoutUpdate(const Peripheral& p);
+	void WaitUpdate(const Peripheral& p);
+
 	
 	Vector2 ssize;		// âÊñ ÉTÉCÉY
 

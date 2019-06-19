@@ -46,6 +46,7 @@ void Game::InitPeripheral()
 	p->AddCommand(0, "down",	0, KEY_INPUT_DOWN);
 	p->AddCommand(0, "attack",	0, KEY_INPUT_Z);
 	p->AddCommand(0, "jump",	0, KEY_INPUT_X);
+	p->AddCommand(0, "pause",	0, KEY_INPUT_P);
 
 	for (int i = 0; i < p->GetPadCount(); ++i)
 	{
@@ -55,6 +56,7 @@ void Game::InitPeripheral()
 		p->AddCommand(i, "down",	1 + i, PAD_INPUT_DOWN);
 		p->AddCommand(i, "attack",	1 + i, PAD_INPUT_1);
 		p->AddCommand(i, "jump",	1 + i, PAD_INPUT_2);
+		p->AddCommand(i, "pause",	1 + i, PAD_INPUT_8);
 	}
 }
 

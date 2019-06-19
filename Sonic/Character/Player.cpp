@@ -1,6 +1,6 @@
 #include "Player.h"
-#include "Peripheral.h"
 #include <DxLib.h>
+#include "../Peripheral.h"
 
 
 Player::Player()
