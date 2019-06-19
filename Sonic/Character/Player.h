@@ -7,14 +7,7 @@ class Peripheral;
 class Player : public Actor
 {
 private:
-	Vector2 pos[2];
-
-	int bg1;
-	int bg2;
-
-	// 遊びのテスト
-	// 必ず消すこと
-	int count;
+	void Move(const Peripheral& p);
 
 public:
 	Player();
