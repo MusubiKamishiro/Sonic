@@ -5,6 +5,7 @@
 #include "../Geometry.h"
 
 class Player;
+class Camera;
 
 class GamePlayingScene : public Scene
 {
@@ -19,10 +20,13 @@ private:
 	Vector2 ssize;		// âÊñ ÉTÉCÉY
 
 	std::shared_ptr<Player> player;
+	std::shared_ptr<Camera> camera;
+	int bg;
 
 public:
 	GamePlayingScene();
 	~GamePlayingScene();
 
 	void Update(const Peripheral& p)override final;
+	void Draw()override final;
 };

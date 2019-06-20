@@ -35,3 +35,11 @@ void SceneManager::Update(Peripheral & p)
 	scene.front()->Update(p);
 }
 
+void SceneManager::Draw()
+{
+	for (int i = (scene.size() - 1); i >= 0; --i)
+	{
+		scene.at(i)->Draw();
+	}
+}
+

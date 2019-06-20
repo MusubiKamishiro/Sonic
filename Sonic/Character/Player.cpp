@@ -28,9 +28,9 @@ void Player::Move(const Peripheral & p)
 	}
 }
 
-Player::Player()
+Player::Player(Camera& camera) : Actor(camera)
 {
-	pos = Vector2f(0, 0);
+	pos = Vector2f(500, 200);
 	img = DxLib::LoadGraph("img/player.jpg");
 }
 
@@ -46,5 +46,5 @@ void Player::Update(const Peripheral & p)
 
 void Player::Draw()
 {
-	DxLib::DrawRectRotaGraph(pos.x, pos.y, 0, 0, 200, 200, 1.0f, 0, img, false, turnFlag);
+	DxLib::DrawRectRotaGraph(pos.x, pos.y, 0, 0, 200, 200, 0.5f, 0, img, false, turnFlag);
 }

@@ -4,6 +4,8 @@
 #include "../Peripheral.h"
 #include "../Game.h"
 #include "../Character/Player.h"
+#include "../Camera.h"
+
 #include "SceneManager.h"
 #include "ResultScene.h"
 #include "PauseScene.h"
@@ -47,7 +49,11 @@ GamePlayingScene::GamePlayingScene()
 {
 	ssize = Game::Instance().GetScreenSize();
 
-	player.reset(new Player());
+	camera.reset(new Camera());
+	player.reset(new Player(*camera));
+	camera->AddPlayer(player);
+
+	bg = DxLib::LoadGraph("img/bg.jpg");
 
 	updater = &GamePlayingScene::FadeinUpdate;
 }
@@ -59,21 +65,28 @@ GamePlayingScene::~GamePlayingScene()
 
 void GamePlayingScene::Update(const Peripheral& p)
 {
-	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-
 	player->Update(p);
-	player->Draw();
 	
+	camera->Update();
+
 	if (p.IsTrigger(0, "pause"))
 	{
 		SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
 	}
 
 
+	(this->*updater)(p);
+}
+
+void GamePlayingScene::Draw()
+{
+	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	DxLib::DrawExtendGraph(camera->GetPos().x, 0, ssize.x + camera->GetPos().x, ssize.y, bg, true);
+
+	player->Draw();
+
 	// フェードイン,アウトのための幕
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));
 	DxLib::DrawBox(0, 0, ssize.x, ssize.y, 0x000000, true);
-	
-	(this->*updater)(p);
 }
 

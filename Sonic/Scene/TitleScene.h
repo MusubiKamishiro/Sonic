@@ -22,5 +22,6 @@ public:
 	~TitleScene();
 
 	void Update(const Peripheral& p)override final;
+	void Draw()override final;
 };
 

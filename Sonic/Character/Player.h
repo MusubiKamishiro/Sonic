@@ -3,6 +3,7 @@
 #include "../Geometry.h"
 
 class Peripheral;
+class Camera;
 
 class Player : public Actor
 {
@@ -10,7 +11,7 @@ private:
 	void Move(const Peripheral& p);
 
 public:
-	Player();
+	Player(Camera& camera);
 	~Player();
 
 	void Update(const Peripheral& p)override final;

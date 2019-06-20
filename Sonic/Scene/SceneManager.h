@@ -38,5 +38,7 @@ public:
 
 
 	void Update(Peripheral& p);
+
+	void Draw();
 };
 

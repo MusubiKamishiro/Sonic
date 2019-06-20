@@ -14,8 +14,10 @@ public:
 	Scene();
 	virtual ~Scene();
 
-	// ｼｰﾝの更新を行う
+	// シーンの更新を行う
 	virtual void Update(const Peripheral& p) = 0;
+	// シーンの描画
+	virtual void Draw() = 0;
 	
 	// フェードインの処理を書く
 	virtual void FadeinUpdate(const Peripheral& p) = 0;

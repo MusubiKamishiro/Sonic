@@ -57,10 +57,16 @@ TitleScene::~TitleScene()
 void TitleScene::Update(const Peripheral& p)
 {
 	++timeCount;
+
+	(this->*updater)(p);
+}
+
+void TitleScene::Draw()
+{
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, pal);
 	DxLib::DrawExtendGraph(0, 0, Game::Instance().GetScreenSize().x, Game::Instance().GetScreenSize().y, titleImage, true);
 
-	
+
 	if ((timeCount / 30 % 2) == 0)
 	{
 		DxLib::DrawString(800, 400, "Press 'A' Button", 0xff0000);
@@ -68,6 +74,4 @@ void TitleScene::Update(const Peripheral& p)
 
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));
 	DxLib::DrawBox(0, 0, Game::Instance().GetScreenSize().x, Game::Instance().GetScreenSize().y, 0x000000, true);
-
-	(this->*updater)(p);
 }

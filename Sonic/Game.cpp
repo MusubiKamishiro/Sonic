@@ -30,8 +30,6 @@ void Game::Initialize()
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);	// — ‰æ–Ê‚É•`‰æ
 
 	p.reset(new Peripheral());
-	//sceneManager.reset(new SceneManager());
-	
 
 	InitPeripheral();
 }
@@ -74,6 +72,7 @@ void Game::Run()
 		p->Update();
 
 		SceneManager::Instance().Update(*p);
+		SceneManager::Instance().Draw();
 
 		DxLib::ScreenFlip();
 	}

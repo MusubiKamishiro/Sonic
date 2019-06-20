@@ -2,7 +2,7 @@
 #include "../Geometry.h"
 
 class Peripheral;
-
+class Camera;
 
 
 // 自機や敵機の基底クラス
@@ -14,7 +14,7 @@ protected:
 	bool turnFlag;	// 反転フラグ
 
 public:
-	Actor();
+	Actor(Camera& camera);
 	virtual ~Actor();
 
 	// 状態や座標の更新

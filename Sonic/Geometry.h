@@ -1,13 +1,5 @@
 #pragma once
 
-// 矩形の形
-enum class RectType
-{
-	non,		// 無効
-	circle,		// 〇
-	box,		// □
-};
-
 
 // 型が未確定のまま使える(使うときに型が決定する)
 template<typename T>
@@ -69,7 +61,8 @@ typedef Vector2D<int> Vector2;
 typedef Vector2D<float> Vector2f;
 
 /// ｻｲｽﾞを表す構造体
-struct Size {
+struct Size
+{
 	Size() : width(0), height(0) {}
 	Size(int inw, int inh) : width(inw), height(inh) {}
 	int width;	// 幅
@@ -77,9 +70,10 @@ struct Size {
 };
 
 /// 矩形を表現する構造体
-struct Rect {
+struct Rect
+{
 	Rect() : center(0, 0), size(0, 0) {}
-	Rect(float x, float y, int inw, int inh) : center(x, y), size(inw, inh) {}
+	Rect(int x, int y, int inw, int inh) : center(x, y), size(inw, inh) {}
 	Rect(const Vector2& inc, const Size& ins) : center(inc), size(ins) {}
 
 	Vector2 center;	// 中心
@@ -110,24 +104,13 @@ struct Rect {
 	{
 		return size.height;
 	}
+
+	// 矩形を描画する
+	// @param	color	矩形の色
+	void Draw(const unsigned int& color = 0xffffff);
 };
 
 
-
-struct Box
-{
-	Box() : dotA(0, 0), dotB(0, 0) {};
-	Box(Vector2f invecA, Vector2f invecB);
-	Box(int ax, int ay, int bx, int by);
-
-	Vector2f dotA;
-	Vector2f dotB;
-
-	bool operator==(const Box& box)
-	{
-		return ((box.dotA == dotA) && (box.dotB == dotB));
-	}
-};
 
 struct Circle
 {
@@ -137,10 +120,21 @@ struct Circle
 	Vector2f pos;	// 座標
 	int radius;		// 半径
 
-	// 他の円との当たり判定
-	// @param True...当たってる, False...当たってない
-	bool HitCircle(Circle& c);
+	// 円を描画する
+	// @param	color	矩形の色
+	void Draw(const unsigned int& color = 0xffffff);
 	
+};
+
+//線分構造体
+struct Segment
+{
+	Segment() : posA(0, 0), posB(0, 0) {};
+	Segment(const Vector2f& ina, const Vector2f& inb) : posA(ina), posB(inb) {};
+	Segment(const float& ax, const float& ay, const float& bx, const float& by) : posA(ax, ay), posB(bx, by) {};
+
+	Vector2f posA;	// 端点A
+	Vector2f posB;	// 端点B
 };
 
 class Geometry
