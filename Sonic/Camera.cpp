@@ -1,9 +1,11 @@
 #include "Camera.h"
 #include "Character/Player.h"
+#include "Game.h"
 
 
 Camera::Camera()
 {
+	ssize = Game::Instance().GetScreenSize();
 }
 
 
@@ -36,14 +38,25 @@ void Camera::Update()
 {
 	// プレイヤーの座標にあわせる
 	pos = player.at(0)->GetPos();
+
+	// 画面の限界座標周辺であれば動かないようにする
+	if (pos.x < (ssize.x / 2))
+	{
+		pos.x = ssize.x / 2;
+	}
+	if (pos.y < ssize.y / 2)
+	{
+		pos.y = ssize.y / 2;
+	}
 }
+
 
 Vector2f Camera::GetPos() const
 {
 	return pos;
 }
 
-const Rect & Camera::GetViewRange() const
+const Rect Camera::GetViewRange() const
 {
-	return Rect();
+	return Rect(pos.x, pos.y, ssize.x, ssize.y);
 }

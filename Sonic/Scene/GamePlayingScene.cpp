@@ -5,6 +5,7 @@
 #include "../Game.h"
 #include "../Character/Player.h"
 #include "../Camera.h"
+#include "../BackGround.h"
 
 #include "SceneManager.h"
 #include "ResultScene.h"
@@ -51,9 +52,8 @@ GamePlayingScene::GamePlayingScene()
 
 	camera.reset(new Camera());
 	player.reset(new Player(*camera));
+	bg.reset(new BackGround(*camera));
 	camera->AddPlayer(player);
-
-	bg = DxLib::LoadGraph("img/bg.jpg");
 
 	updater = &GamePlayingScene::FadeinUpdate;
 }
@@ -66,7 +66,6 @@ GamePlayingScene::~GamePlayingScene()
 void GamePlayingScene::Update(const Peripheral& p)
 {
 	player->Update(p);
-	
 	camera->Update();
 
 	if (p.IsTrigger(0, "pause"))
@@ -81,8 +80,8 @@ void GamePlayingScene::Update(const Peripheral& p)
 void GamePlayingScene::Draw()
 {
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	DxLib::DrawExtendGraph(camera->GetPos().x, 0, ssize.x + camera->GetPos().x, ssize.y, bg, true);
-
+	
+	bg->Draw();
 	player->Draw();
 
 	// フェードイン,アウトのための幕

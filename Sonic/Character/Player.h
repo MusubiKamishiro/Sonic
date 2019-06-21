@@ -3,7 +3,7 @@
 #include "../Geometry.h"
 
 class Peripheral;
-class Camera;
+
 
 class Player : public Actor
 {

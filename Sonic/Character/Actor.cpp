@@ -2,7 +2,7 @@
 
 
 
-Actor::Actor(Camera& camera)
+Actor::Actor(Camera& camera) : camera(camera)
 {
 }
 

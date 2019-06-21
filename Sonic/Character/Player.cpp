@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <DxLib.h>
 #include "../Peripheral.h"
+#include "../Camera.h"
 
 
 void Player::Move(const Peripheral & p)
@@ -26,6 +27,9 @@ void Player::Move(const Peripheral & p)
 			pos.y += 5;
 		}
 	}
+
+	pos.x = max(pos.x, 0);
+	pos.y = max(pos.y, 0);
 }
 
 Player::Player(Camera& camera) : Actor(camera)
@@ -46,5 +50,6 @@ void Player::Update(const Peripheral & p)
 
 void Player::Draw()
 {
-	DxLib::DrawRectRotaGraph(pos.x, pos.y, 0, 0, 200, 200, 0.5f, 0, img, false, turnFlag);
+	auto offset = camera.GetViewRange();
+	DxLib::DrawRectRotaGraph(pos.x - offset.Left(), pos.y - offset.Top(), 0, 0, 200, 200, 0.5f, 0, img, false, turnFlag);
 }

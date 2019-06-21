@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BackGroung.cpp" />
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Character\Actor.cpp" />
     <ClCompile Include="Character\Player.cpp" />
@@ -139,7 +139,7 @@
     <ClCompile Include="Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BackGroung.h" />
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Character\Actor.h" />
     <ClInclude Include="Character\Player.h" />

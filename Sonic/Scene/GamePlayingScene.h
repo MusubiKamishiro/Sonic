@@ -6,6 +6,7 @@
 
 class Player;
 class Camera;
+class BackGround;
 
 class GamePlayingScene : public Scene
 {
@@ -21,7 +22,7 @@ private:
 
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Camera> camera;
-	int bg;
+	std::shared_ptr<BackGround> bg;
 
 public:
 	GamePlayingScene();

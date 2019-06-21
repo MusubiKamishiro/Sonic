@@ -9,6 +9,8 @@ class Camera;
 class Actor
 {
 protected:
+	const Camera& camera;
+
 	Vector2f pos;	// À•W
 	int img;		// ‰æ‘œ
 	bool turnFlag;	// ”½“]ƒtƒ‰ƒO
