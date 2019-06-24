@@ -55,6 +55,9 @@ GamePlayingScene::GamePlayingScene()
 	bg.reset(new BackGround(*camera));
 	camera->AddPlayer(player);
 
+	bg->AddParts("img/bg.jpg", Vector2(0, 0), 1.0f, false, LayoutType::repeat);
+	bg->AddParts("img/bg2.png", Vector2(30, 400), 0.7f, false, LayoutType::repeat);
+
 	updater = &GamePlayingScene::FadeinUpdate;
 }
 

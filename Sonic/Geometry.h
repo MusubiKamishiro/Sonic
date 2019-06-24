@@ -14,6 +14,10 @@ struct Vector2D
 	{
 		return Vector2D<T>(in.x + x, in.y + y);
 	}
+	Vector2D<T> operator-(const Vector2D<T>& in)
+	{
+		return Vector2D<T>(x - in.x, y - in.y);
+	}
 	void operator+=(const Vector2D<T>& in)
 	{
 		x += in.x;
