@@ -65,12 +65,8 @@ void BackGround::Draw()
 		//auto poffset = range.size.height * bg.rate;
 		auto pos = bg.pos - Vector2((int)(range.Left() * bg.rate) % bg.repeatX, 0/*range.size.height * bg.rate*/);
 
-
 		DxLib::DrawExtendGraph(pos.x, pos.y, pos.x + bg.size.width, pos.y + bg.size.height, bg.handle, true);
 		DxLib::DrawExtendGraph(pos.x + bg.repeatX, pos.y, pos.x + bg.size.width + bg.repeatX, pos.y + bg.size.height, bg.handle, true);
-
-		//DxLib::DrawExtendGraph((-range.Left() % ssize.x), -range.Top(), (range.Width() - range.Left() % ssize.x), range.Height() - range.Top(), bg.handle, true);
-		//DxLib::DrawExtendGraph((-range.Left() % ssize.x) + ssize.x, -range.Top(), (range.Width() - range.Left() % ssize.x) + ssize.x, range.Height() - range.Top(), bg.handle, true);
 	}
 
 }

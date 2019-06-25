@@ -35,7 +35,10 @@ void Player::Move(const Peripheral & p)
 Player::Player(Camera& camera) : Actor(camera)
 {
 	pos = Vector2f(500, 200);
-	img = DxLib::LoadGraph("img/player.jpg");
+	//img = DxLib::LoadGraph("img/player.jpg");
+
+	ReadActionFile();
+	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
 }
 
 
@@ -51,5 +54,5 @@ void Player::Update(const Peripheral & p)
 void Player::Draw()
 {
 	auto offset = camera.GetViewRange();
-	DxLib::DrawRectRotaGraph(pos.x - offset.Left(), pos.y - offset.Top(), 0, 0, 200, 200, 0.5f, 0, img, false, turnFlag);
+	DxLib::DrawRectRotaGraph(pos.x - offset.Left(), pos.y - offset.Top(), 0, 0, 200, 200, 2.0f, 0, img, true, turnFlag);
 }
