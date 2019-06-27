@@ -6,7 +6,7 @@
 
 
 
-Game::Game(): screenSize(Vector2(1024, 576))
+Game::Game(): screenSize(Vector2(1024, 576)), gravity(9.8f)
 {
 }
 
@@ -36,7 +36,7 @@ void Game::Initialize()
 
 void Game::InitPeripheral()
 {
-	p->SetPlayerCount(2);
+	p->SetPlayerCount(1);
 
 	p->AddCommand(0, "right",	0, KEY_INPUT_RIGHT);
 	p->AddCommand(0, "left",	0, KEY_INPUT_LEFT);
@@ -60,6 +60,8 @@ void Game::InitPeripheral()
 
 void Game::Run()
 {
+	auto& scenes = SceneManager::Instance();
+
 	while (DxLib::ProcessMessage() == 0)
 	{
 		if (CheckHitKey(KEY_INPUT_ESCAPE))
@@ -71,8 +73,8 @@ void Game::Run()
 
 		p->Update();
 
-		SceneManager::Instance().Update(*p);
-		SceneManager::Instance().Draw();
+		scenes.Update(*p);
+		scenes.Draw();
 
 		DxLib::ScreenFlip();
 	}

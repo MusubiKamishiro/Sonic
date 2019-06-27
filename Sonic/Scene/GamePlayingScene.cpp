@@ -6,6 +6,7 @@
 #include "../Character/Player.h"
 #include "../Camera.h"
 #include "../BackGround.h"
+#include "../Ground.h"
 
 #include "SceneManager.h"
 #include "ResultScene.h"
@@ -53,6 +54,7 @@ GamePlayingScene::GamePlayingScene()
 	camera.reset(new Camera());
 	player.reset(new Player(*camera));
 	bg.reset(new BackGround(*camera));
+	ground.reset(new Ground(*player));
 	camera->AddPlayer(player);
 
 	bg->AddParts("img/bg.jpg", Vector2(0, 0), 1.0f, false, LayoutType::repeat);
@@ -69,8 +71,25 @@ GamePlayingScene::~GamePlayingScene()
 void GamePlayingScene::Update(const Peripheral& p)
 {
 	player->Update(p);
+
+	int groundy = ground->GetCurrentGroundY(player->GetPos());
+
+	if (!player->isAerial)
+	{
+		player->AdjustY(groundy);
+	}
+	else
+	{
+		// 地面を超えてたら着地させる
+		if (player->GetPos().y > groundy)
+		{
+			player->OnGround(groundy);
+		}
+	}
+
 	camera->Update();
 
+	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
 	{
 		SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
@@ -86,6 +105,8 @@ void GamePlayingScene::Draw()
 	
 	bg->Draw();
 	player->Draw();
+	
+	ground->Draw(camera->GetViewRange());
 
 	// フェードイン,アウトのための幕
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));

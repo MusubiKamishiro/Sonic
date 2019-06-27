@@ -115,7 +115,6 @@ struct Rect
 };
 
 
-
 struct Circle
 {
 	Circle() : pos(0, 0), radius(0) {};
@@ -139,6 +138,8 @@ struct Segment
 
 	Vector2f posA;	// 端点A
 	Vector2f posB;	// 端点B
+
+	//void Draw(unsigned int color = 0x000000);
 };
 
 class Geometry

@@ -16,8 +16,9 @@ private:
 
 	const Vector2 screenSize;
 	std::unique_ptr<Peripheral> p;
-	//std::unique_ptr<SceneManager> sceneManager;
-	//SceneManager& sceneManager;
+
+	const float gravity;
+
 
 public:
 	static Game& Instance()

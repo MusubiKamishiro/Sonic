@@ -50,11 +50,17 @@ class Actor
 protected:
 	const Camera& camera;
 
-	ActionData actData;
+	ActionData actData;	// アクションデータ
 
 	Vector2f pos;	// 座標
 	int img;		// 画像
 	bool turnFlag;	// 反転フラグ
+	float angle;	// 回転率
+	float accel;	// 加速度
+	
+	std::string nowActionName;	// 現在のアクション名
+	int nowCutIndex;			// 現在のコマ(何番目のコマか)
+	unsigned int frame;			// 経過フレーム
 
 	// ファイル読み込み
 	void ReadActionFile();
@@ -62,15 +68,18 @@ protected:
 	// ｱﾆﾒｰｼｮﾝのﾌﾚｰﾑを1進める
 	bool ProceedAnimationFile();
 
+	// アクション切り替え
+	void ChangeAction(const char* actname);
+
+	// 描画
+	void Draw();
+
 public:
 	Actor(Camera& camera);
 	virtual ~Actor();
 
 	// 状態や座標の更新
 	virtual void Update(const Peripheral& p) = 0;
-
-	// 描画
-	virtual void Draw() = 0;
 
 	// 座標の取得
 	Vector2f GetPos()const;

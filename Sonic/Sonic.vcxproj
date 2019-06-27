@@ -129,6 +129,7 @@
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Peripheral.cpp" />
     <ClCompile Include="Scene\GamePlayingScene.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="Scene\GamePlayingScene.h" />
     <ClInclude Include="Scene\PauseScene.h" />

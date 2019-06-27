@@ -1,44 +1,95 @@
 #include "Player.h"
 #include <DxLib.h>
 #include "../Peripheral.h"
-#include "../Camera.h"
 
+constexpr int jumpPower = -15;
 
-void Player::Move(const Peripheral & p)
+bool Player::Move(const Peripheral & p)
+{
+	vel.x *= 0.95;
+
+	if (p.IsPressing(0, "right"))
+	{
+		accel += 0.1f;
+		//vel.x = 5 + accel;
+		turnFlag = false;
+	}
+	else if (p.IsPressing(0, "left"))
+	{
+		accel -= 0.1f;
+		//vel.x = -(5 + accel);
+		turnFlag = true;
+	}
+	else
+	{
+		accel = 0.0f;
+		return false;
+	}
+
+	vel.x = 2 * accel;
+	return true;
+}
+
+void Player::Idle(const Peripheral & p)
+{
+	vel.x *= 0.95;
+
+	if (p.IsPressing(0, "right") || p.IsPressing(0, "left"))
+	{
+		ChangeAction("run");
+		updater = &Player::Run;
+	}
+
+	if (p.IsTrigger(0, "jump"))
+	{
+		vel.y += jumpPower;
+		ChangeAction("jump");
+		updater = &Player::Jump;
+	}
+}
+
+void Player::Run(const Peripheral & p)
 {
 	for (int i = 0; i < p.GetPlayerCount(); ++i)
 	{
-		if (p.IsPressing(i, "right"))
+		if (!Move(p))
 		{
-			pos.x += 5;
-			turnFlag = false;
+			ChangeAction("idle");
+			updater = &Player::Idle;
 		}
-		if (p.IsPressing(i, "left"))
+
+		if (p.IsTrigger(i, "jump"))
 		{
-			pos.x -= 5;
-			turnFlag = true;
-		}
-		if (p.IsPressing(i, "up"))
-		{
-			pos.y -= 5;
-		}
-		if (p.IsPressing(i, "down"))
-		{
-			pos.y += 5;
+			vel.y += jumpPower;
+			ChangeAction("jump");
+			updater = &Player::Jump;
 		}
 	}
+}
 
-	pos.x = max(pos.x, 0);
-	pos.y = max(pos.y, 0);
+void Player::Jump(const Peripheral & p)
+{
+	isAerial = true;
+	angle += 1.0f;
+
+	Move(p);
+}
+
+void Player::Ground(const Peripheral & p)
+{
+	ChangeAction("idle");
+	updater = &Player::Idle;
 }
 
 Player::Player(Camera& camera) : Actor(camera)
 {
 	pos = Vector2f(500, 200);
-	//img = DxLib::LoadGraph("img/player.jpg");
+	isAerial = true;
 
 	ReadActionFile();
 	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
+
+	updater = &Player::Idle;
 }
 
 
@@ -48,11 +99,45 @@ Player::~Player()
 
 void Player::Update(const Peripheral & p)
 {
-	Move(p);
+	ProceedAnimationFile();
+	(this->*updater)(p);
+
+	vel.x = min(vel.x, 50);
+	pos += vel;
+
+	// ‹ó’†‚É‚¢‚é‚Æd—Í”­“®
+	if (isAerial)
+	{
+		vel.y += 0.5f;
+	}
+	
+
+	// •‰‚Ì¢ŠE‚É‚Í‚¢‚©‚¹‚È‚¢‚æ‚¤‚É
+	pos.x = max(pos.x, 0);
+	pos.y = max(pos.y, 0);
 }
 
 void Player::Draw()
 {
-	auto offset = camera.GetViewRange();
-	DxLib::DrawRectRotaGraph(pos.x - offset.Left(), pos.y - offset.Top(), 0, 0, 200, 200, 2.0f, 0, img, true, turnFlag);
+	Actor::Draw();
 }
+
+void Player::AdjustY(float adjustY)
+{
+	if (adjustY > 0.0f)
+	{
+		pos.y = adjustY;
+	}
+}
+
+void Player::OnGround(const int groundY)
+{
+	isAerial = false;
+	pos.y = groundY;
+	vel.y = 0.0f;
+	angle = 0.0f;
+
+	ChangeAction("idle");
+	updater = &Player::Idle;
+}
+
