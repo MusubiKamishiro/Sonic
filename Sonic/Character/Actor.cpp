@@ -116,7 +116,7 @@ void Actor::Draw()
 	centerX = turnFlag ? nowAct.rect.Width() - nowAct.center.x : nowAct.center.x;
 
 	DxLib::DrawRectRotaGraph2(pos.x - offset.Left(), pos.y/* - offset.Top()*/, nowAct.rect.Left(), nowAct.rect.Top(),
-		nowAct.rect.Width(), nowAct.rect.Height(), centerX, nowAct.center.y, 2.0f, turnFlag ? -angle : angle, img, true, turnFlag);
+		nowAct.rect.Width(), nowAct.rect.Height(), centerX, nowAct.center.y, 2.0f, angle, img, true, turnFlag);
 }
 
 Actor::Actor(Camera& camera) : camera(camera)
@@ -124,6 +124,7 @@ Actor::Actor(Camera& camera) : camera(camera)
 	ChangeAction("idle");
 	angle = 0.0f;
 	accel = 0.0f;
+	turnFlag = false;
 }
 
 

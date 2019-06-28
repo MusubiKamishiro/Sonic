@@ -60,6 +60,8 @@ GamePlayingScene::GamePlayingScene()
 	bg->AddParts("img/bg.jpg", Vector2(0, 0), 1.0f, false, LayoutType::repeat);
 	bg->AddParts("img/bg2.png", Vector2(30, 400), 0.7f, false, LayoutType::repeat);
 
+	time = 0;
+
 	updater = &GamePlayingScene::FadeinUpdate;
 }
 
@@ -70,24 +72,32 @@ GamePlayingScene::~GamePlayingScene()
 
 void GamePlayingScene::Update(const Peripheral& p)
 {
+	float grad = 0.0f;
+	int groundy = ground->GetCurrentGroundY(player->GetPos(), grad);
+
 	player->Update(p);
 
-	int groundy = ground->GetCurrentGroundY(player->GetPos());
+	// 地面がなかったら空中に
+	if (groundy == INT_MIN)
+	{
+		player->isAerial = true;
+	}
 
 	if (!player->isAerial)
 	{
-		player->AdjustY(groundy);
+		player->AdjustY(groundy, grad);
 	}
 	else
 	{
 		// 地面を超えてたら着地させる
-		if (player->GetPos().y > groundy)
+		if ((player->GetPos().y > groundy) && (groundy != INT_MIN))
 		{
 			player->OnGround(groundy);
 		}
 	}
 
 	camera->Update();
+	ground->Updade(time);
 
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
@@ -95,7 +105,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 		SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
 	}
 
-
+	++time;
 	(this->*updater)(p);
 }
 
@@ -104,10 +114,10 @@ void GamePlayingScene::Draw()
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 	
 	bg->Draw();
-	player->Draw();
-	
 	ground->Draw(camera->GetViewRange());
 
+	player->Draw();
+	
 	// フェードイン,アウトのための幕
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));
 	DxLib::DrawBox(0, 0, ssize.x, ssize.y, 0x000000, true);

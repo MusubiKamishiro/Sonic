@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <DxLib.h>
+#include <cmath>
 #include "../Peripheral.h"
 
 constexpr int jumpPower = -15;
@@ -70,8 +71,16 @@ void Player::Run(const Peripheral & p)
 void Player::Jump(const Peripheral & p)
 {
 	isAerial = true;
-	angle += 1.0f;
 
+	if (turnFlag)
+	{
+		angle -= 1.0f;
+	}
+	else
+	{
+		angle += 1.0f;
+	}
+	
 	Move(p);
 }
 
@@ -122,8 +131,12 @@ void Player::Draw()
 	Actor::Draw();
 }
 
-void Player::AdjustY(float adjustY)
+void Player::AdjustY(float adjustY, float grad)
 {
+	angle = atanf(grad);
+
+	vel.x += grad / std::hypot(1, grad);
+
 	if (adjustY > 0.0f)
 	{
 		pos.y = adjustY;

@@ -18,7 +18,7 @@ private:
 	void Jump(const Peripheral& p);
 	void Ground(const Peripheral& p);
 
-	Vector2f vel;	// 移動量(ジャンプなどの際に使う)
+	Vector2f vel;	// 移動量
 
 public:
 	Player(Camera& camera);
@@ -28,7 +28,7 @@ public:
 
 	void Draw();
 
-	void AdjustY(float adjustY);
+	void AdjustY(float adjustY, float grad);
 	void OnGround(const int groundY);
 
 	// 空中フラグ

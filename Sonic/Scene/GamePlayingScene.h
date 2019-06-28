@@ -26,6 +26,8 @@ private:
 	std::shared_ptr<BackGround> bg;
 	std::shared_ptr<Ground> ground;
 
+	int time;
+
 public:
 	GamePlayingScene();
 	~GamePlayingScene();
