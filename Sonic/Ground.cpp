@@ -8,6 +8,8 @@
 
 Ground::Ground(Player& player) : player(player)
 {
+	segments.emplace_back(0, 500, 400, 300);
+
 	// サインカーブを作るよ
 	for (int i = 0; i < 765; ++i)
 	{
@@ -15,7 +17,7 @@ Ground::Ground(Player& player) : player(player)
 		auto bx = (i + 1) * 100;
 		auto ay = 300 - 200 * sin(DX_PI * (float)i / 8.0f);
 		auto by = 300 - 200 * sin(DX_PI * (float)(i + 1) / 8.0f);
-		segments.emplace_back(ax, ay, bx, by);
+		segments.emplace_back(ax + 400, ay, bx + 400, by);
 	}
 
 	segment = Segment(Vector2f(0, 900), Vector2f(1000, 0));
@@ -96,29 +98,69 @@ void Ground::Updade(const int & time)
 
 void Ground::Draw(const Rect& offset)
 {
-	int count = 0;
+	int cnt = 0;
 
 	auto left = offset.Left();
-	int height = 50;
+	int height = 64;
+	int width = 64;
 	for (auto& s : segments)
 	{
-		// 一番上
-		DxLib::DrawRectModiGraph(s.posA.x - left, s.posA.y, s.posB.x - left, s.posB.y,
-			s.posB.x - left, s.posB.y + height, s.posA.x - left, s.posA.y + height, 64, 32, 32, 32, img, true);
+		float l = s.posB.x - s.posA.x;
+		float h = s.posB.y - s.posA.y;
+		Vector2f count = Vector2f(l / width, h / height);
+		Vector2f pos = Vector2f(0.0f, 0.0f);
+		for (int i = 0; i < (int)count.x; ++i)
+		{
+			pos.x = s.posA.x - left + width * i;
+			pos.y = s.posA.y + (h / count.x * i);
+			float posYB = s.posA.y + (h / count.x * (i + 1));
+			// 一番上(斜めもありえる)
+			DxLib::DrawRectModiGraphF(pos.x, pos.y, pos.x + width, posYB,
+				pos.x + width, posYB + height, pos.x, pos.y + height, 64, 32, 32, 32, img, true);
 
-		auto maxY = max(s.posA.y + height, s.posB.y + height);
+			auto maxY = max(pos.y + height, posYB + height);
 
-		// 次層
-		DxLib::DrawRectModiGraph(s.posA.x - left, s.posA.y + height, s.posB.x - left, s.posB.y + height,
-			s.posB.x - left, maxY + height, s.posA.x - left, maxY + height, 64, 64, 32, 32, img, true);
+			// 次層(台形底辺は横軸に平行)
+			DxLib::DrawRectModiGraphF(pos.x, pos.y + height, pos.x + width, posYB + height,
+				pos.x + width, maxY + height, pos.x, maxY + height, 64, 64, 32, 32, img, true);
 
-		// それよりも下
+			// それよりも下(普通の長方形)
+			for (int y = (maxY + height); y < ssize.y; y += height)
+			{
+				cnt %= rand.size();
+				int num = rand.at(cnt);
+				DxLib::DrawRectExtendGraph(pos.x, y, pos.x + width, y + height, 0, 0, tileSize[num].x, tileSize[num].y, tiles[num], true);
+				++cnt;
+
+				//DxLib::DrawRectExtendGraphF(pos.x, y, pos.x + width, y + height, 64, 64, 32, 32, img, true);
+			}
+		}
+
+		// 残り端
+		int last = (int)count.x;
+		pos.x = s.posA.x - left + width * last;
+		pos.y = s.posA.y + (h / count.x * last);
+		// 一番上(斜めもありえる)
+		DxLib::DrawRectModiGraphF(pos.x, s.posA.y + (h / count.x * last), s.posB.x - left, s.posB.y,
+			s.posB.x - left, s.posB.y + height, pos.x, s.posA.y + (h / count.x * last) + height, 64, 32, 32, 32, img, true);
+
+		auto maxY = max(pos.y + height, s.posB.y + height);
+
+		// 次層(台形底辺は横軸に平行)
+		DxLib::DrawRectModiGraphF(pos.x, pos.y + height, s.posB.x - left, s.posB.y + height,
+			s.posB.x - left, maxY + height, pos.x, maxY + height, 64, 64, 32, 32, img, true);
+
+		// それよりも下(普通の長方形)
 		for (int y = (maxY + height); y < ssize.y; y += height)
 		{
-			count %= rand.size();
-			int num = rand.at(count);
-			DxLib::DrawRectExtendGraph(s.posA.x - left, y, s.posB.x - left, y + height, 0, 0, tileSize[num].x, tileSize[num].y, tiles[num], true);
-			++count;
+			cnt %= rand.size();
+			int num = rand.at(cnt);
+			//DxLib::DrawRectExtendGraph(pos.x, y, s.posB.x - left, y + height, 0, 0, tileSize[num].x, tileSize[num].y, tiles[num], true);
+			++cnt;
+
+			DxLib::DrawRectExtendGraphF(pos.x, y, s.posB.x - left, y + height, 64, 64, 32, 32, img, true);
 		}
+				
+		DxLib::DrawLine(s.posA.x - left, s.posA.y, s.posB.x - left, s.posB.y, 0xff0000);
 	}
 }

@@ -14,12 +14,12 @@ private:
 	int img;
 	Vector2 ssize;
 
+	// —V‚Ñ
 	int tileNum;
 	std::vector<int> tiles;
 	std::vector<int> rand;
 	std::vector<Vector2> tileSize;
 
-	int drawNum;
 
 public:
 	Ground(Player& player);

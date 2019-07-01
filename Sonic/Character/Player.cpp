@@ -81,7 +81,7 @@ void Player::Jump(const Peripheral & p)
 		angle += 1.0f;
 	}
 	
-	Move(p);
+	//Move(p);
 }
 
 void Player::Ground(const Peripheral & p)
