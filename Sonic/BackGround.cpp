@@ -59,11 +59,8 @@ void BackGround::Draw()
 	auto range = camera.GetViewRange();
 	for (auto& bg : bgParts)
 	{
-		int width, height;
-		DxLib::GetGraphSize(bg.handle, &width, &height);
-
 		//auto poffset = range.size.height * bg.rate;
-		auto pos = bg.pos - Vector2((int)(range.Left() * bg.rate) % bg.repeatX, 0/*range.size.height * bg.rate*/);
+		auto pos = bg.pos - Vector2((int)(range.Left() * bg.rate) % bg.repeatX, range.Top());
 
 		DxLib::DrawExtendGraph(pos.x, pos.y, pos.x + bg.size.width, pos.y + bg.size.height, bg.handle, true);
 		DxLib::DrawExtendGraph(pos.x + bg.repeatX, pos.y, pos.x + bg.size.width + bg.repeatX, pos.y + bg.size.height, bg.handle, true);

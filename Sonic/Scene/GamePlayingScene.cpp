@@ -7,6 +7,7 @@
 #include "../Camera.h"
 #include "../BackGround.h"
 #include "../Ground.h"
+#include "../Stage.h"
 
 #include "SceneManager.h"
 #include "ResultScene.h"
@@ -55,10 +56,15 @@ GamePlayingScene::GamePlayingScene()
 	player.reset(new Player(*camera));
 	bg.reset(new BackGround(*camera));
 	ground.reset(new Ground(*player));
+	stage.reset(new Stage());
+	stage->ReadStageFile("stage/level1.fmf", *ground);
+	
 	camera->AddPlayer(player);
 
 	bg->AddParts("img/bg.jpg", Vector2(0, 0), 1.0f, false, LayoutType::repeat);
-	bg->AddParts("img/bg2.png", Vector2(30, 400), 0.7f, false, LayoutType::repeat);
+	bg->AddParts("img/bg2.png", Vector2(30, 400), 0.7f, true, LayoutType::repeat);
+
+	
 
 	time = 0;
 
@@ -73,7 +79,7 @@ GamePlayingScene::~GamePlayingScene()
 void GamePlayingScene::Update(const Peripheral& p)
 {
 	float grad = 0.0f;
-	int groundy = ground->GetCurrentGroundY(player->GetPos(), grad);
+	int groundy = ground->GetCurrentGroundY(grad);
 
 	player->Update(p);
 
@@ -89,6 +95,11 @@ void GamePlayingScene::Update(const Peripheral& p)
 	}
 	else
 	{
+		if (player->GetPos().y > ground->GetCurrentDeadLine())
+		{
+			player->OnDead();
+		}
+
 		// ’n–Ê‚ð’´‚¦‚Ä‚½‚ç’…’n‚³‚¹‚é
 		if ((player->GetPos().y > groundy) && (groundy != INT_MIN))
 		{

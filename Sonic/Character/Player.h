@@ -3,7 +3,7 @@
 #include "../Geometry.h"
 
 class Peripheral;
-
+class GamePlayingScene;
 
 class Player : public Actor
 {
@@ -13,10 +13,11 @@ private:
 
 	bool Move(const Peripheral&p);
 
-	void Idle(const Peripheral& p);
-	void Run(const Peripheral& p);
-	void Jump(const Peripheral& p);
-	void Ground(const Peripheral& p);
+	void Idle(const Peripheral& p);		// 待機
+	void Run(const Peripheral& p);		// 移動
+	void Jump(const Peripheral& p);		// ジャンプ
+	void Ground(const Peripheral& p);	// 着地
+	void Damage(const Peripheral& p);	// 死亡
 
 	Vector2f vel;	// 移動量
 
@@ -30,6 +31,7 @@ public:
 
 	void AdjustY(float adjustY, float grad);
 	void OnGround(const int groundY);
+	void OnDead();
 
 	// 空中フラグ
 	// @param true時が空中

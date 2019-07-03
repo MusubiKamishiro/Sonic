@@ -115,7 +115,7 @@ void Actor::Draw()
 	int centerX = 0;
 	centerX = turnFlag ? nowAct.rect.Width() - nowAct.center.x : nowAct.center.x;
 
-	DxLib::DrawRectRotaGraph2(pos.x - offset.Left(), pos.y/* - offset.Top()*/, nowAct.rect.Left(), nowAct.rect.Top(),
+	DxLib::DrawRectRotaGraph2(pos.x - offset.Left(), pos.y - offset.Top(), nowAct.rect.Left(), nowAct.rect.Top(),
 		nowAct.rect.Width(), nowAct.rect.Height(), centerX, nowAct.center.y, 2.0f, angle, img, true, turnFlag);
 }
 

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <DxLib.h>
 #include <memory>
+#include <string>
 #include "Peripheral.h"
 #include "Scene/SceneManager.h"
 
@@ -10,6 +11,15 @@ Game::Game(): screenSize(Vector2(1024, 576)), gravity(9.8f)
 {
 }
 
+
+void Game::DebugFpsDraw()
+{
+	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+	DxLib::DrawBox(0, 0, 150, 100, 0x000000, true);
+	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	auto fps = DxLib::GetFPS();
+	DxLib::DrawFormatString(0, 0, 0xffffff, "fps : %f", fps);
+}
 
 Game::~Game()
 {
@@ -75,6 +85,10 @@ void Game::Run()
 
 		scenes.Update(*p);
 		scenes.Draw();
+
+#ifdef _DEBUG
+		DebugFpsDraw();
+#endif // _DEBUG
 
 		DxLib::ScreenFlip();
 	}

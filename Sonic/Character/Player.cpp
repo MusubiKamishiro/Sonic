@@ -90,6 +90,10 @@ void Player::Ground(const Peripheral & p)
 	updater = &Player::Idle;
 }
 
+void Player::Damage(const Peripheral & p)
+{
+}
+
 Player::Player(Camera& camera) : Actor(camera)
 {
 	pos = Vector2f(500, 200);
@@ -152,5 +156,11 @@ void Player::OnGround(const int groundY)
 
 	ChangeAction("idle");
 	updater = &Player::Idle;
+}
+
+void Player::OnDead()
+{
+	ChangeAction("damage");
+	updater = &Player::Damage;
 }
 

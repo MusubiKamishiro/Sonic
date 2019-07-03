@@ -19,6 +19,8 @@ private:
 
 	const float gravity;
 
+	// デバッグ中のFPS表示
+	void DebugFpsDraw();
 
 public:
 	static Game& Instance()
