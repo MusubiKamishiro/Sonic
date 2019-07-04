@@ -49,9 +49,18 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground)
 		auto it = terra.second.begin();
 		for (; (it + 1) != terra.second.end(); ++it) 
 		{
-			ground.AddSegment(*it, *(it + 1));
+			// 地面が端かどうかを調べて登録
+			auto type = EdgeType::none;
+			if (it == terra.second.begin())
+			{
+				type = EdgeType::left;
+			}
+			else if (it + 2 == terra.second.end())
+			{
+				type = EdgeType::right;
+			}
+			ground.AddSegment(*it, *(it + 1), type);
 		}
-		terra.second.clear();//点データはもう必要ない
 	}
 
 	// 最後はファイルを閉じようね

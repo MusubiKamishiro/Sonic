@@ -164,3 +164,8 @@ void Player::OnDead()
 	updater = &Player::Damage;
 }
 
+Vector2f Player::GetVel() const
+{
+	return vel;
+}
+

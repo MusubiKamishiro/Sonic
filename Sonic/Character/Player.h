@@ -33,6 +33,8 @@ public:
 	void OnGround(const int groundY);
 	void OnDead();
 
+	Vector2f GetVel()const;
+
 	// ‹ó’†ƒtƒ‰ƒO
 	// @param trueŽž‚ª‹ó’†
 	bool isAerial;

@@ -136,3 +136,8 @@ Vector2f Actor::GetPos() const
 {
 	return pos;
 }
+
+Rect Actor::GetActRect()
+{
+	return actData.animInfo[nowActionName].cutInfo[nowCutIndex].rect;
+}

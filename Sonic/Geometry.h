@@ -139,6 +139,15 @@ struct Segment
 	Vector2f posA;	// 端点A
 	Vector2f posB;	// 端点B
 
+	bool operator==(const Segment& in)const
+	{
+		return ((posA == in.posA) && (posB == in.posB));
+	}
+	bool operator!=(const Segment& in)const
+	{
+		return ((posA != in.posA) || (posB != in.posB));
+	}
+
 	//void Draw(unsigned int color = 0x000000);
 };
 

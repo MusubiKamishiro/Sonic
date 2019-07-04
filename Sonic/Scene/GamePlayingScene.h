@@ -29,6 +29,7 @@ private:
 	std::shared_ptr<Stage> stage;
 
 	int time;
+	Segment seg, oldseg;
 
 public:
 	GamePlayingScene();

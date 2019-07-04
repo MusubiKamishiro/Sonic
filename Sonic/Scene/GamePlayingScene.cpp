@@ -64,9 +64,9 @@ GamePlayingScene::GamePlayingScene()
 	bg->AddParts("img/bg.jpg", Vector2(0, 0), 1.0f, false, LayoutType::repeat);
 	bg->AddParts("img/bg2.png", Vector2(30, 400), 0.7f, true, LayoutType::repeat);
 
-	
-
 	time = 0;
+	seg = Segment(0, 0, 0, 0);
+	oldseg = Segment(0, 0, 0, 0);
 
 	updater = &GamePlayingScene::FadeinUpdate;
 }
@@ -83,8 +83,19 @@ void GamePlayingScene::Update(const Peripheral& p)
 
 	player->Update(p);
 
+	// 道がなくなったら空中に
+	oldseg = seg;
+	seg = ground->GetCurrentSegment();
+	if (seg != oldseg)
+	{
+		if (!((oldseg.posA == seg.posB) || (seg.posA == oldseg.posB)))
+		{
+			player->isAerial = true;
+		}
+	}
+
 	// 地面がなかったら空中に
-	if (groundy == INT_MIN)
+	if ((groundy == INT_MIN))
 	{
 		player->isAerial = true;
 	}
@@ -100,10 +111,14 @@ void GamePlayingScene::Update(const Peripheral& p)
 			player->OnDead();
 		}
 
-		// 地面を超えてたら着地させる
-		if ((player->GetPos().y > groundy) && (groundy != INT_MIN))
+		// yの移動量がプラス(下向き)のときだけ
+		if (player->GetVel().y > 0)
 		{
-			player->OnGround(groundy);
+			// 地面を超えてたら着地させる
+			if ((player->GetPos().y > groundy) && (groundy != INT_MIN))
+			{
+				player->OnGround(groundy);
+			}
 		}
 	}
 

@@ -4,6 +4,7 @@
 #include <string>
 #include "Peripheral.h"
 #include "Scene/SceneManager.h"
+#include "resource.h"
 
 
 
@@ -36,7 +37,7 @@ void Game::Initialize()
 	}
 
 	DxLib::SetMainWindowText("Sonic The Hedgehog");		// タイトル
-	//DxLib::SetWindowIconID(IDI_ICON1);	// アイコン
+	DxLib::SetWindowIconID(IDI_ICON1);	// アイコン
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);	// 裏画面に描画
 
 	p.reset(new Peripheral());

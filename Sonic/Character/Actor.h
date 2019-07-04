@@ -83,5 +83,8 @@ public:
 
 	// À•W‚Ìæ“¾
 	Vector2f GetPos()const;
+
+	// ‹éŒ`‚Ìæ“¾
+	Rect GetActRect();
 };
 
