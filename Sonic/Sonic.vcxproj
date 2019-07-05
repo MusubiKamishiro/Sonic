@@ -124,6 +124,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Block\Block.cpp" />
+    <ClCompile Include="Block\BlockFactory.cpp" />
+    <ClCompile Include="Block\Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Character\Actor.cpp" />
     <ClCompile Include="Character\Player.cpp" />
@@ -142,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Block\Block.h" />
+    <ClInclude Include="Block\BlockFactory.h" />
+    <ClInclude Include="Block\Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Character\Actor.h" />
     <ClInclude Include="Character\Player.h" />

@@ -121,6 +121,40 @@ bool Peripheral::IsTrigger(const unsigned short & pno, const char * cmd) const
 	return false;
 }
 
+bool Peripheral::IsReleased(const unsigned short & pno, const char * cmd) const
+{
+	auto it = inputTable[pno].find(cmd);
+	if (it == inputTable[pno].end())
+	{
+		return false;
+	}
+
+	for (int i = 0; i < inputTable[pno].count(cmd); ++i)
+	{
+		// キーボードかパットか
+		if (i)
+		{
+			++it;
+		}
+
+		// キーボードだった場合
+		if (it->second.padNo == 0)
+		{
+			if (keyState[it->second.code])
+			{
+				return (oldKeyState[it->second.code] && (!keyState[it->second.code]));
+			}
+		}
+		else
+		{
+			// パッドの場合
+			return ((oldPadState[pno] & it->second.code) && (!(padState[pno] & it->second.code)));
+		}
+	}
+
+	return false;
+}
+
 int Peripheral::GetPadCount() const
 {
 	return DxLib::GetJoypadNum();

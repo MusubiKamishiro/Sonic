@@ -44,6 +44,9 @@ public:
 	// 現在のﾄﾘｶﾞｰ状態(押した瞬間)の検出
 	bool IsTrigger(const unsigned short& pno, const char* cmd)const;
 
+	// キーを離した瞬間を検出
+	bool IsReleased(const unsigned short& pno, const char* cmd)const;
+
 	// 接続されてるパッド数を返す
 	int GetPadCount()const;
 

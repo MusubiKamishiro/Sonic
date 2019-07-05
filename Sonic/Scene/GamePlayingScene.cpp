@@ -8,6 +8,7 @@
 #include "../BackGround.h"
 #include "../Ground.h"
 #include "../Stage.h"
+#include "../Block/BlockFactory.h"
 
 #include "SceneManager.h"
 #include "ResultScene.h"
@@ -57,6 +58,7 @@ GamePlayingScene::GamePlayingScene()
 	bg.reset(new BackGround(*camera));
 	ground.reset(new Ground(*player));
 	stage.reset(new Stage());
+	blockFactory.reset(new BlockFactory(*camera));
 	stage->ReadStageFile("stage/level1.fmf", *ground);
 	
 	camera->AddPlayer(player);
@@ -141,6 +143,10 @@ void GamePlayingScene::Draw()
 	
 	bg->Draw();
 	ground->Draw(camera->GetViewRange());
+	/*for (auto& block : blockFactory)
+	{
+		block->Draw();
+	}*/
 
 	player->Draw();
 	

@@ -20,9 +20,10 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground)
 	int handle = DxLib::FileRead_open(stagePath, false);
 	DxLib::FileRead_read(&stageInfo, sizeof(stageInfo), handle);
 
-	std::vector<unsigned char> beforeReplaceData;
-
 	stageData.resize(stageInfo.mapHeight * stageInfo.mapWidth);
+
+	// 地面の追加に関して
+	std::vector<unsigned char> beforeReplaceData;
 	beforeReplaceData.resize(stageData.size());
 	DxLib::FileRead_read(&beforeReplaceData[0], beforeReplaceData.size(), handle);
 
@@ -62,6 +63,24 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground)
 			ground.AddSegment(*it, *(it + 1), type);
 		}
 	}
+	
+	// ブロック(障害物など)の追加に関して
+	std::vector<unsigned char> blockData;
+	blockData.resize(stageData.size());
+	DxLib::FileRead_read(&blockData[0], blockData.size(), handle);
+
+	std::vector<Vector2> blockPositions;
+	// 点座標データに変換
+	for (int i = 0; i < blockData.size(); ++i)
+	{
+		auto no = blockData[i];
+		if (no > 0)
+		{
+			blockPositions.emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * stageInfo.chipHeight);
+		}
+	}
+	// ソート
+	std::sort(blockPositions.begin(), blockPositions.end(), [](const Vector2& lpos, const Vector2& rpos) { return lpos.x < rpos.x; });
 
 	// 最後はファイルを閉じようね
 	DxLib::FileRead_close(handle);

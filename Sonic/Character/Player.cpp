@@ -3,7 +3,7 @@
 #include <cmath>
 #include "../Peripheral.h"
 
-constexpr int jumpPower = -15;
+constexpr float jumpPower = -15.0f;
 
 bool Player::Move(const Peripheral & p)
 {
@@ -41,12 +41,13 @@ void Player::Idle(const Peripheral & p)
 		updater = &Player::Run;
 	}
 
-	if (p.IsTrigger(0, "jump"))
-	{
-		vel.y += jumpPower;
-		ChangeAction("jump");
-		updater = &Player::Jump;
-	}
+	//if (p.IsTrigger(0, "jump"))
+	//{
+	//	//vel.y += jumpPower;
+	//	ChangeAction("jump");
+	//	updater = &Player::JumpCheck;
+	//}
+	JumpCheck(p);
 }
 
 void Player::Run(const Peripheral & p)
@@ -59,12 +60,13 @@ void Player::Run(const Peripheral & p)
 			updater = &Player::Idle;
 		}
 
-		if (p.IsTrigger(i, "jump"))
-		{
-			vel.y += jumpPower;
-			ChangeAction("jump");
-			updater = &Player::Jump;
-		}
+		//if (p.IsTrigger(i, "jump"))
+		//{
+		//	//vel.y += jumpPower;
+		//	ChangeAction("jump");
+		//	updater = &Player::JumpCheck;
+		//}
+		JumpCheck(p);
 	}
 }
 
@@ -84,6 +86,27 @@ void Player::Jump(const Peripheral & p)
 	//Move(p);
 }
 
+void Player::JumpCheck(const Peripheral & p)
+{
+	if (jumpButtonPressing > 0)
+	{
+		++jumpButtonPressing;
+	}
+	if (p.IsTrigger(0, "jump"))
+	{
+		jumpButtonPressing = 1;
+	}
+	if (p.IsReleased(0, "jump") || (jumpButtonPressing >= 1))
+	{
+		ChangeAction("jump");
+		updater = &Player::Jump;
+		vel.y = jumpPower * (float)(jumpButtonPressing);
+		isAerial = true;
+		nowActionName = "jump";
+		jumpButtonPressing = 0;
+	}
+}
+
 void Player::Ground(const Peripheral & p)
 {
 	ChangeAction("idle");
@@ -101,6 +124,8 @@ Player::Player(Camera& camera) : Actor(camera)
 
 	ReadActionFile();
 	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
+
+	jumpButtonPressing = 0;
 
 	updater = &Player::Idle;
 }

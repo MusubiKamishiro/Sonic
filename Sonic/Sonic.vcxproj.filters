@@ -31,6 +31,15 @@
     <Filter Include="Character\ソース ファイル">
       <UniqueIdentifier>{5c5ec943-333c-4bdb-93ef-fd9dc2ad1838}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Block">
+      <UniqueIdentifier>{350d577a-334e-4134-b107-758979a2479f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Block\ヘッダー ファイル">
+      <UniqueIdentifier>{ea9683c4-62d5-402c-bb66-372d8d00bf0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Block\ソース ファイル">
+      <UniqueIdentifier>{8660794a-1827-446b-b0aa-61dcfdb4b295}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,6 +90,15 @@
     <ClCompile Include="Stage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Block\BlockFactory.cpp">
+      <Filter>Block\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Block\Block.cpp">
+      <Filter>Block\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Block\Brick.cpp">
+      <Filter>Block\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -130,6 +148,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\BlockFactory.h">
+      <Filter>Block\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\Block.h">
+      <Filter>Block\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\Brick.h">
+      <Filter>Block\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

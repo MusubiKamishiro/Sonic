@@ -9,6 +9,7 @@ class Camera;
 class BackGround;
 class Ground;
 class Stage;
+class BlockFactory;
 
 class GamePlayingScene : public Scene
 {
@@ -27,6 +28,7 @@ private:
 	std::shared_ptr<BackGround> bg;
 	std::shared_ptr<Ground> ground;
 	std::shared_ptr<Stage> stage;
+	std::shared_ptr<BlockFactory> blockFactory;
 
 	int time;
 	Segment seg, oldseg;

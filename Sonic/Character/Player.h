@@ -16,10 +16,13 @@ private:
 	void Idle(const Peripheral& p);		// 待機
 	void Run(const Peripheral& p);		// 移動
 	void Jump(const Peripheral& p);		// ジャンプ
+	void JumpCheck(const Peripheral& p);// ジャンプチェック
 	void Ground(const Peripheral& p);	// 着地
 	void Damage(const Peripheral& p);	// 死亡
 
 	Vector2f vel;	// 移動量
+
+	int jumpButtonPressing;	// ジャンプボタンが押されてる時間
 
 public:
 	Player(Camera& camera);

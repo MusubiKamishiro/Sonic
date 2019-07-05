@@ -117,7 +117,7 @@ Segment Ground::GetCurrentSegment() const
 	{
 		int grad = (it->s.posB.y - it->s.posA.y) / (it->s.posB.x - it->s.posA.x);
 		MY = it->s.posA.y + grad * (ppos.x - it->s.posA.x);
-		if (MY >= (ppos.y - height))
+		if (MY >= (ppos.y - height / 2))
 		{
 			break;
 		}
@@ -157,11 +157,12 @@ void Ground::Draw(const Rect& offset)
 		Vector2f count = Vector2f(l / imgSize.x, h / imgSize.y);
 		Vector2 mod = Vector2((int)l % imgSize.x, (int)h % imgSize.y);
 		Vector2f pos = Vector2f(0.0f, 0.0f);
+		Vector2 imgPos = Vector2(0, 0);
 		for (int i = 0; i < (int)count.x; ++i)
 		{
 			// ƒ^ƒCƒv‚ðŒ©‚Ä‚¸‚ç‚·
 			auto type = s.type;
-			Vector2 imgPos = Vector2(64, 64);
+			imgPos = Vector2(64, 64);
 			if ((i == 0) && (type == EdgeType::left))
 			{
 				imgPos.x -= 32;
@@ -190,7 +191,7 @@ void Ground::Draw(const Rect& offset)
 			}
 		}
 
-		Vector2 imgPos = Vector2(64, 64);
+		imgPos = Vector2(64, 64);
 		if ((s.type == EdgeType::right))
 		{
 			imgPos.x += 32;
