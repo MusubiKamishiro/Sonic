@@ -3,7 +3,7 @@
 #include "../Camera.h"
 
 
-Brick::Brick(const Camera& camera) : Block(camera), camera(camera)
+Brick::Brick(const Vector2& pos, const Camera& camera) : Block(Rect(pos, Size(64, 64)), camera), camera(camera)
 {
 }
 
@@ -20,5 +20,5 @@ void Brick::Draw()
 {
 	auto& offset = camera.GetViewRange();
 	
-	DxLib::DrawRectExtendGraphF(0, 0, 30, 30, 16, 16, 32, 32, img, true);
+	DxLib::DrawRectExtendGraph(rect.Left() - offset.Left(), rect.Top() - offset.Top(), rect.Right() - offset.Left(), rect.Bottom() - offset.Top(), 16, 0, 16, 16, img, true);
 }

@@ -73,6 +73,8 @@ protected:
 
 	// 描画
 	void Draw();
+	/// 当たり矩形を表示
+	void DebugDraw();
 
 public:
 	Actor(Camera& camera);
@@ -85,6 +87,10 @@ public:
 	Vector2f GetPos()const;
 
 	// 矩形の取得
-	Rect GetActRect();
+	Rect GetRect();
+	// あたり矩形の取得
+	std::vector<ActRect> GetActRect();
+	// 矩形の場所を合わせる
+	Rect GetHitRect(Rect& rc);
 };
 

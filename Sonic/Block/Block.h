@@ -6,9 +6,11 @@ class Camera;
 class Block
 {
 protected:
-	Block(const Camera& camera);
+	Block(const Rect& rect, const Camera& camera);
 
 	int img;
+	Rect rect;
+
 private:
 
 public:
@@ -25,5 +27,8 @@ public:
 
 	// 自分が持ってるコライダーを返す
 	//const BlockCollider& GetCollider()const;
+
+	// 矩形の取得
+	Rect GetCollider()const;
 };
 

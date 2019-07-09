@@ -3,6 +3,8 @@
 #include <map>
 #include <algorithm>
 #include "Ground.h"
+#include "Block/Block.h"
+#include "Block/BlockFactory.h"
 
 
 Stage::Stage()
@@ -14,7 +16,7 @@ Stage::~Stage()
 {
 }
 
-void Stage::ReadStageFile(const char * stagePath, Ground& ground)
+void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& blockFactory)
 {
 	// ファイル読み込み
 	int handle = DxLib::FileRead_open(stagePath, false);
@@ -65,22 +67,28 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground)
 	}
 	
 	// ブロック(障害物など)の追加に関して
-	std::vector<unsigned char> blockData;
-	blockData.resize(stageData.size());
-	DxLib::FileRead_read(&blockData[0], blockData.size(), handle);
+	std::vector<unsigned char> blockDatas;
+	blockDatas.resize(stageData.size());
+	DxLib::FileRead_read(&blockDatas[0], blockDatas.size(), handle);
 
 	std::vector<Vector2> blockPositions;
 	// 点座標データに変換
-	for (int i = 0; i < blockData.size(); ++i)
+	for (int i = 0; i < blockDatas.size(); ++i)
 	{
-		auto no = blockData[i];
+		auto no = blockDatas[i];
 		if (no > 0)
 		{
-			blockPositions.emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * stageInfo.chipHeight);
+			blockPositions.emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth , (i / stageInfo.mapWidth) * stageInfo.chipHeight);
 		}
 	}
 	// ソート
 	std::sort(blockPositions.begin(), blockPositions.end(), [](const Vector2& lpos, const Vector2& rpos) { return lpos.x < rpos.x; });
+	
+	for (int i = 0; i < blockPositions.size(); ++i)
+	{
+		blockData.push_back(blockFactory.Create(BlockType::brick, Vector2(blockPositions[i].x - stageInfo.chipWidth / 2, blockPositions[i].y - stageInfo.chipHeight / 2)));
+	}
+
 
 	// 最後はファイルを閉じようね
 	DxLib::FileRead_close(handle);
@@ -89,4 +97,9 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground)
 std::vector<unsigned char> Stage::GetStageData() const
 {
 	return stageData;
+}
+
+std::vector<std::shared_ptr<Block>> Stage::GetBlockData() const
+{
+	return blockData;
 }

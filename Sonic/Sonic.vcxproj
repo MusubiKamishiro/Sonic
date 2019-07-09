@@ -130,6 +130,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Character\Actor.cpp" />
     <ClCompile Include="Character\Player.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Character\Actor.h" />
     <ClInclude Include="Character\Player.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Ground.h" />

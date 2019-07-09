@@ -65,7 +65,7 @@ void Actor::ReadActionFile()
 				continue;
 			}
 			actInfo.cutInfo[j].actRects.resize(rectCount);
-			DxLib::FileRead_read(&actInfo.cutInfo[j].actRects, sizeof(ActRect) * rectCount, handle);
+			DxLib::FileRead_read(&actInfo.cutInfo[j].actRects[0], sizeof(ActRect) * rectCount, handle);
 		}
 
 		// ƒ}ƒbƒv‚É“o˜^
@@ -117,6 +117,15 @@ void Actor::Draw()
 
 	DxLib::DrawRectRotaGraph2(pos.x - offset.Left(), pos.y - offset.Top(), nowAct.rect.Left(), nowAct.rect.Top(),
 		nowAct.rect.Width(), nowAct.rect.Height(), centerX, nowAct.center.y, 2.0f, angle, img, true, turnFlag);
+
+#ifdef _DEBUG
+	DebugDraw();
+#endif // _DEBUG
+
+}
+
+void Actor::DebugDraw()
+{
 }
 
 Actor::Actor(Camera& camera) : camera(camera)
@@ -137,7 +146,26 @@ Vector2f Actor::GetPos() const
 	return pos;
 }
 
-Rect Actor::GetActRect()
+Rect Actor::GetRect()
 {
 	return actData.animInfo[nowActionName].cutInfo[nowCutIndex].rect;
+}
+
+std::vector<ActRect> Actor::GetActRect()
+{
+	return actData.animInfo[nowActionName].cutInfo[nowCutIndex].actRects;
+}
+
+Rect Actor::GetHitRect(Rect & rc)
+{
+	Rect rect = rc;
+
+	rect.center.x = turnFlag ? -rect.center.x : rect.center.x;
+
+	rect.center.x += pos.x;
+	rect.center.y += pos.y;
+	//rect.size.height *= 2;
+	//rect.size.width *= 2;
+
+	return rect;
 }

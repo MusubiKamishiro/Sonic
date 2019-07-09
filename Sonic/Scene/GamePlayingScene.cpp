@@ -8,7 +8,9 @@
 #include "../BackGround.h"
 #include "../Ground.h"
 #include "../Stage.h"
+#include "../Block/Block.h"
 #include "../Block/BlockFactory.h"
+#include "../Collider.h"
 
 #include "SceneManager.h"
 #include "ResultScene.h"
@@ -59,7 +61,8 @@ GamePlayingScene::GamePlayingScene()
 	ground.reset(new Ground(*player));
 	stage.reset(new Stage());
 	blockFactory.reset(new BlockFactory(*camera));
-	stage->ReadStageFile("stage/level1.fmf", *ground);
+	collider.reset(new Collider());
+	stage->ReadStageFile("stage/level1.fmf", *ground, *blockFactory);
 	
 	camera->AddPlayer(player);
 
@@ -71,6 +74,7 @@ GamePlayingScene::GamePlayingScene()
 	oldseg = Segment(0, 0, 0, 0);
 
 	updater = &GamePlayingScene::FadeinUpdate;
+	flag = false;
 }
 
 
@@ -80,6 +84,8 @@ GamePlayingScene::~GamePlayingScene()
 
 void GamePlayingScene::Update(const Peripheral& p)
 {
+	flag = false;
+
 	float grad = 0.0f;
 	int groundy = ground->GetCurrentGroundY(grad);
 
@@ -127,6 +133,18 @@ void GamePlayingScene::Update(const Peripheral& p)
 	camera->Update();
 	ground->Updade(time);
 
+	// 当たり判定中
+	for (auto& prect : player->GetActRect())
+	{
+		for (auto& block : stage->GetBlockData())
+		{
+			if (collider->IsCollided(player->GetHitRect(prect.rect), block->GetCollider()))
+			{
+				flag = true;
+			}
+		}
+	}
+
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
 	{
@@ -143,12 +161,18 @@ void GamePlayingScene::Draw()
 	
 	bg->Draw();
 	ground->Draw(camera->GetViewRange());
-	/*for (auto& block : blockFactory)
+	for (auto& block : stage->GetBlockData())
 	{
 		block->Draw();
-	}*/
+	}
 
 	player->Draw();
+
+	if (flag)
+	{
+		DxLib::DrawFormatString(300, 0, 0xff0000, "あったったんご");
+	}
+	//DxLib::DrawFormatString(200, 0, 0xff0000, "posX%f:, posY:%f", player->GetPos().x, player->GetPos().y);
 	
 	// フェードイン,アウトのための幕
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));

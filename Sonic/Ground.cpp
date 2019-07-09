@@ -112,7 +112,7 @@ Segment Ground::GetCurrentSegment() const
 	}
 
 	int MY = 0;
-	auto height = player.GetActRect().Height();
+	auto height = player.GetRect().Height();
 	do
 	{
 		int grad = (it->s.posB.y - it->s.posA.y) / (it->s.posB.x - it->s.posA.x);

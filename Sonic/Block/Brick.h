@@ -1,5 +1,6 @@
 #pragma once
 #include "Block.h"
+#include "../Geometry.h"
 
 class Camera;
 
@@ -9,7 +10,7 @@ private:
 	const Camera& camera;
 
 public:
-	Brick(const Camera& camera);
+	Brick(const Vector2& pos, const Camera& camera);
 	~Brick();
 
 	// ブロック座標とか状態を更新

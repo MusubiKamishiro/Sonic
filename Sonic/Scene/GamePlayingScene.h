@@ -10,6 +10,7 @@ class BackGround;
 class Ground;
 class Stage;
 class BlockFactory;
+class Collider;
 
 class GamePlayingScene : public Scene
 {
@@ -29,9 +30,11 @@ private:
 	std::shared_ptr<Ground> ground;
 	std::shared_ptr<Stage> stage;
 	std::shared_ptr<BlockFactory> blockFactory;
+	std::shared_ptr<Collider> collider;
 
 	int time;
 	Segment seg, oldseg;
+	bool flag;
 
 public:
 	GamePlayingScene();

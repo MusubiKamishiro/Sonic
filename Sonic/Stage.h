@@ -1,8 +1,11 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "Geometry.h"
 
 class Ground;
+class Block;
+class BlockFactory;
 
 // ｽﾃｰｼﾞの情報
 struct StageInfo
@@ -23,6 +26,7 @@ class Stage
 private:
 	StageInfo stageInfo;
 	std::vector<unsigned char> stageData;	// ステージのデータ
+	std::vector<std::shared_ptr<Block>> blockData;	// ブロックのデータ
 
 public:
 	Stage();
@@ -30,8 +34,9 @@ public:
 
 	// ステージの読み込み
 	//@param stagePath ステージのパス
-	void ReadStageFile(const char* stagePath, Ground& ground);
+	void ReadStageFile(const char* stagePath, Ground& ground, BlockFactory& blockFactory);
 
 	std::vector<unsigned char> GetStageData()const;
+	std::vector<std::shared_ptr<Block>> GetBlockData()const;
 };
 
