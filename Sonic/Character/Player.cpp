@@ -41,12 +41,6 @@ void Player::Idle(const Peripheral & p)
 		updater = &Player::Run;
 	}
 
-	//if (p.IsTrigger(0, "jump"))
-	//{
-	//	//vel.y += jumpPower;
-	//	ChangeAction("jump");
-	//	updater = &Player::JumpCheck;
-	//}
 	JumpCheck(p);
 }
 
@@ -60,12 +54,6 @@ void Player::Run(const Peripheral & p)
 			updater = &Player::Idle;
 		}
 
-		//if (p.IsTrigger(i, "jump"))
-		//{
-		//	//vel.y += jumpPower;
-		//	ChangeAction("jump");
-		//	updater = &Player::JumpCheck;
-		//}
 		JumpCheck(p);
 	}
 }
@@ -99,6 +87,7 @@ void Player::JumpCheck(const Peripheral & p)
 	if (p.IsReleased(0, "jump") || (jumpButtonPressing >= 1))
 	{
 		ChangeAction("jump");
+		DxLib::PlaySoundMem(jumpSound, DX_PLAYTYPE_BACK, true);
 		updater = &Player::Jump;
 		vel.y = jumpPower * (float)(jumpButtonPressing);
 		isAerial = true;
@@ -128,6 +117,9 @@ Player::Player(Camera& camera) : Actor(camera)
 	jumpButtonPressing = 0;
 
 	updater = &Player::Idle;
+
+	jumpSound = DxLib::LoadSoundMem("se/jump.wav");
+	deadSound = DxLib::LoadSoundMem("se/down.wav");
 }
 
 
@@ -185,12 +177,22 @@ void Player::OnGround(const int groundY)
 
 void Player::OnDead()
 {
-	ChangeAction("damage");
-	updater = &Player::Damage;
+	if (updater != &Player::Damage)
+	{
+		ChangeAction("damage");
+		DxLib::PlaySoundMem(deadSound, DX_PLAYTYPE_BACK, true);
+		updater = &Player::Damage;
+	}
 }
 
 Vector2f Player::GetVel() const
 {
 	return vel;
+}
+
+void Player::AdjustPos(const Vector2f & offset)
+{
+	pos.x = pos.x + offset.x;
+	pos.y = pos.y + offset.y;
 }
 

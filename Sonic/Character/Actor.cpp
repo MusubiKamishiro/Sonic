@@ -4,6 +4,7 @@
 #include "../Camera.h"
 
 constexpr float nowVersion = 1.01f;	// ActonTool.exeのバージョン
+constexpr float charRate = 1.0f;	// キャラクターの拡大率
 
 void Actor::ReadActionFile()
 {
@@ -116,7 +117,7 @@ void Actor::Draw()
 	centerX = turnFlag ? nowAct.rect.Width() - nowAct.center.x : nowAct.center.x;
 
 	DxLib::DrawRectRotaGraph2(pos.x - offset.Left(), pos.y - offset.Top(), nowAct.rect.Left(), nowAct.rect.Top(),
-		nowAct.rect.Width(), nowAct.rect.Height(), centerX, nowAct.center.y, 2.0f, angle, img, true, turnFlag);
+		nowAct.rect.Width(), nowAct.rect.Height(), centerX, nowAct.center.y, charRate, angle, img, true, turnFlag);
 
 #ifdef _DEBUG
 	DebugDraw();
@@ -126,6 +127,24 @@ void Actor::Draw()
 
 void Actor::DebugDraw()
 {
+	auto& cPos = camera.GetViewRange();
+	auto left = cPos.Left();
+	auto top = cPos.Top();
+
+	auto& actrcInfo = actData.animInfo[nowActionName];
+	auto& rcCut = actrcInfo.cutInfo[nowCutIndex];
+
+	// 右側のものを左側の形に入れて最初から最後まで見る
+	for (auto& i : rcCut.actRects)
+	{
+		auto& actRc = i;
+
+		Rect rc = actRc.rect;
+		rc.center.x = turnFlag ? -rc.center.x : rc.center.x;
+
+		DxLib::DrawBox(rc.Left() * charRate + pos.x - left, rc.Top() * charRate + pos.y - top,
+			rc.Right() * charRate + pos.x - left, rc.Bottom() * charRate + pos.y - top, 0xff0000, false);
+	}
 }
 
 Actor::Actor(Camera& camera) : camera(camera)
@@ -164,8 +183,8 @@ Rect Actor::GetHitRect(Rect & rc)
 
 	rect.center.x += pos.x;
 	rect.center.y += pos.y;
-	//rect.size.height *= 2;
-	//rect.size.width *= 2;
+	rect.size.height *= charRate;
+	rect.size.width *= charRate;
 
 	return rect;
 }

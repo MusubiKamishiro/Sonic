@@ -80,6 +80,8 @@ struct Rect
 	Rect(int x, int y, int inw, int inh) : center(x, y), size(inw, inh) {}
 	Rect(const Vector2& inc, const Size& ins) : center(inc), size(ins) {}
 
+	static Rect CreateOverlappedRangeRect(const Rect& rcA, const Rect& rcB);
+
 	Vector2 center;	// ’†S
 	Size size;		// •‚Æ‚‚³
 

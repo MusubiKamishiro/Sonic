@@ -27,7 +27,6 @@ class Ground
 {
 private:
 	Player& player;
-	//std::vector<Segment> segments;
 	std::vector<Terrain> segments;
 
 	int img;

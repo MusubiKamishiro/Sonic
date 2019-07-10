@@ -21,7 +21,9 @@ private:
 	void FadeoutUpdate(const Peripheral& p)override final;
 	void WaitUpdate(const Peripheral& p)override final;
 
-	
+	void HitCheck();
+	void DebugDraw();
+
 	Vector2 ssize;		// âÊñ ÉTÉCÉY
 
 	std::shared_ptr<Player> player;
@@ -35,6 +37,9 @@ private:
 	int time;
 	Segment seg, oldseg;
 	bool flag;
+
+	int groundy;
+	int breakSound;
 
 public:
 	GamePlayingScene();

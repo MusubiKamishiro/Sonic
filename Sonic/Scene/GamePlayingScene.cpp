@@ -75,6 +75,9 @@ GamePlayingScene::GamePlayingScene()
 
 	updater = &GamePlayingScene::FadeinUpdate;
 	flag = false;
+
+	groundy = 0;
+	breakSound = DxLib::LoadSoundMem("se/hit.wav");
 }
 
 
@@ -87,7 +90,9 @@ void GamePlayingScene::Update(const Peripheral& p)
 	flag = false;
 
 	float grad = 0.0f;
-	int groundy = ground->GetCurrentGroundY(grad);
+	//groundy = player->isAerial ? ground->GetCurrentGroundY(grad) : groundy;
+	groundy = ground->GetCurrentGroundY(grad);
+
 
 	player->Update(p);
 
@@ -134,17 +139,8 @@ void GamePlayingScene::Update(const Peripheral& p)
 	ground->Updade(time);
 
 	// 当たり判定中
-	for (auto& prect : player->GetActRect())
-	{
-		for (auto& block : stage->GetBlockData())
-		{
-			if (collider->IsCollided(player->GetHitRect(prect.rect), block->GetCollider()))
-			{
-				flag = true;
-			}
-		}
-	}
-
+	HitCheck();
+	
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
 	{
@@ -168,14 +164,68 @@ void GamePlayingScene::Draw()
 
 	player->Draw();
 
-	if (flag)
-	{
-		DxLib::DrawFormatString(300, 0, 0xff0000, "あったったんご");
-	}
-	//DxLib::DrawFormatString(200, 0, 0xff0000, "posX%f:, posY:%f", player->GetPos().x, player->GetPos().y);
-	
+#ifdef _DEBUG
+	DebugDraw();
+#endif // _DEBUG
+
 	// フェードイン,アウトのための幕
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, std::abs(pal - 255));
 	DxLib::DrawBox(0, 0, ssize.x, ssize.y, 0x000000, true);
 }
 
+void GamePlayingScene::HitCheck()
+{
+	for (auto& prect : player->GetActRect())
+	{
+		for (auto& block : stage->GetBlockData())
+		{
+			if (prect.rt == RectType::damage)
+			{
+				Rect blockCol = block->GetCollider();
+
+				// めり込まないように
+				if (collider->IsCollided(player->GetHitRect(prect.rect), blockCol))
+				{
+					Rect rc = Rect::CreateOverlappedRangeRect(player->GetHitRect(prect.rect), blockCol);
+					Vector2f offset = Vector2f();
+
+					if (rc.Width() < rc.Height())
+					{
+						offset = Vector2f((rc.Width()*((player->GetPos().x < blockCol.center.x) ? -1.0f : 1.0f)), 0);
+						player->AdjustPos(offset);
+					}
+					else
+					{
+						if (player->GetHitRect(prect.rect).center.y < blockCol.center.y)
+						{
+							groundy = rc.Top();
+							player->isAerial = false;
+						}
+						else
+						{
+							offset = Vector2f(0, (rc.Height()*((player->GetPos().y < blockCol.center.y) ? -1.0f : 1.0f)));
+							player->AdjustPos(offset);
+						}
+					}
+
+					flag = true;
+				}
+			}
+			else if (prect.rt == RectType::adjust)
+			{
+				if (collider->IsCollided(player->GetHitRect(prect.rect), block->GetCollider()))
+				{
+					flag = true;
+				}
+			}
+		}
+	}
+}
+
+void GamePlayingScene::DebugDraw()
+{
+	if (flag)
+	{
+		DxLib::DrawFormatString(300, 0, 0xff0000, "あったったんご");
+	}
+}

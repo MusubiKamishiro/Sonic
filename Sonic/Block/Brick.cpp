@@ -3,7 +3,7 @@
 #include "../Camera.h"
 
 
-Brick::Brick(const Vector2& pos, const Camera& camera) : Block(Rect(pos, Size(64, 64)), camera), camera(camera)
+Brick::Brick(const Vector2& pos, const Camera& camera) : Block(Rect(pos, Size(16, 16)), camera), camera(camera)
 {
 }
 

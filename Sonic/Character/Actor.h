@@ -10,8 +10,9 @@ class Camera;
 // 矩形種別
 enum class RectType
 {
+	adjust,		// 押し戻し調整
 	attack,		// 攻撃
-	damage		// やられ
+	damage,		// やられ
 };
 
 // アクション矩形定義

@@ -78,7 +78,7 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 		auto no = blockDatas[i];
 		if (no > 0)
 		{
-			blockPositions.emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth , (i / stageInfo.mapWidth) * stageInfo.chipHeight);
+			blockPositions.emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * stageInfo.chipHeight);
 		}
 	}
 	// É\Å[Ég
@@ -86,7 +86,7 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 	
 	for (int i = 0; i < blockPositions.size(); ++i)
 	{
-		blockData.push_back(blockFactory.Create(BlockType::brick, Vector2(blockPositions[i].x - stageInfo.chipWidth / 2, blockPositions[i].y - stageInfo.chipHeight / 2)));
+		blockData.push_back(blockFactory.Create(BlockType::brick, Vector2(blockPositions[i].x + stageInfo.chipWidth / 2, blockPositions[i].y + stageInfo.chipHeight / 2 + 50)));
 	}
 
 

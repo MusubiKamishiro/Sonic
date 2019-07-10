@@ -24,6 +24,9 @@ private:
 
 	int jumpButtonPressing;	// ジャンプボタンが押されてる時間
 
+	int jumpSound;
+	int deadSound;
+
 public:
 	Player(Camera& camera);
 	~Player();
@@ -41,5 +44,7 @@ public:
 	// 空中フラグ
 	// @param true時が空中
 	bool isAerial;
+
+	void AdjustPos(const Vector2f& offset);
 };
 
