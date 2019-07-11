@@ -36,9 +36,12 @@ public:
 	// PushSceneで積み上げたシーンの中で使用する
 	void PopScene();
 
-
+	// 毎フレーム更新する
+	// 更新されるシーンはフロントシーンのみ
 	void Update(Peripheral& p);
 
+	// 画面描画
+	// 基本的にすべてのシーンを描画する
 	void Draw();
 };
 

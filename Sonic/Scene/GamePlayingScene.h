@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <vector>
 #include "Scene.h"
 #include "../Geometry.h"
@@ -37,6 +36,7 @@ private:
 	int time;
 	Segment seg, oldseg;
 	bool flag;
+	bool onflag;
 
 	int groundy;
 	int breakSound;

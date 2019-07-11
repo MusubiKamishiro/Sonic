@@ -1,6 +1,5 @@
 #include "TitleScene.h"
 #include <DxLib.h>
-#include <memory>
 #include "../Peripheral.h"
 #include "../Game.h"
 #include "SceneManager.h"

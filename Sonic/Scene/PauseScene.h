@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "Scene.h"
 #include "../Geometry.h"
 

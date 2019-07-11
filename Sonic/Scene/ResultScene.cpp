@@ -1,6 +1,5 @@
 #include "ResultScene.h"
 #include <DxLib.h>
-#include <memory>
 #include <string>
 #include "../Peripheral.h"
 #include "../Game.h"

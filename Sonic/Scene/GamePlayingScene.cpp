@@ -1,6 +1,5 @@
 #include "GamePlayingScene.h"
 #include <DxLib.h>
-#include <memory>
 #include "../Peripheral.h"
 #include "../Game.h"
 #include "../Character/Player.h"
@@ -75,6 +74,7 @@ GamePlayingScene::GamePlayingScene()
 
 	updater = &GamePlayingScene::FadeinUpdate;
 	flag = false;
+	onflag = false;
 
 	groundy = 0;
 	breakSound = DxLib::LoadSoundMem("se/hit.wav");
@@ -91,8 +91,8 @@ void GamePlayingScene::Update(const Peripheral& p)
 
 	float grad = 0.0f;
 	//groundy = player->isAerial ? ground->GetCurrentGroundY(grad) : groundy;
+	if(!onflag)
 	groundy = ground->GetCurrentGroundY(grad);
-
 
 	player->Update(p);
 
@@ -111,6 +111,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 	if ((groundy == INT_MIN))
 	{
 		player->isAerial = true;
+		onflag = false;
 	}
 
 	if (!player->isAerial)
@@ -200,6 +201,8 @@ void GamePlayingScene::HitCheck()
 						{
 							groundy = rc.Top();
 							player->isAerial = false;
+							onflag = true;
+							player->OnGround(groundy);
 						}
 						else
 						{
