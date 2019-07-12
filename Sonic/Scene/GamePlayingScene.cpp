@@ -73,7 +73,6 @@ GamePlayingScene::GamePlayingScene()
 	oldseg = Segment(0, 0, 0, 0);
 
 	updater = &GamePlayingScene::FadeinUpdate;
-	flag = false;
 	onflag = false;
 
 	groundy = 0;
@@ -87,13 +86,17 @@ GamePlayingScene::~GamePlayingScene()
 
 void GamePlayingScene::Update(const Peripheral& p)
 {
-	flag = false;
-
 	float grad = 0.0f;
 	//groundy = player->isAerial ? ground->GetCurrentGroundY(grad) : groundy;
-	if(!onflag)
-	groundy = ground->GetCurrentGroundY(grad);
+	if (!onflag)
+	{
+		groundy = ground->GetCurrentGroundY(grad);
+	}
 
+	for (auto& block : stage->GetBlockData())
+	{
+		block->Update();
+	}
 	player->Update(p);
 
 	// 道がなくなったら空中に
@@ -104,6 +107,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 		if (!((oldseg.posA == seg.posB) || (seg.posA == oldseg.posB)))
 		{
 			player->isAerial = true;
+			onflag = false;
 		}
 	}
 
@@ -116,7 +120,17 @@ void GamePlayingScene::Update(const Peripheral& p)
 
 	if (!player->isAerial)
 	{
-		player->AdjustY(groundy, grad);
+		// 地面かブロックのどちらにあわせるか
+		if (onflag)
+		{
+			// ブロック
+			player->AdjustY(groundy, grad);
+		}
+		else
+		{
+			// 地面
+			//player->isAerial = true;
+		}
 	}
 	else
 	{
@@ -176,6 +190,8 @@ void GamePlayingScene::Draw()
 
 void GamePlayingScene::HitCheck()
 {
+	onflag = false;
+
 	for (auto& prect : player->GetActRect())
 	{
 		for (auto& block : stage->GetBlockData())
@@ -190,6 +206,7 @@ void GamePlayingScene::HitCheck()
 					Rect rc = Rect::CreateOverlappedRangeRect(player->GetHitRect(prect.rect), blockCol);
 					Vector2f offset = Vector2f();
 
+					// めり込み量の小さいほうに押し返す
 					if (rc.Width() < rc.Height())
 					{
 						offset = Vector2f((rc.Width()*((player->GetPos().x < blockCol.center.x) ? -1.0f : 1.0f)), 0);
@@ -210,15 +227,6 @@ void GamePlayingScene::HitCheck()
 							player->AdjustPos(offset);
 						}
 					}
-
-					flag = true;
-				}
-			}
-			else if (prect.rt == RectType::adjust)
-			{
-				if (collider->IsCollided(player->GetHitRect(prect.rect), block->GetCollider()))
-				{
-					flag = true;
 				}
 			}
 		}
@@ -227,8 +235,4 @@ void GamePlayingScene::HitCheck()
 
 void GamePlayingScene::DebugDraw()
 {
-	if (flag)
-	{
-		DxLib::DrawFormatString(300, 0, 0xff0000, "あったったんご");
-	}
 }

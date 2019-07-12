@@ -20,9 +20,6 @@ public:
 	// ブロック表示
 	virtual void Draw() = 0;
 
-	// 自分が持ってるコライダーを返す
-	//const BlockCollider& GetCollider()const;
-
 	// 矩形の取得
 	Rect GetCollider()const;
 };

@@ -36,7 +36,7 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 		auto no = beforeReplaceData[i];
 		if (no > 0)
 		{
-			terraPositions[no].emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * stageInfo.chipHeight);
+			terraPositions[no].emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * (stageInfo.chipHeight));
 		}
 	}
 
@@ -71,24 +71,15 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 	blockDatas.resize(stageData.size());
 	DxLib::FileRead_read(&blockDatas[0], blockDatas.size(), handle);
 
-	std::vector<Vector2> blockPositions;
-	// 点座標データに変換
 	for (int i = 0; i < blockDatas.size(); ++i)
 	{
 		auto no = blockDatas[i];
 		if (no > 0)
 		{
-			blockPositions.emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * stageInfo.chipHeight);
+			Vector2 pos = Vector2((i % stageInfo.mapWidth) * stageInfo.chipWidth + stageInfo.chipWidth / 2, (i / stageInfo.mapWidth) * stageInfo.chipHeight + stageInfo.chipHeight / 2);
+			blockData.push_back(blockFactory.Create(BlockType(no-1), pos));
 		}
 	}
-	// ソート
-	std::sort(blockPositions.begin(), blockPositions.end(), [](const Vector2& lpos, const Vector2& rpos) { return lpos.x < rpos.x; });
-	
-	for (int i = 0; i < blockPositions.size(); ++i)
-	{
-		blockData.push_back(blockFactory.Create(BlockType::brick, Vector2(blockPositions[i].x + stageInfo.chipWidth / 2, blockPositions[i].y + stageInfo.chipHeight / 2 + 50)));
-	}
-
 
 	// 最後はファイルを閉じようね
 	DxLib::FileRead_close(handle);

@@ -1,5 +1,7 @@
 #include "BlockFactory.h"
 #include "Brick.h"
+#include "Slide.h"
+#include "Lift.h"
 
 
 BlockFactory::BlockFactory(const Camera& camera) : camera(camera)
@@ -17,6 +19,14 @@ std::shared_ptr<Block> BlockFactory::Create(BlockType type, const Vector2& pos)
 	if (type == BlockType::brick)
 	{
 		return std::make_unique<Brick>(pos, camera);
+	}
+	else if (type == BlockType::slide)
+	{
+		return std::make_unique<Slide>(pos, camera);
+	}
+	else if (type == BlockType::lift)
+	{
+		return std::make_unique<Lift>(pos, camera);
 	}
 	return nullptr;
 }

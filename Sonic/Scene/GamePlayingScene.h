@@ -35,7 +35,6 @@ private:
 
 	int time;
 	Segment seg, oldseg;
-	bool flag;
 	bool onflag;
 
 	int groundy;
