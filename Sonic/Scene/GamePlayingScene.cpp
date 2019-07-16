@@ -112,7 +112,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 	}
 
 	// ’n–Ê‚ª‚È‚©‚Á‚½‚ç‹ó’†‚É
-	if ((groundy == INT_MIN))
+	if (groundy == INT_MIN)
 	{
 		player->isAerial = true;
 		onflag = false;
@@ -129,7 +129,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 		else
 		{
 			// ’n–Ê
-			//player->isAerial = true;
+			player->isAerial = true;
 		}
 	}
 	else

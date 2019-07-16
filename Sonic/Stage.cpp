@@ -36,7 +36,7 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 		auto no = beforeReplaceData[i];
 		if (no > 0)
 		{
-			terraPositions[no].emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth, (i / stageInfo.mapWidth) * (stageInfo.chipHeight));
+			terraPositions[no].emplace_back((i % stageInfo.mapWidth) * stageInfo.chipWidth/* * 2*/, (i / stageInfo.mapWidth) * (stageInfo.chipHeight/* * 2*/));
 		}
 	}
 

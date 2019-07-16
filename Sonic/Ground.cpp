@@ -117,7 +117,7 @@ Segment Ground::GetCurrentSegment() const
 	{
 		int grad = (it->s.posB.y - it->s.posA.y) / (it->s.posB.x - it->s.posA.x);
 		MY = it->s.posA.y + grad * (ppos.x - it->s.posA.x);
-		if (MY >= (ppos.y - height / 2))
+		if (MY >= (ppos.y + height / 2))
 		{
 			break;
 		}
