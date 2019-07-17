@@ -64,7 +64,7 @@ protected:
 	unsigned int frame;			// 経過フレーム
 
 	// ファイル読み込み
-	void ReadActionFile();
+	void ReadActionFile(const std::string filePath);
 
 	// ｱﾆﾒｰｼｮﾝのﾌﾚｰﾑを1進める
 	bool ProceedAnimationFile();

@@ -3,7 +3,7 @@
 #include "../Camera.h"
 
 
-Lift::Lift(const Vector2& pos, const Camera& camera) : Block(Rect(pos, Size(16, 16)), camera), camera(camera)
+Lift::Lift(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera), speed((int) runLength)
 {
 	moveCount = 0;
 }
@@ -17,11 +17,11 @@ void Lift::Update()
 {
 	if (moveCount / 30 % 2 == 0)
 	{
-		rect.center.y += 2;
+		rect.center.y += speed;
 	}
 	else
 	{
-		rect.center.y -= 2;
+		rect.center.y -= speed;
 	}
 
 	++moveCount;
@@ -31,5 +31,10 @@ void Lift::Draw()
 {
 	auto& offset = camera.GetViewRange();
 
-	DxLib::DrawRectExtendGraph(rect.Left() - offset.Left(), rect.Top() - offset.Top(), rect.Right() - offset.Left(), rect.Bottom() - offset.Top(), 16, 112, 16, 16, img, true);
+	auto right = rect.Right();
+	for (int left = rect.Left(); left < right; left += blockSize)
+	{
+		DxLib::DrawRectExtendGraph(left - offset.Left(), rect.Top() - offset.Top(),
+			left + blockSize - offset.Left(), rect.Bottom() - offset.Top(), 16, 112, 16, 16, img, true);
+	}
 }

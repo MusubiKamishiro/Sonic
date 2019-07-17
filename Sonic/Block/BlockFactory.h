@@ -30,6 +30,6 @@ public:
 	// ブロックを生成する
 	// @param type どの種別のブロックを生成するか
 	// @param pos どこに生成するか
-	std::shared_ptr<Block> Create(BlockType type, const Vector2& pos);
+	std::shared_ptr<Block> Create(BlockType type, const Vector2& pos, unsigned int runLength);
 };
 

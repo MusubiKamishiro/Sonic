@@ -132,6 +132,8 @@
     <ClCompile Include="Block\Slide.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Character\Actor.cpp" />
+    <ClCompile Include="Character\Ant.cpp" />
+    <ClCompile Include="Character\Enemy.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -157,6 +159,8 @@
     <ClInclude Include="Block\Slide.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Character\Actor.h" />
+    <ClInclude Include="Character\Ant.h" />
+    <ClInclude Include="Character\Enemy.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Game.h" />

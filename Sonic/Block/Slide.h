@@ -11,9 +11,10 @@ private:
 	const Camera& camera;
 
 	int moveCount;
+	int speed;
 
 public:
-	Slide(const Vector2& pos, const Camera& camera);
+	Slide(const Vector2& pos, const Camera& camera, unsigned int runLength = 1);
 	~Slide();
 
 	// ブロック座標とか状態を更新

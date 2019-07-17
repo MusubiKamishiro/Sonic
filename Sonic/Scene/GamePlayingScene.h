@@ -11,6 +11,8 @@ class Stage;
 class BlockFactory;
 class Collider;
 
+class Ant;
+
 class GamePlayingScene : public Scene
 {
 private:
@@ -32,6 +34,8 @@ private:
 	std::shared_ptr<Stage> stage;
 	std::shared_ptr<BlockFactory> blockFactory;
 	std::shared_ptr<Collider> collider;
+
+	std::shared_ptr<Ant> ant;
 
 	int time;
 	Segment seg, oldseg;

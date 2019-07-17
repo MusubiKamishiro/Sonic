@@ -71,13 +71,33 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 	blockDatas.resize(stageData.size());
 	DxLib::FileRead_read(&blockDatas[0], blockDatas.size(), handle);
 
-	for (int i = 0; i < blockDatas.size(); ++i)
+	for(int idxY = 0; idxY < stageInfo.mapHeight; ++idxY)
 	{
-		auto no = blockDatas[i];
-		if (no > 0)
+		for (int idxX = 0; idxX < stageInfo.mapWidth; ++idxX)
 		{
-			Vector2 pos = Vector2((i % stageInfo.mapWidth) * stageInfo.chipWidth + stageInfo.chipWidth / 2, (i / stageInfo.mapWidth) * stageInfo.chipHeight + stageInfo.chipHeight / 2);
-			blockData.push_back(blockFactory.Create(BlockType(no-1), pos));
+			auto no = blockDatas[idxX + idxY * stageInfo.mapWidth];
+			if (no > 0)
+			{
+				unsigned int runLength = 1;
+				if (no != 1)
+				{
+					for (idxX = ++idxX; idxX < stageInfo.mapWidth; ++idxX)
+					{
+						if (blockDatas[idxX + idxY * stageInfo.mapWidth] == no)
+						{
+							++runLength;
+						}
+						else
+						{
+							--idxX;
+							break;
+						}
+					}
+				}
+
+				Vector2 pos = Vector2(idxX * stageInfo.chipWidth + stageInfo.chipWidth / 2, idxY * stageInfo.chipHeight + stageInfo.chipHeight / 2);
+				blockData.push_back(blockFactory.Create(BlockType(no - 1), pos, runLength));
+			}
 		}
 	}
 

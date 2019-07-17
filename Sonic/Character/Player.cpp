@@ -62,14 +62,14 @@ void Player::Jump(const Peripheral & p)
 {
 	isAerial = true;
 
-	if (turnFlag)
+	/*if (turnFlag)
 	{
 		angle -= 1.0f;
 	}
 	else
 	{
 		angle += 1.0f;
-	}
+	}*/
 	
 	//Move(p);
 }
@@ -111,7 +111,7 @@ Player::Player(Camera& camera) : Actor(camera)
 	pos = Vector2f(500, 200);
 	isAerial = true;
 
-	ReadActionFile();
+	ReadActionFile("action/player.act");
 	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
 
 	jumpButtonPressing = 0;

@@ -6,12 +6,11 @@ class Camera;
 class Block
 {
 protected:
-	Block(const Rect& rect, const Camera& camera);
+	Block(const Vector2& pos, const Camera& camera, int count = 1);
 
 	int img;
 	Rect rect;
-
-private:
+	const int blockSize;
 
 public:
 	// ブロック座標とか状態を更新

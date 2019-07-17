@@ -15,6 +15,7 @@
 #include "ResultScene.h"
 #include "PauseScene.h"
 
+#include "../Character/Ant.h"
 
 
 void GamePlayingScene::FadeinUpdate(const Peripheral & p)
@@ -62,6 +63,8 @@ GamePlayingScene::GamePlayingScene()
 	blockFactory.reset(new BlockFactory(*camera));
 	collider.reset(new Collider());
 	stage->ReadStageFile("stage/level1.fmf", *ground, *blockFactory);
+
+	ant.reset(new Ant(*camera, *player));
 	
 	camera->AddPlayer(player);
 
@@ -153,6 +156,8 @@ void GamePlayingScene::Update(const Peripheral& p)
 	camera->Update();
 	ground->Updade(time);
 
+	ant->Update(p);
+
 	// “–‚½‚è”»’è’†
 	HitCheck();
 	
@@ -179,6 +184,8 @@ void GamePlayingScene::Draw()
 
 	player->Draw();
 
+	ant->Draw();
+
 #ifdef _DEBUG
 	DebugDraw();
 #endif // _DEBUG
@@ -196,7 +203,7 @@ void GamePlayingScene::HitCheck()
 	{
 		for (auto& block : stage->GetBlockData())
 		{
-			if (prect.rt == RectType::damage)
+			if (prect.rt == RectType::attack)
 			{
 				Rect blockCol = block->GetCollider();
 

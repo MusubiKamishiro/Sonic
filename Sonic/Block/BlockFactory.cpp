@@ -14,7 +14,7 @@ BlockFactory::~BlockFactory()
 {
 }
 
-std::shared_ptr<Block> BlockFactory::Create(BlockType type, const Vector2& pos)
+std::shared_ptr<Block> BlockFactory::Create(BlockType type, const Vector2& pos, unsigned int runLength)
 {
 	// ブロックタイプが一致すれば生成
 	if (type == BlockType::brick)
@@ -23,16 +23,15 @@ std::shared_ptr<Block> BlockFactory::Create(BlockType type, const Vector2& pos)
 	}
 	else if (type == BlockType::slide)
 	{
-		return std::make_unique<Slide>(pos, camera);
+		return std::make_unique<Slide>(pos, camera, runLength);
 	}
 	else if (type == BlockType::lift)
 	{
-		return std::make_unique<Lift>(pos, camera);
+		return std::make_unique<Lift>(pos, camera, runLength);
 	}
 	else if (type == BlockType::pendulum)
 	{
-		return std::make_unique<Pendulum>(pos, camera);
+		return std::make_unique<Pendulum>(pos, camera, runLength);
 	}
 	return nullptr;
 }
-

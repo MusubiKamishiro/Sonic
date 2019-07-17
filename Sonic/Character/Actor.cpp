@@ -6,10 +6,8 @@
 constexpr float nowVersion = 1.01f;	// ActonTool.exeのバージョン
 constexpr float charRate = 1.0f;	// キャラクターの拡大率
 
-void Actor::ReadActionFile()
+void Actor::ReadActionFile(const std::string filePath)
 {
-	std::string filePath = "action/player.act";
-
 	// ファイル読み込み
 	int handle = DxLib::FileRead_open(filePath.c_str(), false);
 	
