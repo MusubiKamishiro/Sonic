@@ -76,8 +76,7 @@ GamePlayingScene::GamePlayingScene()
 	oldseg = Segment(0, 0, 0, 0);
 
 	updater = &GamePlayingScene::FadeinUpdate;
-	onflag = false;
-
+	
 	groundy = 0;
 	breakSound = DxLib::LoadSoundMem("se/hit.wav");
 }
@@ -90,8 +89,8 @@ GamePlayingScene::~GamePlayingScene()
 void GamePlayingScene::Update(const Peripheral& p)
 {
 	float grad = 0.0f;
-	//groundy = player->isAerial ? ground->GetCurrentGroundY(grad) : groundy;
-	if (!onflag)
+	
+	//if (!player->onflag)
 	{
 		groundy = ground->GetCurrentGroundY(grad);
 	}
@@ -110,7 +109,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 		if (!((oldseg.posA == seg.posB) || (seg.posA == oldseg.posB)))
 		{
 			player->isAerial = true;
-			onflag = false;
+			player->onflag = false;
 		}
 	}
 
@@ -118,22 +117,24 @@ void GamePlayingScene::Update(const Peripheral& p)
 	if (groundy == INT_MIN)
 	{
 		player->isAerial = true;
-		onflag = false;
+		player->onflag = false;
 	}
 
 	if (!player->isAerial)
 	{
 		// 地面かブロックのどちらにあわせるか
-		if (onflag)
-		{
-			// ブロック
-			player->AdjustY(groundy, grad);
-		}
-		else
-		{
-			// 地面
-			player->isAerial = true;
-		}
+		//if (player->onflag)
+		//{
+		//	// ブロック
+		//	player->AdjustY(groundy, grad);
+		//}
+		//else
+		//{
+		//	// 地面
+		//	player->isAerial = true;
+		//}
+		
+		player->AdjustY(groundy, grad);
 	}
 	else
 	{
@@ -197,7 +198,7 @@ void GamePlayingScene::Draw()
 
 void GamePlayingScene::HitCheck()
 {
-	onflag = false;
+	player->onflag = false;
 
 	for (auto& prect : player->GetActRect())
 	{
@@ -225,7 +226,7 @@ void GamePlayingScene::HitCheck()
 						{
 							groundy = rc.Top();
 							player->isAerial = false;
-							onflag = true;
+							player->onflag = true;
 							player->OnGround(groundy);
 						}
 						else

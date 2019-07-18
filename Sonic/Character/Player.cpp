@@ -120,6 +120,8 @@ Player::Player(Camera& camera) : Actor(camera)
 
 	jumpSound = DxLib::LoadSoundMem("se/jump.wav");
 	deadSound = DxLib::LoadSoundMem("se/down.wav");
+
+	onflag = false;
 }
 
 
@@ -132,6 +134,11 @@ void Player::Update(const Peripheral & p)
 	ProceedAnimationFile();
 	(this->*updater)(p);
 
+	if (onflag)
+	{
+		vel = Vector2f(0, 0);
+	}
+
 	vel.x = min(vel.x, 50);
 	pos += vel;
 
@@ -141,7 +148,6 @@ void Player::Update(const Peripheral & p)
 		vel.y += 0.5f;
 	}
 	
-
 	// ïâÇÃê¢äEÇ…ÇÕÇ¢Ç©ÇπÇ»Ç¢ÇÊÇ§Ç…
 	pos.x = max(pos.x, 0);
 	pos.y = max(pos.y, 0);

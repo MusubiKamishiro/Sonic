@@ -39,7 +39,6 @@ private:
 
 	int time;
 	Segment seg, oldseg;
-	bool onflag;
 
 	int groundy;
 	int breakSound;

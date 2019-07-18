@@ -45,6 +45,8 @@ public:
 	// @param trueŽž‚ª‹ó’†
 	bool isAerial;
 
+	bool onflag;
+
 	void AdjustPos(const Vector2f& offset);
 };
 
