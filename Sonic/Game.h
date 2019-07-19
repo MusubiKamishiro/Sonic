@@ -5,6 +5,7 @@
 
 class Peripheral;
 class SceneManager;
+class FileSystem;
 
 class Game
 {
@@ -16,6 +17,7 @@ private:
 
 	const Vector2 screenSize;
 	std::unique_ptr<Peripheral> p;
+	std::shared_ptr<FileSystem> fileSystem;
 
 	const float gravity;
 
@@ -46,5 +48,7 @@ public:
 
 	// ‰æ–ÊƒTƒCƒY‚ÌŽæ“¾
 	const Vector2 GetScreenSize()const;
+
+	const std::shared_ptr <FileSystem> GetFileSystem()const;
 };
 

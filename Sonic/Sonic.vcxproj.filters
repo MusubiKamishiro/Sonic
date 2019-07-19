@@ -129,6 +129,15 @@
     <ClCompile Include="Actor\Player.cpp">
       <Filter>Actor\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="System\ImageLoader.cpp">
+      <Filter>System\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="System\FileSystem.cpp">
+      <Filter>System\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="System\ActionLoader.cpp">
+      <Filter>System\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -208,6 +217,15 @@
     </ClInclude>
     <ClInclude Include="Actor\Player.h">
       <Filter>Actor\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ImageLoader.h">
+      <Filter>System\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="System\FileSystem.h">
+      <Filter>System\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ActionLoader.h">
+      <Filter>System\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

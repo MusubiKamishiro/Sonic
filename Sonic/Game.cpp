@@ -6,6 +6,7 @@
 #include "Scene/SceneManager.h"
 #include "resource.h"
 
+#include "System/FileSystem.h"
 
 
 Game::Game(): screenSize(Vector2(1024, 576)), gravity(9.8f)
@@ -43,6 +44,8 @@ void Game::Initialize()
 	p.reset(new Peripheral());
 
 	InitPeripheral();
+
+	fileSystem.reset(new FileSystem());
 }
 
 void Game::InitPeripheral()
@@ -104,4 +107,9 @@ void Game::Terminate()
 const Vector2 Game::GetScreenSize() const
 {
 	return screenSize;
+}
+
+const std::shared_ptr <FileSystem> Game::GetFileSystem() const
+{
+	return fileSystem;
 }
