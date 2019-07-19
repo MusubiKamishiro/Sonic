@@ -35,7 +35,7 @@ private:
 	std::shared_ptr<BlockFactory> blockFactory;
 	std::shared_ptr<Collider> collider;
 
-	std::shared_ptr<Ant> ant;
+	std::vector<std::shared_ptr<Ant>> ants;
 
 	int time;
 	Segment seg, oldseg;

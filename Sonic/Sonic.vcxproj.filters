@@ -22,15 +22,6 @@
     <Filter Include="Scene\ソース ファイル">
       <UniqueIdentifier>{5701f179-1f9c-4ff2-82ab-c57087a6152d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Character">
-      <UniqueIdentifier>{bc7ae243-1e7e-4895-99e2-c16914b93851}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Character\ヘッダー ファイル">
-      <UniqueIdentifier>{c798d5b0-4dbf-418e-b19d-880999dfd4ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Character\ソース ファイル">
-      <UniqueIdentifier>{5c5ec943-333c-4bdb-93ef-fd9dc2ad1838}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Block">
       <UniqueIdentifier>{350d577a-334e-4134-b107-758979a2479f}</UniqueIdentifier>
     </Filter>
@@ -39,6 +30,24 @@
     </Filter>
     <Filter Include="Block\ソース ファイル">
       <UniqueIdentifier>{8660794a-1827-446b-b0aa-61dcfdb4b295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{97c26579-c8cc-4cd8-8f63-e71b96fc6bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\ヘッダー ファイル">
+      <UniqueIdentifier>{b960ca59-fdbf-4e01-8b66-e16dfdfedcd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\ソース ファイル">
+      <UniqueIdentifier>{fb185e0a-7ef9-4705-b28d-e85e17ecec16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{bc7ae243-1e7e-4895-99e2-c16914b93851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\ヘッダー ファイル">
+      <UniqueIdentifier>{c798d5b0-4dbf-418e-b19d-880999dfd4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\ソース ファイル">
+      <UniqueIdentifier>{5c5ec943-333c-4bdb-93ef-fd9dc2ad1838}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,12 +80,6 @@
     </ClCompile>
     <ClCompile Include="Scene\PauseScene.cpp">
       <Filter>Scene\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Player.cpp">
-      <Filter>Character\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Actor.cpp">
-      <Filter>Character\ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル</Filter>
@@ -111,11 +114,20 @@
     <ClCompile Include="Block\Pendulum.cpp">
       <Filter>Block\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Character\Ant.cpp">
-      <Filter>Character\ソース ファイル</Filter>
+    <ClCompile Include="System\Loader.cpp">
+      <Filter>System\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Character\Enemy.cpp">
-      <Filter>Character\ソース ファイル</Filter>
+    <ClCompile Include="Actor\Actor.cpp">
+      <Filter>Actor\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Ant.cpp">
+      <Filter>Actor\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Enemy.cpp">
+      <Filter>Actor\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Player.cpp">
+      <Filter>Actor\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,12 +157,6 @@
     </ClInclude>
     <ClInclude Include="Scene\PauseScene.h">
       <Filter>Scene\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\Player.h">
-      <Filter>Character\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\Actor.h">
-      <Filter>Character\ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -188,11 +194,20 @@
     <ClInclude Include="Block\Pendulum.h">
       <Filter>Block\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Ant.h">
-      <Filter>Character\ヘッダー ファイル</Filter>
+    <ClInclude Include="System\Loader.h">
+      <Filter>System\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Enemy.h">
-      <Filter>Character\ヘッダー ファイル</Filter>
+    <ClInclude Include="Actor\Actor.h">
+      <Filter>Actor\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Ant.h">
+      <Filter>Actor\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Enemy.h">
+      <Filter>Actor\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Player.h">
+      <Filter>Actor\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

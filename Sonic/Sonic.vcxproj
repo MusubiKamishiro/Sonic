@@ -123,6 +123,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\Actor.cpp" />
+    <ClCompile Include="Actor\Ant.cpp" />
+    <ClCompile Include="Actor\Enemy.cpp" />
+    <ClCompile Include="Actor\Player.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block\Block.cpp" />
     <ClCompile Include="Block\BlockFactory.cpp" />
@@ -131,10 +135,6 @@
     <ClCompile Include="Block\Pendulum.cpp" />
     <ClCompile Include="Block\Slide.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Character\Actor.cpp" />
-    <ClCompile Include="Character\Ant.cpp" />
-    <ClCompile Include="Character\Enemy.cpp" />
-    <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Geometry.cpp" />
@@ -148,8 +148,13 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="System\Loader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\Actor.h" />
+    <ClInclude Include="Actor\Ant.h" />
+    <ClInclude Include="Actor\Enemy.h" />
+    <ClInclude Include="Actor\Player.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block\Block.h" />
     <ClInclude Include="Block\BlockFactory.h" />
@@ -158,10 +163,6 @@
     <ClInclude Include="Block\Pendulum.h" />
     <ClInclude Include="Block\Slide.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Character\Actor.h" />
-    <ClInclude Include="Character\Ant.h" />
-    <ClInclude Include="Character\Enemy.h" />
-    <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="System\Loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Sonic.rc" />

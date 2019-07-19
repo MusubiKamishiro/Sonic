@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include "../Peripheral.h"
 #include "../Game.h"
-#include "../Character/Player.h"
+#include "../Actor/Player.h"
 #include "../Camera.h"
 #include "../BackGround.h"
 #include "../Ground.h"
@@ -15,7 +15,7 @@
 #include "ResultScene.h"
 #include "PauseScene.h"
 
-#include "../Character/Ant.h"
+#include "../Actor/Ant.h"
 
 
 void GamePlayingScene::FadeinUpdate(const Peripheral & p)
@@ -64,7 +64,11 @@ GamePlayingScene::GamePlayingScene()
 	collider.reset(new Collider());
 	stage->ReadStageFile("stage/level1.fmf", *ground, *blockFactory);
 
-	ant.reset(new Ant(*camera, *player));
+	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 210)));
+	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(200, 210)));
+	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(300, 210)));
+	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 310)));
+	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 410)));
 	
 	camera->AddPlayer(player);
 
@@ -157,7 +161,10 @@ void GamePlayingScene::Update(const Peripheral& p)
 	camera->Update();
 	ground->Updade(time);
 
-	ant->Update(p);
+	for (auto& ant : ants)
+	{
+		ant->Update(p);
+	}
 
 	// “–‚½‚è”»’è’†
 	HitCheck();
@@ -185,7 +192,10 @@ void GamePlayingScene::Draw()
 
 	player->Draw();
 
-	ant->Draw();
+	for (auto& ant : ants)
+	{
+		ant->Draw();
+	}
 
 #ifdef _DEBUG
 	DebugDraw();

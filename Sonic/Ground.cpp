@@ -1,24 +1,12 @@
 #include "Ground.h"
 #include <DxLib.h>
 #include <algorithm>
-#include "Character/Player.h"
+#include "Actor/Player.h"
 #include "Game.h"
 
 
 Ground::Ground(Player& player) : player(player)
 {
-	//segments.emplace_back(0, 500, 400, 300);
-
-	//// サインカーブを作るよ
-	//for (int i = 0; i < 765; ++i)
-	//{
-	//	auto ax = i * 100;
-	//	auto bx = (i + 1) * 100;
-	//	auto ay = 300 - 200 * sin(DX_PI * (float)i / 8.0f);
-	//	auto by = 300 - 200 * sin(DX_PI * (float)(i + 1) / 8.0f);
-	//	segments.emplace_back(ax + 400, ay, bx + 400, by);
-	//}
-
 	img = DxLib::LoadGraph("img/atlas0.png");
 	ssize = Game::Instance().GetScreenSize();
 }

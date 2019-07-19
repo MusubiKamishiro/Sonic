@@ -76,7 +76,7 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 		for (int idxX = 0; idxX < stageInfo.mapWidth; ++idxX)
 		{
 			auto no = blockDatas[idxX + idxY * stageInfo.mapWidth];
-			if (no > 0)
+			if (no > 1/*0*/)
 			{
 				unsigned int runLength = 1;
 				if (no != 1)

@@ -2,12 +2,12 @@
 #include <DxLib.h>
 
 
-Ant::Ant(Camera& camera, Player& player) : Enemy(camera, player)
+Ant::Ant(Camera& camera, Player& player, Vector2f pos) : Enemy(camera, player, pos)
 {
 	ReadActionFile("action/ant.act");
 	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
 
-	pos = Vector2f(100, 210);
+	this->pos = pos;
 }
 
 
