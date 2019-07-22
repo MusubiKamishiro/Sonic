@@ -1,11 +1,16 @@
 #include "Ant.h"
 #include <DxLib.h>
+#include "../Game.h"
+#include "../System/FileSystem.h"
+#include "../System/ImageLoader.h"
 
 
 Ant::Ant(Camera& camera, Player& player, Vector2f pos) : Enemy(camera, player, pos)
 {
+	ImageData data;
 	ReadActionFile("action/ant.act");
-	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
+	Game::Instance().GetFileSystem()->Load(actData.imgFilePath.c_str(), data);
+	img = data.GetHandle();
 
 	this->pos = pos;
 }

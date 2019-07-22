@@ -2,6 +2,10 @@
 #include <DxLib.h>
 #include <cmath>
 #include "../Peripheral.h"
+#include "../Game.h"
+#include "../System/FileSystem.h"
+#include "../System/ImageLoader.h"
+
 
 constexpr float jumpPower = -15.0f;
 
@@ -111,8 +115,10 @@ Player::Player(Camera& camera) : Actor(camera)
 	pos = Vector2f(500, 200);
 	isAerial = true;
 
+	ImageData data;
 	ReadActionFile("action/player.act");
-	img = DxLib::LoadGraph(actData.imgFilePath.c_str());
+	Game::Instance().GetFileSystem()->Load(actData.imgFilePath.c_str(), data);
+	img = data.GetHandle();
 
 	jumpButtonPressing = 0;
 

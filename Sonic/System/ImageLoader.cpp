@@ -26,6 +26,7 @@ bool ImageLoader::Load(const char * path, Data & data)
 		}
 		else
 		{
+			table.emplace(path, img.handle);
 			return true;
 		}
 	}
@@ -40,6 +41,11 @@ bool ImageLoader::Load(const char * path, Data & data)
 
 void ImageLoader::UnLoad(const char * path)
 {
+}
+
+bool ImageData::IsAvailable()
+{
+	return true;
 }
 
 int ImageData::GetHandle() const

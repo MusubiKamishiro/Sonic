@@ -23,7 +23,7 @@ class ImageData : public Data
 	friend ImageLoader;
 private:
 	int handle;
-
+	bool IsAvailable();
 public:
 	int GetHandle()const;
 };

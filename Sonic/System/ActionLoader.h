@@ -21,8 +21,8 @@ class ActionData : public Data
 {
 	friend ActionLoader;
 private:
-	std::vector<char> handle;
+	std::vector<char> rawData;
 
 public:
-	std::vector<char> GetHandle()const;
+	std::vector<char> GetRawData()const;
 };
