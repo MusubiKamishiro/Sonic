@@ -2,61 +2,89 @@
 #include <DxLib.h>
 #include <assert.h>
 #include "../Camera.h"
+#include "../Game.h"
+#include "../System/FileSystem.h"
+#include "../System/ImageLoader.h"
+
 
 constexpr float nowVersion = 1.01f;	// ActonTool.exeのバージョン
 constexpr float charRate = 1.0f;	// キャラクターの拡大率
 
-void Actor::ReadActionFile(const std::string filePath)
+void Actor::ReadData(void* inDst, size_t byteNum, size_t& cursor, ActionData& act)
 {
+	char* dst = (char*)inDst;
+	auto rawData = act.GetRawData();
+	std::copy(rawData.begin() + cursor, rawData.begin() + cursor + byteNum, dst);
+	cursor += byteNum;
+}
+
+void Actor::SetActorImage()
+{
+	ImageData data;
+	Game::Instance().GetFileSystem()->Load(actData.imgFilePath.c_str(), data);
+	img = data.GetHandle();
+}
+
+void Actor::SetActor(const std::string & filePath)
+{
+	ReadActionFile(filePath);
+	SetActorImage();
+}
+
+void Actor::ReadActionFile(const std::string& filePath)
+{
+	size_t cursor = 0;
+
 	// ファイル読み込み
-	int handle = DxLib::FileRead_open(filePath.c_str(), false);
-	
+	ActionData data;
+	Game::Instance().GetFileSystem()->Load(filePath.c_str(), data);
+
 	// バージョンチェック(違ったら警告吐くよ)
-	float version;
-	DxLib::FileRead_read(&version, sizeof(version), handle);
+	float version = 0.0f;
+	ReadData(&version, sizeof(version), cursor, data);
 	assert(version == nowVersion);
 
 	// 画像ファイルの読み込み
 	int hData;
-	DxLib::FileRead_read(&hData, sizeof(hData), handle);
+	ReadData(&hData, sizeof(hData), cursor, data);
 	std::string imgFilePath = "";
 	imgFilePath.resize(hData);
-	DxLib::FileRead_read(&imgFilePath[0], hData, handle);
+	ReadData(&imgFilePath[0], hData, cursor, data);
 	auto ipos = filePath.find_last_of('/') + 1;
 	actData.imgFilePath = filePath.substr(0, ipos) + imgFilePath;
 
 	// アクション数取得
 	int actcount = 0;
-	DxLib::FileRead_read(&actcount, sizeof(actcount), handle);
+	ReadData(&actcount, sizeof(actcount), cursor, data);
 	// アクション読み込み(アクション数分繰り返す)
 	for (int i = 0; i < actcount; ++i)
 	{
 		// アクション名の読み込み
 		int actNameSize = 0;
-		DxLib::FileRead_read(&actNameSize, sizeof(actNameSize), handle);
+		ReadData(&actNameSize, sizeof(actNameSize), cursor, data);
 		std::string actName = "";
 		actName.resize(actNameSize);
-		DxLib::FileRead_read(&actName[0], actNameSize, handle);
+		ReadData(&actName[0], actNameSize, cursor, data);
 
 		ActInfo actInfo;
 
 		// ループするかを確認
-		DxLib::FileRead_read(&actInfo.isLoop, sizeof(actInfo.isLoop), handle);
+		ReadData(&actInfo.isLoop, sizeof(actInfo.isLoop), cursor, data);
 
 		// カットデータ数(コマ数)を取得
 		int cutCount = 0;
-		DxLib::FileRead_read(&cutCount, sizeof(cutCount), handle);
+		ReadData(&cutCount, sizeof(cutCount), cursor, data);
 		actInfo.cutInfo.resize(cutCount);
 
 		// カットデータ読み込み(カットデータ数分繰り返す)
 		for (int j = 0; j < cutCount; ++j)
 		{
 			// まず当たり矩形以外を読み込む
-			DxLib::FileRead_read(&actInfo.cutInfo[j], (sizeof(actInfo.cutInfo[j]) - sizeof(actInfo.cutInfo[j].actRects)), handle);
+			ReadData(&actInfo.cutInfo[j], (sizeof(actInfo.cutInfo[j]) - sizeof(actInfo.cutInfo[j].actRects)), cursor, data);
 
 			// あたり矩形数取得
 			int rectCount = 0;
-			DxLib::FileRead_read(&rectCount, sizeof(rectCount), handle);
+			ReadData(&rectCount, sizeof(rectCount), cursor, data);
 
 			// あたり矩形がなければ読み込みをスキップ
 			if (rectCount == 0)
@@ -64,15 +92,12 @@ void Actor::ReadActionFile(const std::string filePath)
 				continue;
 			}
 			actInfo.cutInfo[j].actRects.resize(rectCount);
-			DxLib::FileRead_read(&actInfo.cutInfo[j].actRects[0], sizeof(ActRect) * rectCount, handle);
+			ReadData(&actInfo.cutInfo[j].actRects[0], sizeof(ActRect) * rectCount, cursor, data);
 		}
 
 		// マップに登録
 		actData.animInfo[actName] = actInfo;
 	}
-
-	// 最後はファイルを閉じる
-	DxLib::FileRead_close(handle);
 }
 
 bool Actor::ProceedAnimationFile()

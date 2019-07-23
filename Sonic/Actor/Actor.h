@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include "../Geometry.h"
+#include "../System/ActionLoader.h"
 
 class Peripheral;
 class Camera;
@@ -39,7 +40,7 @@ struct ActInfo
 };
 
 // アクションデータ
-struct ActionData
+struct ActData
 {
 	std::string imgFilePath;	// 画像のファイルパス
 	std::map<std::string, ActInfo> animInfo;	// アニメーション情報
@@ -48,10 +49,23 @@ struct ActionData
 // 自機や敵機の基底クラス
 class Actor
 {
+private:
+	///ReadActionFileの時に使う
+	///@param inDst データの移動先
+	///@param byteNum 今回読み込む範囲の大きさ
+	///@param cursor カーソル, 今まで読み込んだ位置
+	///@param act アクションデータ
+	void ReadData(void* inDst, size_t byteNum, size_t& cursor, ActionData& act);
+
+	// ファイル読み込み
+	void ReadActionFile(const std::string& filePath);
+	// キャラの画像を設定
+	void SetActorImage();
+
 protected:
 	const Camera& camera;
 
-	ActionData actData;	// アクションデータ
+	ActData actData;	// アクションデータ
 
 	Vector2f pos;	// 座標
 	int img;		// 画像
@@ -63,8 +77,8 @@ protected:
 	int nowCutIndex;			// 現在のコマ(何番目のコマか)
 	unsigned int frame;			// 経過フレーム
 
-	// ファイル読み込み
-	void ReadActionFile(const std::string filePath);
+	// キャラを設定
+	void SetActor(const std::string& filePath);
 
 	// ｱﾆﾒｰｼｮﾝのﾌﾚｰﾑを1進める
 	bool ProceedAnimationFile();

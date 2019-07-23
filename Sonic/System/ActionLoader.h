@@ -22,6 +22,7 @@ class ActionData : public Data
 	friend ActionLoader;
 private:
 	std::vector<char> rawData;
+	bool IsAvailable();
 
 public:
 	std::vector<char> GetRawData()const;
