@@ -3,9 +3,10 @@
 #include "../Camera.h"
 
 
-Slide::Slide(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera), speed((int) runLength)
+Slide::Slide(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera)
 {
 	moveCount = 0;
+	speed = Vector2(runLength, 0);
 }
 
 
@@ -17,11 +18,11 @@ void Slide::Update()
 {
 	if (moveCount / 30 % 2 == 0)
 	{
-		rect.center.x += speed;
+		rect.center.x += 2;//speed.x;
 	}
 	else
 	{
-		rect.center.x -= speed;
+		rect.center.x -= 2;// speed.x;
 	}
 
 	++moveCount;

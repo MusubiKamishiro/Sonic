@@ -45,7 +45,7 @@ void Actor::ReadActionFile(const std::string& filePath)
 	assert(version == nowVersion);
 
 	// ‰æ‘œƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
-	int hData;
+	int hData = 0;
 	ReadData(&hData, sizeof(hData), cursor, data);
 	std::string imgFilePath = "";
 	imgFilePath.resize(hData);

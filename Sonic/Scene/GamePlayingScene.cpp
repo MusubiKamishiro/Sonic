@@ -2,7 +2,6 @@
 #include <DxLib.h>
 #include "../Peripheral.h"
 #include "../Game.h"
-#include "../Actor/Player.h"
 #include "../Camera.h"
 #include "../BackGround.h"
 #include "../Ground.h"
@@ -15,7 +14,9 @@
 #include "ResultScene.h"
 #include "PauseScene.h"
 
+#include "../Actor/Player.h"
 #include "../Actor/Ant.h"
+#include "../Actor/GrassHopper.h"
 
 
 void GamePlayingScene::FadeinUpdate(const Peripheral & p)
@@ -64,11 +65,13 @@ GamePlayingScene::GamePlayingScene()
 	collider.reset(new Collider());
 	stage->ReadStageFile("stage/level1.fmf", *ground, *blockFactory);
 
-	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 210)));
-	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(200, 210)));
-	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(300, 210)));
-	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 310)));
-	ants.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 410)));
+	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 210)));
+	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(200, 210)));
+	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(300, 210)));
+	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 310)));
+	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 410)));
+	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 310)));
+	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 410)));
 	
 	camera->AddPlayer(player);
 
@@ -94,11 +97,11 @@ void GamePlayingScene::Update(const Peripheral& p)
 {
 	float grad = 0.0f;
 	
-	//if (!player->onflag)
+	if (!player->onflag)
 	{
 		groundy = ground->GetCurrentGroundY(grad);
 	}
-
+	
 	for (auto& block : stage->GetBlockData())
 	{
 		block->Update();
@@ -126,18 +129,6 @@ void GamePlayingScene::Update(const Peripheral& p)
 
 	if (!player->isAerial)
 	{
-		// 地面かブロックのどちらにあわせるか
-		//if (player->onflag)
-		//{
-		//	// ブロック
-		//	player->AdjustY(groundy, grad);
-		//}
-		//else
-		//{
-		//	// 地面
-		//	player->isAerial = true;
-		//}
-		
 		player->AdjustY(groundy, grad);
 	}
 	else
@@ -161,9 +152,9 @@ void GamePlayingScene::Update(const Peripheral& p)
 	camera->Update();
 	ground->Updade(time);
 
-	for (auto& ant : ants)
+	for (auto& enemy : enemies)
 	{
-		ant->Update(p);
+		enemy->Update(p);
 	}
 
 	// 当たり判定中
@@ -192,9 +183,9 @@ void GamePlayingScene::Draw()
 
 	player->Draw();
 
-	for (auto& ant : ants)
+	for (auto& enemy : enemies)
 	{
-		ant->Draw();
+		enemy->Draw();
 	}
 
 #ifdef _DEBUG
@@ -209,40 +200,47 @@ void GamePlayingScene::Draw()
 void GamePlayingScene::HitCheck()
 {
 	player->onflag = false;
-
 	for (auto& prect : player->GetActRect())
 	{
 		for (auto& block : stage->GetBlockData())
 		{
-			if (prect.rt == RectType::attack)
+			Rect blockCol = block->GetCollider();
+			auto ppos = player->GetPos();
+
+			// 判定する範囲を限定する
+			if ((std::abs(blockCol.center.x - ppos.x) <= 50) || (std::abs(blockCol.center.y - ppos.y) <= 50))
 			{
-				Rect blockCol = block->GetCollider();
-
-				// めり込まないように
-				if (collider->IsCollided(player->GetHitRect(prect.rect), blockCol))
+				if (prect.rt == RectType::attack)
 				{
-					Rect rc = Rect::CreateOverlappedRangeRect(player->GetHitRect(prect.rect), blockCol);
-					Vector2f offset = Vector2f();
+					// めり込まないように
+					if (collider->IsCollided(player->GetHitRect(prect.rect), blockCol))
+					{
+						Rect rc = Rect::CreateOverlappedRangeRect(player->GetHitRect(prect.rect), blockCol);
+						Vector2f offset = Vector2f();
 
-					// めり込み量の小さいほうに押し返す
-					if (rc.Width() < rc.Height())
-					{
-						offset = Vector2f((rc.Width()*((player->GetPos().x < blockCol.center.x) ? -1.0f : 1.0f)), 0);
-						player->AdjustPos(offset);
-					}
-					else
-					{
-						if (player->GetHitRect(prect.rect).center.y < blockCol.center.y)
+						// めり込み量の小さいほうに押し返す
+						if (rc.Width() < rc.Height())
 						{
-							groundy = rc.Top();
-							player->isAerial = false;
-							player->onflag = true;
-							player->OnGround(groundy);
+							offset = Vector2f((rc.Width()*((player->GetPos().x < blockCol.center.x) ? -1.0f : 1.0f)), 0);
+							player->AdjustPos(offset);
 						}
 						else
 						{
-							offset = Vector2f(0, (rc.Height()*((player->GetPos().y < blockCol.center.y) ? -1.0f : 1.0f)));
-							player->AdjustPos(offset);
+							if (player->GetHitRect(prect.rect).center.y < blockCol.center.y)
+							{
+								if (player->onflag)
+								{
+									player->OnGround(groundy);
+								}
+								groundy = rc.Top();
+								player->onflag = true;
+								
+							}
+							else
+							{
+								offset = Vector2f(0, (rc.Height()*((player->GetPos().y < blockCol.center.y) ? -1.0f : 1.0f)));
+								player->AdjustPos(offset);
+							}
 						}
 					}
 				}

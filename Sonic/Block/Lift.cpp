@@ -3,9 +3,10 @@
 #include "../Camera.h"
 
 
-Lift::Lift(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera), speed((int) runLength)
+Lift::Lift(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera)
 {
 	moveCount = 0;
+	speed = Vector2(0, runLength);
 }
 
 
@@ -17,11 +18,11 @@ void Lift::Update()
 {
 	if (moveCount / 30 % 2 == 0)
 	{
-		rect.center.y += speed;
+		rect.center += speed;
 	}
 	else
 	{
-		rect.center.y -= speed;
+		rect.center -= speed;
 	}
 
 	++moveCount;

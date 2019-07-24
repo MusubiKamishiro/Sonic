@@ -1,6 +1,5 @@
 #pragma once
 #include "Block.h"
-#include "../Geometry.h"
 
 class Camera;
 
@@ -11,7 +10,6 @@ private:
 	const Camera& camera;
 
 	int moveCount;
-	int speed;
 
 public:
 	Slide(const Vector2& pos, const Camera& camera, unsigned int runLength = 1);

@@ -5,6 +5,7 @@
 
 Brick::Brick(const Vector2& pos, const Camera& camera) : Block(pos, camera), camera(camera)
 {
+	speed = Vector2(0, 0);
 }
 
 

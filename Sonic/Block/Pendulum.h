@@ -1,6 +1,5 @@
 #pragma once
 #include "Block.h"
-#include "../Geometry.h"
 
 class Camera;
 

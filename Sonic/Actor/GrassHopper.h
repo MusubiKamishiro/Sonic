@@ -2,13 +2,11 @@
 #include "Enemy.h"
 
 
-class Ant : public Enemy
+class GrassHopper : public Enemy
 {
-private:
-
 public:
-	Ant(Camera& camera, Player& player, Vector2f pos);
-	~Ant();
+	GrassHopper(Camera& camera, Player& player, Vector2f pos);
+	~GrassHopper();
 
 	void Update(const Peripheral& p)override final;
 

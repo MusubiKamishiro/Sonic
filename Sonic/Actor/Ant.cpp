@@ -23,3 +23,7 @@ void Ant::Draw()
 {
 	Actor::Draw();
 }
+
+void Ant::OnDead()
+{
+}

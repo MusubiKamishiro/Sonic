@@ -105,7 +105,10 @@ public:
 	Rect GetRect();
 	// ‚ ‚½‚è‹éŒ`‚Ìæ“¾
 	std::vector<ActRect> GetActRect();
+
 	// ‹éŒ`‚ÌêŠ‚ğ‡‚í‚¹‚é
 	Rect GetHitRect(Rect& rc);
+
+	virtual void OnDead() = 0;
 };
 

@@ -138,6 +138,12 @@
     <ClCompile Include="System\ActionLoader.cpp">
       <Filter>System\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\GrassHopper.cpp">
+      <Filter>Actor\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -226,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="System\ActionLoader.h">
       <Filter>System\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\GrassHopper.h">
+      <Filter>Actor\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

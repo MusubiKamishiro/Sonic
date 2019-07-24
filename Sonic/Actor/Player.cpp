@@ -13,13 +13,11 @@ bool Player::Move(const Peripheral & p)
 	if (p.IsPressing(0, "right"))
 	{
 		accel += 0.1f;
-		//vel.x = 5 + accel;
 		turnFlag = false;
 	}
 	else if (p.IsPressing(0, "left"))
 	{
 		accel -= 0.1f;
-		//vel.x = -(5 + accel);
 		turnFlag = true;
 	}
 	else
@@ -62,17 +60,6 @@ void Player::Run(const Peripheral & p)
 void Player::Jump(const Peripheral & p)
 {
 	isAerial = true;
-
-	/*if (turnFlag)
-	{
-		angle -= 1.0f;
-	}
-	else
-	{
-		angle += 1.0f;
-	}*/
-	
-	//Move(p);
 }
 
 void Player::JumpCheck(const Peripheral & p)

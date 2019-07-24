@@ -126,6 +126,7 @@
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\Ant.cpp" />
     <ClCompile Include="Actor\Enemy.cpp" />
+    <ClCompile Include="Actor\GrassHopper.cpp" />
     <ClCompile Include="Actor\Player.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block\Block.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="System\ActionLoader.cpp" />
     <ClCompile Include="System\FileSystem.cpp" />
@@ -157,6 +159,7 @@
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\Ant.h" />
     <ClInclude Include="Actor\Enemy.h" />
+    <ClInclude Include="Actor\GrassHopper.h" />
     <ClInclude Include="Actor\Player.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block\Block.h" />
@@ -178,6 +181,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="System\ActionLoader.h" />
     <ClInclude Include="System\FileSystem.h" />

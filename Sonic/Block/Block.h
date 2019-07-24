@@ -11,6 +11,7 @@ protected:
 	int img;
 	Rect rect;
 	const int blockSize;
+	Vector2 speed;
 
 public:
 	// ブロック座標とか状態を更新
@@ -21,5 +22,7 @@ public:
 
 	// 矩形の取得
 	Rect GetCollider()const;
+
+	Vector2 GetSpeed()const;
 };
 
