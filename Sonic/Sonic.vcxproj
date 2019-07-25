@@ -141,6 +141,7 @@
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OnetimeSpawner.cpp" />
     <ClCompile Include="Peripheral.cpp" />
     <ClCompile Include="Scene\GamePlayingScene.cpp" />
     <ClCompile Include="Scene\PauseScene.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="OnetimeSpawner.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\GamePlayingScene.h" />

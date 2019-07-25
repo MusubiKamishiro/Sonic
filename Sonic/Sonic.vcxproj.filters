@@ -144,6 +144,9 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="OnetimeSpawner.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -237,6 +240,9 @@
       <Filter>Actor\ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Spawner.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="OnetimeSpawner.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

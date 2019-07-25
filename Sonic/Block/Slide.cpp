@@ -18,11 +18,11 @@ void Slide::Update()
 {
 	if (moveCount / 30 % 2 == 0)
 	{
-		rect.center.x += 2;//speed.x;
+		rect.center.x += speed.x;
 	}
 	else
 	{
-		rect.center.x -= 2;// speed.x;
+		rect.center.x -= speed.x;
 	}
 
 	++moveCount;

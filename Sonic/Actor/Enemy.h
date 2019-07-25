@@ -2,15 +2,18 @@
 #include "Actor.h"
 
 class Player;
+class Spawner;
 
 ///“GŠî’êƒNƒ‰ƒX
 class Enemy : public Actor
 {
+	friend Spawner;
 private:
 	int deadSE;
 
 protected:
 	const Player& player;
+
 public:
 	Enemy(Camera& camera, Player& player, Vector2f& pos);
 	~Enemy();

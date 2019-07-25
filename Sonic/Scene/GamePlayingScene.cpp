@@ -157,8 +157,26 @@ void GamePlayingScene::Update(const Peripheral& p)
 		enemy->Update(p);
 	}
 
-	// 当たり判定中
+	// 地面とPの当たり判定中
 	HitCheck();
+
+	// 敵とPの当たり判定
+	for (auto& enemy : enemies)
+	{
+		for (auto& prect : player->GetActRect())
+		{
+			for (auto& erect : enemy->GetActRect())
+			{
+				auto ppos = player->GetPos();
+
+				// 当たった
+				if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
+				{
+					player->OnDead();
+				}
+			}
+		}
+	}
 	
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
