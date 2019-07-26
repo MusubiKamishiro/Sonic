@@ -18,6 +18,6 @@ public:
 	Spawner(std::shared_ptr<Enemy> org);
 	virtual ~Spawner();
 	virtual std::shared_ptr<Enemy> Spawn() = 0;
-	virtual void Update(std::vector<std::shared_ptr<Actor>>& actors) = 0;
+	virtual void Update(std::vector<std::shared_ptr<Enemy>>& enemies) = 0;
 };
 

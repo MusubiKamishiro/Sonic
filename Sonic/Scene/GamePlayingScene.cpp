@@ -7,7 +7,6 @@
 #include "../Ground.h"
 #include "../Stage.h"
 #include "../Block/Block.h"
-#include "../Block/BlockFactory.h"
 #include "../Collider.h"
 
 #include "SceneManager.h"
@@ -17,6 +16,8 @@
 #include "../Actor/Player.h"
 #include "../Actor/Ant.h"
 #include "../Actor/GrassHopper.h"
+
+#include "../Spawner/OnetimeSpawner.h"
 
 
 void GamePlayingScene::FadeinUpdate(const Peripheral & p)
@@ -61,17 +62,24 @@ GamePlayingScene::GamePlayingScene()
 	bg.reset(new BackGround(*camera));
 	ground.reset(new Ground(*player));
 	stage.reset(new Stage());
-	blockFactory.reset(new BlockFactory(*camera));
 	collider.reset(new Collider());
-	stage->ReadStageFile("stage/level1.fmf", *ground, *blockFactory);
+	stage->ReadStageFile("stage/level1.fmf", *ground, *player, *camera);
 
-	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 210)));
+	//auto antOriginal = std::make_shared<Ant>(*camera, *player, Vector2f(100, 210));
+	//auto mantisOriginal = std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 310));
+
+	//spawners.emplace_back(std::make_shared<OnetimeSpawner>(*camera, antOriginal->GetPos(), antOriginal));
+	//spawners.emplace_back(std::make_shared<OnetimeSpawner>(*camera, mantisOriginal->GetPos(), mantisOriginal));
+	//enemies.push_back(spawners[0]->Spawn());
+	//enemies.push_back(spawners[1]->Spawn());
+
+	/*enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 210)));
 	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(200, 210)));
 	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(300, 210)));
 	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 310)));
 	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 410)));
 	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 310)));
-	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 410)));
+	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 410)));*/
 	
 	camera->AddPlayer(player);
 
@@ -151,6 +159,11 @@ void GamePlayingScene::Update(const Peripheral& p)
 
 	camera->Update();
 	ground->Updade(time);
+
+	for (auto& spawner : stage->GetSpawnerData())
+	{
+		spawner->Update(enemies);
+	}
 
 	for (auto& enemy : enemies)
 	{

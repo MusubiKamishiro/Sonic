@@ -1,6 +1,6 @@
 #pragma once
 #include "Spawner.h"
-#include "Geometry.h"
+#include "../Geometry.h"
 
 class Camera;
 
@@ -13,6 +13,8 @@ private:
 	const Camera& camera;	// カメラへの参照
 	Vector2f pos;			// 座標
 
+	int count;
+
 public:
 	OnetimeSpawner(const Camera& camera, const Vector2f& pos, std::shared_ptr<Enemy> org);
 	~OnetimeSpawner();
@@ -23,6 +25,6 @@ public:
 	///毎フレーム1度呼び出します。スポーナーも生きてるって感じです
 	///@param actors アクションの集合体
 	///@note この渡されたアクション集合にスポーナーが卵を産み付ける
-	void Update(std::vector<std::shared_ptr<Actor>>& actors)override final;
+	void Update(std::vector<std::shared_ptr<Enemy>>& enemies)override final;
 };
 

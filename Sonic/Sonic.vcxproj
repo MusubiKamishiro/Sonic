@@ -141,7 +141,6 @@
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OnetimeSpawner.cpp" />
     <ClCompile Include="Peripheral.cpp" />
     <ClCompile Include="Scene\GamePlayingScene.cpp" />
     <ClCompile Include="Scene\PauseScene.cpp" />
@@ -149,7 +148,9 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
-    <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="Spawner\OnetimeSpawner.cpp" />
+    <ClCompile Include="Spawner\Spawner.cpp" />
+    <ClCompile Include="Spawner\SpawnerFactory.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="System\ActionLoader.cpp" />
     <ClCompile Include="System\FileSystem.cpp" />
@@ -174,7 +175,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="OnetimeSpawner.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\GamePlayingScene.h" />
@@ -183,7 +183,9 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
-    <ClInclude Include="Spawner.h" />
+    <ClInclude Include="Spawner\OnetimeSpawner.h" />
+    <ClInclude Include="Spawner\Spawner.h" />
+    <ClInclude Include="Spawner\SpawnerFactory.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="System\ActionLoader.h" />
     <ClInclude Include="System\FileSystem.h" />

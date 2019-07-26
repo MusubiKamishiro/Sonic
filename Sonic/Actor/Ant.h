@@ -7,8 +7,10 @@ class Ant : public Enemy
 private:
 
 public:
-	Ant(Camera& camera, Player& player, Vector2f pos);
+	Ant(const Camera& camera, const Player& player, Vector2f pos);
 	~Ant();
+
+	std::shared_ptr<Enemy> MakeClone();
 
 	void Update(const Peripheral& p)override final;
 

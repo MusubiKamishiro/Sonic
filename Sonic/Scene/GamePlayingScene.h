@@ -8,9 +8,9 @@ class Camera;
 class BackGround;
 class Ground;
 class Stage;
-class BlockFactory;
 class Collider;
 
+class OnetimeSpawner;
 class Enemy;
 
 class GamePlayingScene : public Scene
@@ -32,10 +32,10 @@ private:
 	std::shared_ptr<BackGround> bg;
 	std::shared_ptr<Ground> ground;
 	std::shared_ptr<Stage> stage;
-	std::shared_ptr<BlockFactory> blockFactory;
 	std::shared_ptr<Collider> collider;
 
 	std::vector<std::shared_ptr<Enemy>> enemies;
+	std::vector<std::shared_ptr<OnetimeSpawner>> spawners;
 
 	int time;
 	Segment seg, oldseg;

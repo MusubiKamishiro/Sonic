@@ -92,7 +92,7 @@ protected:
 	void DebugDraw();
 
 public:
-	Actor(Camera& camera);
+	Actor(const Camera& camera);
 	virtual ~Actor();
 
 	// ó‘Ô‚âÀ•W‚ÌXV

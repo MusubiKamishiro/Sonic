@@ -6,6 +6,11 @@
 class Ground;
 class Block;
 class BlockFactory;
+class SpawnerFactory;
+class Spawner;
+
+class Player;
+class Camera;
 
 // ｽﾃｰｼﾞの情報
 struct StageInfo
@@ -27,6 +32,10 @@ private:
 	StageInfo stageInfo;
 	std::vector<unsigned char> stageData;	// ステージのデータ
 	std::vector<std::shared_ptr<Block>> blockData;	// ブロックのデータ
+	std::vector<std::shared_ptr<Spawner>> spawnerData;
+
+	std::shared_ptr<BlockFactory> blockFactory;
+	std::shared_ptr<SpawnerFactory> spawnerFactory;
 
 public:
 	Stage();
@@ -34,9 +43,10 @@ public:
 
 	// ステージの読み込み
 	//@param stagePath ステージのパス
-	void ReadStageFile(const char* stagePath, Ground& ground, BlockFactory& blockFactory);
+	void ReadStageFile(const char* stagePath, Ground& ground, Player& player, Camera& camera);
 
 	std::vector<unsigned char> GetStageData()const;
 	std::vector<std::shared_ptr<Block>> GetBlockData()const;
+	std::vector<std::shared_ptr<Spawner>> GetSpawnerData()const;
 };
 

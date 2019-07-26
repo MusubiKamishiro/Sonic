@@ -3,8 +3,8 @@
 #include <map>
 #include <algorithm>
 #include "Ground.h"
-#include "Block/Block.h"
 #include "Block/BlockFactory.h"
+#include "Spawner/SpawnerFactory.h"
 
 
 Stage::Stage()
@@ -16,7 +16,7 @@ Stage::~Stage()
 {
 }
 
-void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& blockFactory)
+void Stage::ReadStageFile(const char* stagePath, Ground& ground, Player& player, Camera& camera)
 {
 	// ファイル読み込み
 	int handle = DxLib::FileRead_open(stagePath, false);
@@ -67,6 +67,7 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 	}
 	
 	// ブロック(障害物など)の追加に関して
+	blockFactory.reset(new BlockFactory(camera));
 	std::vector<unsigned char> blockDatas;
 	blockDatas.resize(stageData.size());
 	DxLib::FileRead_read(&blockDatas[0], blockDatas.size(), handle);
@@ -96,7 +97,26 @@ void Stage::ReadStageFile(const char * stagePath, Ground& ground, BlockFactory& 
 				}
 
 				Vector2 pos = Vector2(idxX * stageInfo.chipWidth + stageInfo.chipWidth / 2, idxY * stageInfo.chipHeight + stageInfo.chipHeight / 2);
-				blockData.push_back(blockFactory.Create(BlockType(no - 1), pos, runLength));
+				blockData.push_back(blockFactory->Create(BlockType(no - 1), pos, runLength));
+			}
+		}
+	}
+
+	// 敵キャラの追加に関して
+	// 敵ではなくスポナーを使うよ
+	spawnerFactory.reset(new SpawnerFactory(camera, player));
+	std::vector<unsigned char> enemyDatas;
+	enemyDatas.resize(stageData.size());
+	DxLib::FileRead_read(&enemyDatas[0], enemyDatas.size(), handle);
+	for (int idxY = 0; idxY < stageInfo.mapHeight; ++idxY)
+	{
+		for (int idxX = 0; idxX < stageInfo.mapWidth; ++idxX)
+		{
+			auto no = enemyDatas[idxX + idxY * stageInfo.mapWidth];
+			if ((no > 0) && (no < 3))
+			{
+				Vector2f pos = Vector2f(idxX * stageInfo.chipWidth + stageInfo.chipWidth / 2, idxY * stageInfo.chipHeight + stageInfo.chipHeight / 2);
+				spawnerData.push_back(spawnerFactory->Create(SpawnerType(no - 1), pos));
 			}
 		}
 	}
@@ -113,4 +133,9 @@ std::vector<unsigned char> Stage::GetStageData() const
 std::vector<std::shared_ptr<Block>> Stage::GetBlockData() const
 {
 	return blockData;
+}
+
+std::vector<std::shared_ptr<Spawner>> Stage::GetSpawnerData() const
+{
+	return spawnerData;
 }

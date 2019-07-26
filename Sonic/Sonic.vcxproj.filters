@@ -49,6 +49,15 @@
     <Filter Include="Actor\ソース ファイル">
       <UniqueIdentifier>{5c5ec943-333c-4bdb-93ef-fd9dc2ad1838}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Spawner">
+      <UniqueIdentifier>{21fa0751-4e10-45c3-8361-967eb8263f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Spawner\ヘッダー ファイル">
+      <UniqueIdentifier>{3df5eec3-85fb-437d-8ceb-e210d829bd71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Spawner\ソース ファイル">
+      <UniqueIdentifier>{597707b0-6b07-46c6-a50a-e084896a3324}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,11 +150,14 @@
     <ClCompile Include="Actor\GrassHopper.cpp">
       <Filter>Actor\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Spawner.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Spawner\OnetimeSpawner.cpp">
+      <Filter>Spawner\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="OnetimeSpawner.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Spawner\Spawner.cpp">
+      <Filter>Spawner\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner\SpawnerFactory.cpp">
+      <Filter>Spawner\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,11 +251,14 @@
     <ClInclude Include="Actor\GrassHopper.h">
       <Filter>Actor\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Spawner.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Spawner\Spawner.h">
+      <Filter>Spawner\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="OnetimeSpawner.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Spawner\OnetimeSpawner.h">
+      <Filter>Spawner\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner\SpawnerFactory.h">
+      <Filter>Spawner\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

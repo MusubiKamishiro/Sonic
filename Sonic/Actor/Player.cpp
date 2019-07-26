@@ -94,7 +94,7 @@ void Player::Damage(const Peripheral & p)
 {
 }
 
-Player::Player(Camera& camera) : Actor(camera)
+Player::Player(const Camera& camera) : Actor(camera)
 {
 	pos = Vector2f(500, 200);
 	isAerial = true;

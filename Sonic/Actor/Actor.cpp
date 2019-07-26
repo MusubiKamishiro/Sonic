@@ -170,7 +170,7 @@ void Actor::DebugDraw()
 	}
 }
 
-Actor::Actor(Camera& camera) : camera(camera)
+Actor::Actor(const Camera& camera) : camera(camera)
 {
 	ChangeAction("idle");
 	angle = 0.0f;

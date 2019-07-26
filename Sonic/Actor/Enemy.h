@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "Actor.h"
 
 class Player;
@@ -12,10 +13,13 @@ private:
 	int deadSE;
 
 protected:
+	///©•ª‚ÌƒNƒ[ƒ“‚ğ•Ô‚·
+	virtual std::shared_ptr<Enemy> MakeClone() = 0;
+
 	const Player& player;
 
 public:
-	Enemy(Camera& camera, Player& player, Vector2f& pos);
+	Enemy(const Camera& camera, const Player& player, Vector2f& pos);
 	~Enemy();
 
 	virtual void Update(const Peripheral& p) = 0;

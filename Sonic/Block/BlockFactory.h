@@ -2,6 +2,10 @@
 #include <memory>
 #include "../Geometry.h"
 
+class Camera;
+class Block;
+
+
 // ステージに設置するブロックの種類
 enum BlockType
 {
@@ -11,11 +15,6 @@ enum BlockType
 	pendulum,	// 振り子で移動する奴
 	broken,		// 乗ったら崩壊する奴(もしくは落ちるやつ)
 };
-
-class Actor;
-class Camera;
-class BlockCollider;
-class Block;
 
 
 class BlockFactory

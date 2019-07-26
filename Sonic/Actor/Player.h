@@ -28,7 +28,7 @@ private:
 	int deadSound;
 
 public:
-	Player(Camera& camera);
+	Player(const Camera& camera);
 	~Player();
 
 	void Update(const Peripheral& p)override final;

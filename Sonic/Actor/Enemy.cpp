@@ -3,7 +3,7 @@
 #include "Player.h"
 
 
-Enemy::Enemy(Camera& camera, Player& player, Vector2f& pos) : Actor(camera), player(player)
+Enemy::Enemy(const Camera& camera, const Player& player, Vector2f& pos) : Actor(camera), player(player)
 {
 	deadSE = DxLib::LoadSoundMem("se/poko.wav");
 }

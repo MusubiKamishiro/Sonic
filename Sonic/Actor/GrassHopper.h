@@ -5,8 +5,10 @@
 class GrassHopper : public Enemy
 {
 public:
-	GrassHopper(Camera& camera, Player& player, Vector2f pos);
+	GrassHopper(const Camera& camera, const Player& player, Vector2f pos);
 	~GrassHopper();
+
+	std::shared_ptr<Enemy> MakeClone();
 
 	void Update(const Peripheral& p)override final;
 
