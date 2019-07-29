@@ -18,6 +18,9 @@ protected:
 
 	const Player& player;
 
+	///プレイヤーの位置を知る
+	void AimPlayer();
+
 public:
 	Enemy(const Camera& camera, const Player& player, Vector2f& pos);
 	~Enemy();

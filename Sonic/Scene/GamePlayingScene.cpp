@@ -14,10 +14,9 @@
 #include "PauseScene.h"
 
 #include "../Actor/Player.h"
-#include "../Actor/Ant.h"
-#include "../Actor/GrassHopper.h"
+#include "../Actor/Enemy.h"
 
-#include "../Spawner/OnetimeSpawner.h"
+#include "../Spawner/Spawner.h"
 
 
 void GamePlayingScene::FadeinUpdate(const Peripheral & p)
@@ -65,22 +64,6 @@ GamePlayingScene::GamePlayingScene()
 	collider.reset(new Collider());
 	stage->ReadStageFile("stage/level1.fmf", *ground, *player, *camera);
 
-	//auto antOriginal = std::make_shared<Ant>(*camera, *player, Vector2f(100, 210));
-	//auto mantisOriginal = std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 310));
-
-	//spawners.emplace_back(std::make_shared<OnetimeSpawner>(*camera, antOriginal->GetPos(), antOriginal));
-	//spawners.emplace_back(std::make_shared<OnetimeSpawner>(*camera, mantisOriginal->GetPos(), mantisOriginal));
-	//enemies.push_back(spawners[0]->Spawn());
-	//enemies.push_back(spawners[1]->Spawn());
-
-	/*enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 210)));
-	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(200, 210)));
-	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(300, 210)));
-	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 310)));
-	enemies.push_back(std::make_shared<Ant>(*camera, *player, Vector2f(100, 410)));
-	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 310)));
-	enemies.push_back(std::make_shared<GrassHopper>(*camera, *player, Vector2f(200, 410)));*/
-	
 	camera->AddPlayer(player);
 
 	bg->AddParts("img/bg.jpg", Vector2(0, 0), 1.0f, false, LayoutType::repeat);
@@ -176,12 +159,16 @@ void GamePlayingScene::Update(const Peripheral& p)
 	// “G‚ÆP‚Ì“–‚½‚è”»’è
 	for (auto& enemy : enemies)
 	{
+		// ‰æ–ÊŠO‚È‚ç‚â‚ç‚È‚­‚Ä‚æ‚µ
+		/*if ()
+		{
+			continue;
+		}*/
+
 		for (auto& prect : player->GetActRect())
 		{
 			for (auto& erect : enemy->GetActRect())
 			{
-				auto ppos = player->GetPos();
-
 				// “–‚½‚Á‚½
 				if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
 				{
@@ -216,7 +203,13 @@ void GamePlayingScene::Draw()
 
 	for (auto& enemy : enemies)
 	{
-		enemy->Draw();
+		auto pos = enemy->GetPos();
+		auto& range = camera->GetViewRange();
+
+		if ((pos.x > range.Left()) && (pos.x < range.Right()))
+		{
+			enemy->Draw();
+		}
 	}
 
 #ifdef _DEBUG

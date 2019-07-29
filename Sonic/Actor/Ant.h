@@ -5,6 +5,7 @@
 class Ant : public Enemy
 {
 private:
+	int count;
 
 public:
 	Ant(const Camera& camera, const Player& player, Vector2f pos);

@@ -1,10 +1,11 @@
 #include "OnetimeSpawner.h"
-
+#include "../Camera.h"
 
 
 OnetimeSpawner::OnetimeSpawner(const Camera & camera, const Vector2f & pos, std::shared_ptr<Enemy> org) : Spawner(org), camera(camera)
 {
 	original = org;
+	this->pos = pos;
 	count = 0;
 }
 
@@ -19,10 +20,16 @@ std::shared_ptr<Enemy> OnetimeSpawner::Spawn()
 
 void OnetimeSpawner::Update(std::vector<std::shared_ptr<Enemy>>& enemies)
 {
-	if (count == 100)
+	auto& range = camera.GetViewRange();
+
+	if ((pos.x > range.Left()) && (pos.x < range.Right()))
 	{
-		enemies.push_back(Spawn());
-		count = 0;
+		if (count >= 100)
+		{
+			enemies.push_back(Spawn());
+			count = 0;
+		}
+		++count;
 	}
-	++count;
+
 }

@@ -7,6 +7,9 @@ Ant::Ant(const Camera& camera, const Player& player, Vector2f pos) : Enemy(camer
 	SetActor("action/ant.act");
 	
 	this->pos = pos;
+	accel = 3;
+
+	count = 0;
 }
 
 
@@ -23,7 +26,13 @@ void Ant::Update(const Peripheral & p)
 {
 	ProceedAnimationFile();
 
-	pos.x += 5;
+	if ((count % 180) == 0)
+	{
+		AimPlayer();
+	}
+	pos.x += accel;
+	
+	++count;
 }
 
 void Ant::Draw()

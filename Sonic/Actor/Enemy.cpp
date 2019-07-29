@@ -3,6 +3,26 @@
 #include "Player.h"
 
 
+void Enemy::AimPlayer()
+{
+	if (pos.x < player.GetPos().x)
+	{
+		turnFlag = true;
+		if (accel < 0)
+		{
+			accel *= -1;
+		}
+	}
+	else
+	{
+		turnFlag = false;
+		if (accel > 0)
+		{
+			accel *= -1;
+		}
+	}
+}
+
 Enemy::Enemy(const Camera& camera, const Player& player, Vector2f& pos) : Actor(camera), player(player)
 {
 	deadSE = DxLib::LoadSoundMem("se/poko.wav");
