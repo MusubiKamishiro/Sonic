@@ -157,26 +157,28 @@ void GamePlayingScene::Update(const Peripheral& p)
 	HitCheck();
 
 	// 敵とPの当たり判定
-	for (auto& enemy : enemies)
-	{
-		// 画面外ならやらなくてよし
-		/*if ()
-		{
-			continue;
-		}*/
+	//for (auto& enemy : enemies)
+	//{
+	//	// 画面外ならやらなくてよし
+	//	auto pos = enemy->GetPos();
+	//	auto& range = camera->GetViewRange();
+	//	if ((pos.x < range.Left()) || (pos.x > range.Right()))
+	//	{
+	//		continue;
+	//	}
 
-		for (auto& prect : player->GetActRect())
-		{
-			for (auto& erect : enemy->GetActRect())
-			{
-				// 当たった
-				if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
-				{
-					player->OnDead();
-				}
-			}
-		}
-	}
+	//	for (auto& prect : player->GetActRect())
+	//	{
+	//		for (auto& erect : enemy->GetActRect())
+	//		{
+	//			// 当たった
+	//			if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
+	//			{
+	//				player->OnDead();
+	//			}
+	//		}
+	//	}
+	//}
 	
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
@@ -252,13 +254,13 @@ void GamePlayingScene::HitCheck()
 						{
 							if (player->GetHitRect(prect.rect).center.y < blockCol.center.y)
 							{
+								groundy = rc.Top() + 2;
 								if (player->onflag)
 								{
 									player->OnGround(groundy);
 								}
-								groundy = rc.Top();
 								player->onflag = true;
-								
+								player->AdjustMove(block->GetSpeed());
 							}
 							else
 							{

@@ -75,6 +75,7 @@ void Player::JumpCheck(const Peripheral & p)
 	if (p.IsReleased(0, "jump") || (jumpButtonPressing >= 1))
 	{
 		ChangeAction("jump");
+		onflag = false;
 		DxLib::PlaySoundMem(jumpSound, DX_PLAYTYPE_BACK, true);
 		updater = &Player::Jump;
 		vel.y = jumpPower * (float)(jumpButtonPressing);
@@ -109,6 +110,7 @@ Player::Player(const Camera& camera) : Actor(camera)
 	deadSound = DxLib::LoadSoundMem("se/down.wav");
 
 	onflag = false;
+	once = Vector2f(0, 0);
 }
 
 
@@ -123,11 +125,12 @@ void Player::Update(const Peripheral & p)
 
 	if (onflag)
 	{
-		vel = Vector2f(0, 0);
+		vel.y = 0;
 	}
 
 	vel.x = min(vel.x, 50);
-	pos += vel;
+	pos += vel + once;
+	once = Vector2f(0, 0);
 
 	// ãÛíÜÇ…Ç¢ÇÈÇ∆èdóÕî≠ìÆ
 	if (isAerial)
@@ -181,6 +184,11 @@ void Player::OnDead()
 Vector2f Player::GetVel() const
 {
 	return vel;
+}
+
+void Player::AdjustMove(Vector2f speed)
+{
+	once = speed;
 }
 
 void Player::AdjustPos(const Vector2f & offset)

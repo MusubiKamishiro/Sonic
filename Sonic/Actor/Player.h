@@ -27,6 +27,8 @@ private:
 	int jumpSound;
 	int deadSound;
 
+	Vector2f once;
+
 public:
 	Player(const Camera& camera);
 	~Player();
@@ -40,6 +42,7 @@ public:
 	void OnDead();
 
 	Vector2f GetVel()const;
+	void AdjustMove(Vector2f speed);
 
 	// ‹ó’†ƒtƒ‰ƒO
 	// @param trueŽž‚ª‹ó’†

@@ -159,6 +159,18 @@
     <ClCompile Include="Spawner\SpawnerFactory.cpp">
       <Filter>Spawner\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Spawner\InfiniteSpawner.cpp">
+      <Filter>Spawner\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -259,6 +271,18 @@
     </ClInclude>
     <ClInclude Include="Spawner\SpawnerFactory.h">
       <Filter>Spawner\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner\InfiniteSpawner.h">
+      <Filter>Spawner\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

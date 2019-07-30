@@ -11,7 +11,7 @@ private:
 
 	Vector2f pos;	//現在座標
 	float v;		//現在のスピード(絶対値)
-	Vector2 vel;	//現在の速度ベクトル
+	Vector2f vel;	//現在の速度ベクトル
 	Vector2 pivot;	//支点(振り子の支点)
 
 public:

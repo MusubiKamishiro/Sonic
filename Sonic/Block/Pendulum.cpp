@@ -31,6 +31,9 @@ void Pendulum::Update()
 
 	rect.center.x += (int)vel.x;
 	rect.center.y += (int)vel.y;
+
+
+	speed = vel;
 }
 
 void Pendulum::Draw()

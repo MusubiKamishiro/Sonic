@@ -121,6 +121,25 @@ void Stage::ReadStageFile(const char* stagePath, Ground& ground, Player& player,
 		}
 	}
 
+	// イベントの追加に関して
+	// コインとかね
+	std::vector<unsigned char> eventDatas;
+	eventDatas.resize(stageData.size());
+	DxLib::FileRead_read(&eventDatas[0], eventDatas.size(), handle);
+	for (int idxY = 0; idxY < stageInfo.mapHeight; ++idxY)
+	{
+		for (int idxX = 0; idxX < stageInfo.mapWidth; ++idxX)
+		{
+			auto no = eventDatas[idxX + idxY * stageInfo.mapWidth];
+			if ((no > 0) && (no < 3))
+			{
+				Vector2f pos = Vector2f(idxX * stageInfo.chipWidth + stageInfo.chipWidth / 2, idxY * stageInfo.chipHeight + stageInfo.chipHeight / 2);
+				//spawnerData.push_back(spawnerFactory->Create(SpawnerType(no - 1), pos));
+			}
+		}
+	}
+
+
 	// 最後はファイルを閉じようね
 	DxLib::FileRead_close(handle);
 }

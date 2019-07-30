@@ -6,7 +6,7 @@
 Lift::Lift(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera)
 {
 	moveCount = 0;
-	speed = Vector2(0, runLength);
+	speed = Vector2f(0, runLength);
 }
 
 
@@ -18,11 +18,11 @@ void Lift::Update()
 {
 	if (moveCount / 30 % 2 == 0)
 	{
-		rect.center += speed;
+		rect.center.y += speed.y;
 	}
 	else
 	{
-		rect.center -= speed;
+		rect.center.y -= speed.y;
 	}
 
 	++moveCount;

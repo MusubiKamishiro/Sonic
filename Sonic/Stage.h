@@ -36,6 +36,7 @@ private:
 
 	std::shared_ptr<BlockFactory> blockFactory;
 	std::shared_ptr<SpawnerFactory> spawnerFactory;
+	//std::shared_ptr<EventFactory> eventFactory;
 
 public:
 	Stage();

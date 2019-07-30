@@ -23,6 +23,7 @@ void GrassHopper::Update(const Peripheral & p)
 {
 	ProceedAnimationFile();
 	pos.x += 5;
+	turnFlag = true;
 }
 
 void GrassHopper::Draw()

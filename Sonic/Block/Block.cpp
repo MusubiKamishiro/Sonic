@@ -15,7 +15,7 @@ Rect Block::GetCollider() const
 	return rect;
 }
 
-Vector2 Block::GetSpeed() const
+Vector2f Block::GetSpeed() const
 {
 	return speed;
 }

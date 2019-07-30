@@ -6,7 +6,7 @@
 Slide::Slide(const Vector2& pos, const Camera& camera, unsigned int runLength) : Block(pos, camera, runLength), camera(camera)
 {
 	moveCount = 0;
-	speed = Vector2(runLength, 0);
+	speed = Vector2f(runLength, 0);
 }
 
 

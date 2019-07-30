@@ -3,16 +3,17 @@
 
 class Camera;
 
-
-///一度限りの生成工場
-class OnetimeSpawner : public Spawner
+///無限湧き工場
+class InfiniteSpawner : public Spawner
 {
 private:
 	const Camera& camera;	// カメラへの参照
 
+	int count;
+
 public:
-	OnetimeSpawner(const Camera& camera, const Vector2f& pos, std::shared_ptr<Enemy> org);
-	~OnetimeSpawner();
+	InfiniteSpawner(const Camera& camera, const Vector2f& pos, std::shared_ptr<Enemy> org);
+	~InfiniteSpawner();
 
 	//スポーナー敵に当たるまさにその処理
 	std::shared_ptr<Enemy> Spawn();

@@ -9,8 +9,14 @@ std::shared_ptr<Enemy> Spawner::CreateClone()
 
 Spawner::Spawner(std::shared_ptr<Enemy> org)
 {
+	isSpawned = false;
 }
 
 Spawner::~Spawner()
 {
+}
+
+Vector2f Spawner::GetPos() const
+{
+	return pos;
 }
