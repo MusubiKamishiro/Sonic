@@ -16,16 +16,14 @@ Slide::~Slide()
 
 void Slide::Update()
 {
-	if (moveCount / 30 % 2 == 0)
+	++moveCount;
+
+	if (moveCount % 30 == 0)
 	{
-		rect.center.x += speed.x;
-	}
-	else
-	{
-		rect.center.x -= speed.x;
+		speed *= -1;
 	}
 
-	++moveCount;
+	rect.center.x += speed.x;
 }
 
 void Slide::Draw()

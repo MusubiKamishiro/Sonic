@@ -16,16 +16,14 @@ Lift::~Lift()
 
 void Lift::Update()
 {
-	if (moveCount / 30 % 2 == 0)
+	++moveCount;
+
+	if (moveCount  % 30 == 0)
 	{
-		rect.center.y += speed.y;
-	}
-	else
-	{
-		rect.center.y -= speed.y;
+		speed *= -1;
 	}
 
-	++moveCount;
+	rect.center.y += speed.y;
 }
 
 void Lift::Draw()

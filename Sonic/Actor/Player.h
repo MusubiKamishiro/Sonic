@@ -27,7 +27,6 @@ private:
 	int jumpSound;
 	int deadSound;
 
-	Vector2f once;
 
 public:
 	Player(const Camera& camera);

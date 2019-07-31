@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 ///データ基底クラス
 class Data
@@ -22,7 +23,7 @@ public:
 	///@param data データオブジェクトへの参照
 	///@retval true 成功
 	///@retval false 失敗
-	virtual bool Load(const char* path, Data& data) = 0;
+	virtual bool Load(std::string path, Data& data) = 0;
 
 	///データのアンロード
 	///@attention	これで指定されたパスに対応するデータはメモリ上から無くなるので

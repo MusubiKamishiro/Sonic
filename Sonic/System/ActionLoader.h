@@ -6,13 +6,13 @@
 class ActionLoader : public Loader
 {
 private:
-	std::map<const char*, std::vector<char>> table;
+	std::map<std::string, std::vector<char>> table;
 
 public:
 	ActionLoader();
 	~ActionLoader();
 
-	bool Load(const char* path, Data& data)override final;
+	bool Load(std::string path, Data& data)override final;
 
 	void UnLoad(const char* path)override final;
 };

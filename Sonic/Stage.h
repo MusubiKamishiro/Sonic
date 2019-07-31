@@ -5,9 +5,11 @@
 
 class Ground;
 class Block;
+class Spawner;
+class Event;
 class BlockFactory;
 class SpawnerFactory;
-class Spawner;
+class EventFactory;
 
 class Player;
 class Camera;
@@ -33,10 +35,11 @@ private:
 	std::vector<unsigned char> stageData;	// ステージのデータ
 	std::vector<std::shared_ptr<Block>> blockData;	// ブロックのデータ
 	std::vector<std::shared_ptr<Spawner>> spawnerData;
+	std::vector<std::shared_ptr<Event>> eventData;
 
 	std::shared_ptr<BlockFactory> blockFactory;
 	std::shared_ptr<SpawnerFactory> spawnerFactory;
-	//std::shared_ptr<EventFactory> eventFactory;
+	std::shared_ptr<EventFactory> eventFactory;
 
 public:
 	Stage();
@@ -49,5 +52,6 @@ public:
 	std::vector<unsigned char> GetStageData()const;
 	std::vector<std::shared_ptr<Block>> GetBlockData()const;
 	std::vector<std::shared_ptr<Spawner>> GetSpawnerData()const;
+	std::vector<std::shared_ptr<Event>> GetEventData()const;
 };
 

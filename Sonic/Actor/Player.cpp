@@ -110,7 +110,6 @@ Player::Player(const Camera& camera) : Actor(camera)
 	deadSound = DxLib::LoadSoundMem("se/down.wav");
 
 	onflag = false;
-	once = Vector2f(0, 0);
 }
 
 
@@ -129,8 +128,7 @@ void Player::Update(const Peripheral & p)
 	}
 
 	vel.x = min(vel.x, 50);
-	pos += vel + once;
-	once = Vector2f(0, 0);
+	pos += vel;
 
 	// ãÛíÜÇ…Ç¢ÇÈÇ∆èdóÕî≠ìÆ
 	if (isAerial)
@@ -188,7 +186,7 @@ Vector2f Player::GetVel() const
 
 void Player::AdjustMove(Vector2f speed)
 {
-	once = speed;
+	pos += speed;
 }
 
 void Player::AdjustPos(const Vector2f & offset)

@@ -4,7 +4,6 @@
 
 class Player;
 class Camera;
-class Enemy;
 class Spawner;
 
 

@@ -58,6 +58,15 @@
     <Filter Include="Spawner\ソース ファイル">
       <UniqueIdentifier>{597707b0-6b07-46c6-a50a-e084896a3324}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{3e431567-cd6c-46a5-846e-09492e436236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\ソース ファイル">
+      <UniqueIdentifier>{6cfd64ca-d843-4803-a107-b41a5e17bb1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\ヘッダー ファイル">
+      <UniqueIdentifier>{1a54f967-8f3f-42f4-b122-2363349b3742}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -162,14 +171,17 @@
     <ClCompile Include="Spawner\InfiniteSpawner.cpp">
       <Filter>Spawner\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\Coin.cpp">
+      <Filter>Event\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\Event.cpp">
+      <Filter>Event\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\EventFactory.cpp">
+      <Filter>Event\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,14 +287,17 @@
     <ClInclude Include="Spawner\InfiniteSpawner.h">
       <Filter>Spawner\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Coin.h">
+      <Filter>Event\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Event.h">
+      <Filter>Event\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\EventFactory.h">
+      <Filter>Event\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

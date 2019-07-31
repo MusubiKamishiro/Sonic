@@ -22,7 +22,7 @@ protected:
 	void AimPlayer();
 
 public:
-	Enemy(const Camera& camera, const Player& player, Vector2f& pos);
+	Enemy(const Camera& camera, const Player& player, const Vector2f& pos);
 	~Enemy();
 
 	virtual void Update(const Peripheral& p) = 0;

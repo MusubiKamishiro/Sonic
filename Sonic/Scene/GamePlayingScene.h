@@ -42,6 +42,7 @@ private:
 
 	int groundy;
 	int breakSound;
+	Vector2f adjustSpeed;
 
 public:
 	GamePlayingScene();

@@ -17,6 +17,7 @@
 #include "../Actor/Enemy.h"
 
 #include "../Spawner/Spawner.h"
+#include "../Event/Event.h"
 
 
 void GamePlayingScene::FadeinUpdate(const Peripheral & p)
@@ -77,6 +78,8 @@ GamePlayingScene::GamePlayingScene()
 	
 	groundy = 0;
 	breakSound = DxLib::LoadSoundMem("se/hit.wav");
+
+	adjustSpeed = Vector2f(0, 0);
 }
 
 
@@ -153,6 +156,11 @@ void GamePlayingScene::Update(const Peripheral& p)
 		enemy->Update(p);
 	}
 
+	for (auto& e : stage->GetEventData())
+	{
+		e->Update(p);
+	}
+
 	// ’n–Ê‚ÆP‚Ì“–‚½‚è”»’è’†
 	HitCheck();
 
@@ -203,6 +211,11 @@ void GamePlayingScene::Draw()
 
 	player->Draw();
 
+	for (auto& e : stage->GetEventData())
+	{
+		e->Draw();
+	}
+
 	for (auto& enemy : enemies)
 	{
 		auto pos = enemy->GetPos();
@@ -225,6 +238,7 @@ void GamePlayingScene::Draw()
 
 void GamePlayingScene::HitCheck()
 {
+	adjustSpeed = Vector2f(0, 0);
 	player->onflag = false;
 	for (auto& prect : player->GetActRect())
 	{
@@ -260,7 +274,7 @@ void GamePlayingScene::HitCheck()
 									player->OnGround(groundy);
 								}
 								player->onflag = true;
-								player->AdjustMove(block->GetSpeed());
+								adjustSpeed = block->GetSpeed();
 							}
 							else
 							{
@@ -268,11 +282,14 @@ void GamePlayingScene::HitCheck()
 								player->AdjustPos(offset);
 							}
 						}
+						break;
 					}
 				}
 			}
 		}
 	}
+
+	player->AdjustMove(adjustSpeed);
 }
 
 void GamePlayingScene::DebugDraw()

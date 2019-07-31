@@ -136,9 +136,10 @@
     <ClCompile Include="Block\Pendulum.cpp" />
     <ClCompile Include="Block\Slide.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Event\Coin.cpp" />
+    <ClCompile Include="Event\Event.cpp" />
+    <ClCompile Include="Event\EventFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -175,9 +176,10 @@
     <ClInclude Include="Block\Pendulum.h" />
     <ClInclude Include="Block\Slide.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Coin.h" />
     <ClInclude Include="Collider.h" />
-    <ClInclude Include="Event.h" />
+    <ClInclude Include="Event\Coin.h" />
+    <ClInclude Include="Event\Event.h" />
+    <ClInclude Include="Event\EventFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Ground.h" />

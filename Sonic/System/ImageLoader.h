@@ -6,13 +6,13 @@
 class ImageLoader : public Loader
 {
 private:
-	std::map<const char*, int> table;
+	std::map<std::string, int> table;
 
 public:
 	ImageLoader();
 	~ImageLoader();
 
-	bool Load(const char* path, Data& data)override final;
+	bool Load(std::string path, Data& data)override final;
 
 	void UnLoad(const char* path)override final;
 };

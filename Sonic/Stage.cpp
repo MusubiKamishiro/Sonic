@@ -5,6 +5,7 @@
 #include "Ground.h"
 #include "Block/BlockFactory.h"
 #include "Spawner/SpawnerFactory.h"
+#include "Event/EventFactory.h"
 
 
 Stage::Stage()
@@ -123,6 +124,7 @@ void Stage::ReadStageFile(const char* stagePath, Ground& ground, Player& player,
 
 	// イベントの追加に関して
 	// コインとかね
+	eventFactory.reset(new EventFactory(camera));
 	std::vector<unsigned char> eventDatas;
 	eventDatas.resize(stageData.size());
 	DxLib::FileRead_read(&eventDatas[0], eventDatas.size(), handle);
@@ -131,10 +133,10 @@ void Stage::ReadStageFile(const char* stagePath, Ground& ground, Player& player,
 		for (int idxX = 0; idxX < stageInfo.mapWidth; ++idxX)
 		{
 			auto no = eventDatas[idxX + idxY * stageInfo.mapWidth];
-			if ((no > 0) && (no < 3))
+			if (no != 0)
 			{
 				Vector2f pos = Vector2f(idxX * stageInfo.chipWidth + stageInfo.chipWidth / 2, idxY * stageInfo.chipHeight + stageInfo.chipHeight / 2);
-				//spawnerData.push_back(spawnerFactory->Create(SpawnerType(no - 1), pos));
+				eventData.push_back(eventFactory->Create(EventType(no - 1), pos));
 			}
 		}
 	}
@@ -157,4 +159,9 @@ std::vector<std::shared_ptr<Block>> Stage::GetBlockData() const
 std::vector<std::shared_ptr<Spawner>> Stage::GetSpawnerData() const
 {
 	return spawnerData;
+}
+
+std::vector<std::shared_ptr<Event>> Stage::GetEventData() const
+{
+	return eventData;
 }

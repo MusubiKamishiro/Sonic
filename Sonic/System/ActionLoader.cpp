@@ -11,16 +11,16 @@ ActionLoader::~ActionLoader()
 {
 }
 
-bool ActionLoader::Load(const char * path, Data & data)
+bool ActionLoader::Load(std::string path, Data & data)
 {
 	ActionData& action = dynamic_cast<ActionData&>(data);
 
-	auto it = table.find(path);
+	auto it = table.find(path.c_str());
 	if (it == table.end())
 	{
-		auto size = DxLib::FileRead_size(path);
-		table[path].resize(size);
-		auto h = DxLib::FileRead_open(path);
+		auto size = DxLib::FileRead_size(path.c_str());
+		table[path.c_str()].resize(size);
+		auto h = DxLib::FileRead_open(path.c_str());
 
 		// 読み込めなかった
 		if (h == 0)
@@ -29,9 +29,9 @@ bool ActionLoader::Load(const char * path, Data & data)
 		}
 
 		// まだ読み込んでなかったから読み込み
-		DxLib::FileRead_read(table[path].data(), size, h);
+		DxLib::FileRead_read(table[path.c_str()].data(), size, h);
 		DxLib::FileRead_close(h);
-		action.rawData = table[path];
+		action.rawData = table[path.c_str()];
 
 		// テーブルに追加
 		table.emplace(path, action.rawData);
@@ -40,7 +40,7 @@ bool ActionLoader::Load(const char * path, Data & data)
 	else
 	{
 		// 見つかったらハンドルを返す
-		action.rawData = table[path];
+		action.rawData = table[path.c_str()];
 		return true;
 	}
 	return false;

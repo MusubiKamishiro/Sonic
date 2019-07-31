@@ -23,7 +23,7 @@ void Enemy::AimPlayer()
 	}
 }
 
-Enemy::Enemy(const Camera& camera, const Player& player, Vector2f& pos) : Actor(camera), player(player)
+Enemy::Enemy(const Camera& camera, const Player& player, const Vector2f& pos) : Actor(camera), player(player)
 {
 	deadSE = DxLib::LoadSoundMem("se/poko.wav");
 }
