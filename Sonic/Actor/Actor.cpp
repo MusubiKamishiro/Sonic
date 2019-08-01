@@ -8,7 +8,7 @@
 
 
 constexpr float nowVersion = 1.01f;	// ActonTool.exeのバージョン
-constexpr float charRate = 1.0f;	// キャラクターの拡大率
+constexpr float charRate = 1.5f;	// キャラクターの拡大率
 
 void Actor::ReadData(void* inDst, size_t byteNum, size_t& cursor, ActionData& act)
 {

@@ -146,6 +146,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Peripheral.cpp" />
+    <ClCompile Include="Scene\GamePlaying3DScene.cpp" />
     <ClCompile Include="Scene\GamePlayingScene.cpp" />
     <ClCompile Include="Scene\PauseScene.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Scene\GamePlaying3DScene.h" />
     <ClInclude Include="Scene\GamePlayingScene.h" />
     <ClInclude Include="Scene\PauseScene.h" />
     <ClInclude Include="Scene\ResultScene.h" />

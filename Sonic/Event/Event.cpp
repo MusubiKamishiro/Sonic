@@ -11,7 +11,7 @@ Event::~Event()
 {
 }
 
-bool Event::IsAvailable() const
+bool Event::GetIsAvailable() const
 {
 	return isAvailable;
 }

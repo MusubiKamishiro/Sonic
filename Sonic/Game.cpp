@@ -59,6 +59,8 @@ void Game::InitPeripheral()
 	p->AddCommand(0, "attack",	0, KEY_INPUT_Z);
 	p->AddCommand(0, "jump",	0, KEY_INPUT_X);
 	p->AddCommand(0, "pause",	0, KEY_INPUT_P);
+	p->AddCommand(0, "near",	0, KEY_INPUT_O);
+	p->AddCommand(0, "far",		0, KEY_INPUT_I);
 
 	for (int i = 0; i < p->GetPadCount(); ++i)
 	{

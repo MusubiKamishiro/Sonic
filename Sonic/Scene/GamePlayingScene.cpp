@@ -10,7 +10,7 @@
 #include "../Collider.h"
 
 #include "SceneManager.h"
-#include "ResultScene.h"
+#include "GamePlaying3DScene.h"
 #include "PauseScene.h"
 
 #include "../Actor/Player.h"
@@ -40,7 +40,7 @@ void GamePlayingScene::FadeoutUpdate(const Peripheral & p)
 {
 	if (pal <= 0)
 	{
-		SceneManager::Instance().ChangeScene(std::make_unique<ResultScene>());
+		SceneManager::Instance().ChangeScene(std::make_unique<GamePlaying3DScene>());
 	}
 	else
 	{
@@ -187,6 +187,34 @@ void GamePlayingScene::Update(const Peripheral& p)
 	//		}
 	//	}
 	//}
+
+	for (auto& e : stage->GetEventData())
+	{
+		if (!e->GetIsAvailable())
+		{
+			continue;
+		}
+
+		// 画面外ならやらなくてよし
+		auto pos = e->GetPos();
+		auto& range = camera->GetViewRange();
+		if ((pos.x < range.Left()) || (pos.x > range.Right()))
+		{
+			continue;
+		}
+
+		for (auto& prect : player->GetActRect())
+		{
+			for (auto& erect : e->GetActRect())
+			{
+				// 当たった
+				if (collider->IsCollided(player->GetHitRect(prect.rect), e->GetHitRect(erect.rect)))
+				{
+					e->OnDead();
+				}
+			}
+		}
+	}
 	
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
@@ -213,6 +241,11 @@ void GamePlayingScene::Draw()
 
 	for (auto& e : stage->GetEventData())
 	{
+		if (!e->GetIsAvailable())
+		{
+			continue;
+		}
+
 		e->Draw();
 	}
 

@@ -183,6 +183,9 @@
     <ClCompile Include="Event\EventFactory.cpp">
       <Filter>Event\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\GamePlaying3DScene.cpp">
+      <Filter>Scene\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="Event\EventFactory.h">
       <Filter>Event\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GamePlaying3DScene.h">
+      <Filter>Scene\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
