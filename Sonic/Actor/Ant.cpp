@@ -42,4 +42,5 @@ void Ant::Draw()
 
 void Ant::OnDead()
 {
+	angle = 180.0f;
 }

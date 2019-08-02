@@ -165,28 +165,41 @@ void GamePlayingScene::Update(const Peripheral& p)
 	HitCheck();
 
 	// 敵とPの当たり判定
-	//for (auto& enemy : enemies)
-	//{
-	//	// 画面外ならやらなくてよし
-	//	auto pos = enemy->GetPos();
-	//	auto& range = camera->GetViewRange();
-	//	if ((pos.x < range.Left()) || (pos.x > range.Right()))
-	//	{
-	//		continue;
-	//	}
+	for (auto& enemy : enemies)
+	{
+		// 画面外ならやらなくてよし
+		auto pos = enemy->GetPos();
+		auto& range = camera->GetViewRange();
+		if ((pos.x < range.Left()) || (pos.x > range.Right()))
+		{
+			continue;
+		}
 
-	//	for (auto& prect : player->GetActRect())
-	//	{
-	//		for (auto& erect : enemy->GetActRect())
-	//		{
-	//			// 当たった
-	//			if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
-	//			{
-	//				player->OnDead();
-	//			}
-	//		}
-	//	}
-	//}
+		for (auto& prect : player->GetActRect())
+		{
+			for (auto& erect : enemy->GetActRect())
+			{
+				// 当たった
+				if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
+				{
+					Rect rc = Rect::CreateOverlappedRangeRect(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect));
+
+					// 上から当たったら敵を殺す
+					if (rc.Width() > rc.Height())
+					{
+						if (player->GetHitRect(prect.rect).center.y < enemy->GetHitRect(erect.rect).center.y)
+						{
+							enemy->OnDead();
+						}
+					}
+					else
+					{
+						player->OnDead();
+					}
+				}
+			}
+		}
+	}
 
 	for (auto& e : stage->GetEventData())
 	{
@@ -219,7 +232,9 @@ void GamePlayingScene::Update(const Peripheral& p)
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
 	{
-		SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
+		//SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
+
+		SceneManager::Instance().PushScene(std::make_unique<GamePlaying3DScene>());
 	}
 
 	++time;
