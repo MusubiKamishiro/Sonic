@@ -8,21 +8,14 @@ GamePlaying3DScene::GamePlaying3DScene()
 {
 	DxLib::SetUseASyncLoadFlag(true);
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/ouja/三柱式 仮面ライダー王蛇.pmx"));
+	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/ピーポくん/ピーポくん.pmx"));
+	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/はとむね先輩/はとむね先輩.pmd"));
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/PPK/ポプ子.pmx"));
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/sonic.pmx"));
 
-	//models.emplace_back(DxLib::MV1LoadModel("3Dmodel/yayoi/yayoi.pmd"));
-	//models.emplace_back(DxLib::MV1LoadModel("3Dmodel/hibari/雲雀Ver1.10.pmd"));
-	//models.emplace_back(DxLib::MV1LoadModel("3Dmodel/UMP45/UMP45_V080.pmx"));
-	
-
-	for (auto& model : models)
-	{
-		motion = DxLib::MV1AttachAnim(model, 1);
-		totalTime = DxLib::MV1GetAttachAnimTotalTime(model, motion);
-		DxLib::MV1SetPosition(model, DxLib::VGet(0, 0, 0));
-	}
 	time = 0;
+	music = DxLib::LoadSoundMem("3Dmodel/music.mp3");
+	stoptime = -80;
 
 	cameraPos = DxLib::VGet(0, 15, -50);
 	targetPos = DxLib::VGet(0, 10, 0);
@@ -80,7 +73,7 @@ void GamePlaying3DScene::Update(const Peripheral & p)
 			{
 				if (DxLib::CheckHandleASyncLoad(models[i]) == true)
 				{
-				DxLib:DrawString(200, 200, "Now Loading...", 0xff0000);
+					DxLib:DrawString(200, 200, "Now Loading...", 0xff0000);
 				}
 				else if (DxLib::CheckHandleASyncLoad(models[i]) == false)
 				{
@@ -88,6 +81,7 @@ void GamePlaying3DScene::Update(const Peripheral & p)
 					motion = DxLib::MV1AttachAnim(models[i], 1);
 					totalTime = DxLib::MV1GetAttachAnimTotalTime(models[i], motion);
 					DxLib::MV1SetPosition(models[i], DxLib::VGet(0, 0, 0));
+					//DxLib::MV1PhysicsResetState(models[i]);
 				}
 			}
 
@@ -136,11 +130,19 @@ void GamePlaying3DScene::Update(const Peripheral & p)
 	//DxLib::MV1SetPosition(models, pos);
 	DxLib::SetCameraPositionAndTarget_UpVecY(cameraPos, targetPos);	// カメラ座標とターゲット座標
 
-	time += 0.5f;
+	if (loadFlag)
+	{
+		DxLib::PlaySoundMem(music, DX_PLAYTYPE_BACK, false);
+		stoptime += 0.25f;
+		if (stoptime >= 0)
+		{
+			time += 0.25f;
+		}
+	}
 	// 再生時間がｱﾆﾒｰｼｮﾝの総再生時間になったら0に戻す
 	if (time >= totalTime)
 	{
-		time = 0;
+		time = totalTime;
 	}
 
 	for (auto& model : models)
