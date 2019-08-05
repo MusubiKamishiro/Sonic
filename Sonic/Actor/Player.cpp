@@ -91,14 +91,23 @@ void Player::Ground(const Peripheral & p)
 	updater = &Player::Idle;
 }
 
-void Player::Damage(const Peripheral & p)
+void Player::Dead(const Peripheral & p)
 {
+	deadflag = true;
+	--respawnTime;
+	if (respawnTime < 0)
+	{
+		respawnTime = 120;
+		pos = Vector2f(500, 200);
+		ChangeAction("idle");
+		updater = &Player::Idle;
+		deadflag = false;
+	}
 }
 
 Player::Player(const Camera& camera) : Actor(camera)
 {
 	pos = Vector2f(500, 200);
-	isAerial = true;
 
 	SetActor("action/player.act");
 
@@ -110,6 +119,8 @@ Player::Player(const Camera& camera) : Actor(camera)
 	deadSound = DxLib::LoadSoundMem("se/down.wav");
 
 	onflag = false;
+
+	respawnTime = 120;
 }
 
 
@@ -146,36 +157,29 @@ void Player::Draw()
 	Actor::Draw();
 }
 
-void Player::AdjustY(float adjustY, float grad)
-{
-	angle = atanf(grad);
-
-	vel.x += grad / std::hypot(1, grad);
-
-	if (adjustY > 0.0f)
-	{
-		pos.y = adjustY;
-	}
-}
 
 void Player::OnGround(const int groundY)
 {
-	isAerial = false;
-	pos.y = groundY;
-	vel.y = 0.0f;
-	angle = 0.0f;
+	if (updater != &Player::Dead)
+	{
+		isAerial = false;
+		pos.y = groundY;
+		vel.y = 0.0f;
+		angle = 0.0f;
 
-	ChangeAction("idle");
-	updater = &Player::Idle;
+		ChangeAction("idle");
+		updater = &Player::Idle;
+	}
 }
 
 void Player::OnDead()
 {
-	if (updater != &Player::Damage)
+	if (updater != &Player::Dead)
 	{
+		vel = Vector2f(0, jumpPower / 2);
 		ChangeAction("damage");
 		DxLib::PlaySoundMem(deadSound, DX_PLAYTYPE_BACK, true);
-		updater = &Player::Damage;
+		updater = &Player::Dead;
 	}
 }
 
@@ -193,5 +197,10 @@ void Player::AdjustPos(const Vector2f & offset)
 {
 	pos.x = pos.x + offset.x;
 	pos.y = pos.y + offset.y;
+}
+
+void Player::SetJumpPower()
+{
+	vel.y = jumpPower / 2;
 }
 

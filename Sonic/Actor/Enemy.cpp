@@ -47,3 +47,8 @@ void Enemy::OnCollision(Actor & actor)
 		actor.OnDead();
 	}
 }
+
+bool Enemy::GetIsAvailable()
+{
+	return isAvailable;
+}

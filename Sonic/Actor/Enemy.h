@@ -10,7 +10,7 @@ class Enemy : public Actor
 {
 	friend Spawner;
 private:
-	int deadSE;
+	
 
 protected:
 	///自分のクローンを返す
@@ -20,6 +20,9 @@ protected:
 
 	///プレイヤーの位置を知る
 	void AimPlayer();
+
+	bool isAvailable = true;
+	int deadSE;
 
 public:
 	Enemy(const Camera& camera, const Player& player, const Vector2f& pos);
@@ -32,5 +35,7 @@ public:
 	// 衝突イベント
 	// @param actor 相手アクターオブジェクト
 	virtual void OnCollision(Actor& actor);
+
+	bool GetIsAvailable();
 };
 

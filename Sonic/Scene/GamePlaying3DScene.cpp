@@ -6,12 +6,16 @@
 
 GamePlaying3DScene::GamePlaying3DScene()
 {
+	stage = DxLib::MV1LoadModel("3Dmodel/table/学校机要塞01.pmx");
+	loadImg = DxLib::LoadGraph("img/yokyou.png");
+	loadTime = 0;
+
 	DxLib::SetUseASyncLoadFlag(true);
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/ouja/三柱式 仮面ライダー王蛇.pmx"));
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/ピーポくん/ピーポくん.pmx"));
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/はとむね先輩/はとむね先輩.pmd"));
 	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/PPK/ポプ子.pmx"));
-	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/sonic.pmx"));
+	models.emplace_back(DxLib::MV1LoadModel("3Dmodel/sonic/sonic.pmx"));
 
 	time = 0;
 	music = DxLib::LoadSoundMem("3Dmodel/music.mp3");
@@ -73,7 +77,12 @@ void GamePlaying3DScene::Update(const Peripheral & p)
 			{
 				if (DxLib::CheckHandleASyncLoad(models[i]) == true)
 				{
-					DxLib:DrawString(200, 200, "Now Loading...", 0xff0000);
+					DxLib::DrawExtendGraph(0, 0, 1024, 576, loadImg, true);
+					if (loadTime / 30 % 2 == 0)
+					{
+						DxLib:DrawString(5, 560, "Now Loading...", 0xff0000);
+					}
+					++loadTime;
 				}
 				else if (DxLib::CheckHandleASyncLoad(models[i]) == false)
 				{
@@ -133,16 +142,16 @@ void GamePlaying3DScene::Update(const Peripheral & p)
 	if (loadFlag)
 	{
 		DxLib::PlaySoundMem(music, DX_PLAYTYPE_BACK, false);
-		stoptime += 0.25f;
+		stoptime += 0.5f;
 		if (stoptime >= 0)
 		{
-			time += 0.25f;
+			time += 0.5f;
 		}
 	}
 	// 再生時間がｱﾆﾒｰｼｮﾝの総再生時間になったら0に戻す
 	if (time >= totalTime)
 	{
-		time = totalTime;
+		time = totalTime-0.5f;
 	}
 
 	for (auto& model : models)
@@ -155,8 +164,12 @@ void GamePlaying3DScene::Update(const Peripheral & p)
 
 void GamePlaying3DScene::Draw()
 {
-	for (auto& model : models)
+	if (loadFlag)
 	{
-		DxLib::MV1DrawModel(model);
+		for (auto& model : models)
+		{
+			DxLib::MV1DrawModel(model);
+		}
 	}
+	DxLib::MV1DrawModel(stage);
 }

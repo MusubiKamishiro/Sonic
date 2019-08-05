@@ -6,6 +6,7 @@
 #include "../BackGround.h"
 #include "../Ground.h"
 #include "../Stage.h"
+#include "../HUD.h"
 #include "../Block/Block.h"
 #include "../Collider.h"
 
@@ -55,6 +56,7 @@ void GamePlayingScene::WaitUpdate(const Peripheral & p)
 
 GamePlayingScene::GamePlayingScene()
 {
+	DxLib::SetUseASyncLoadFlag(false);
 	ssize = Game::Instance().GetScreenSize();
 
 	camera.reset(new Camera());
@@ -62,6 +64,7 @@ GamePlayingScene::GamePlayingScene()
 	bg.reset(new BackGround(*camera));
 	ground.reset(new Ground(*player));
 	stage.reset(new Stage());
+	hud.reset(new HUD());
 	collider.reset(new Collider());
 	stage->ReadStageFile("stage/level1.fmf", *ground, *player, *camera);
 
@@ -93,7 +96,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 	
 	if (!player->onflag)
 	{
-		groundy = ground->GetCurrentGroundY(grad);
+		groundy = ground->GetCurrentGroundY(*player, grad);
 	}
 	
 	for (auto& block : stage->GetBlockData())
@@ -143,7 +146,10 @@ void GamePlayingScene::Update(const Peripheral& p)
 		}
 	}
 
-	camera->Update();
+	if (!player->deadflag)
+	{
+		camera->Update();
+	}
 	ground->Updade(time);
 
 	for (auto& spawner : stage->GetSpawnerData())
@@ -154,6 +160,9 @@ void GamePlayingScene::Update(const Peripheral& p)
 	for (auto& enemy : enemies)
 	{
 		enemy->Update(p);
+
+		int eGroundy = ground->GetCurrentGroundY(*enemy, grad);
+		enemy->AdjustY(eGroundy, grad);
 	}
 
 	for (auto& e : stage->GetEventData())
@@ -179,6 +188,11 @@ void GamePlayingScene::Update(const Peripheral& p)
 		{
 			for (auto& erect : enemy->GetActRect())
 			{
+				if (!enemy->GetIsAvailable())
+				{
+					continue;
+				}
+
 				// 当たった
 				if (collider->IsCollided(player->GetHitRect(prect.rect), enemy->GetHitRect(erect.rect)))
 				{
@@ -190,6 +204,8 @@ void GamePlayingScene::Update(const Peripheral& p)
 						if (player->GetHitRect(prect.rect).center.y < enemy->GetHitRect(erect.rect).center.y)
 						{
 							enemy->OnDead();
+							player->SetJumpPower();
+							hud->AddScore(200);
 						}
 					}
 					else
@@ -201,6 +217,7 @@ void GamePlayingScene::Update(const Peripheral& p)
 		}
 	}
 
+	// コインとか
 	for (auto& e : stage->GetEventData())
 	{
 		if (!e->GetIsAvailable())
@@ -224,17 +241,18 @@ void GamePlayingScene::Update(const Peripheral& p)
 				if (collider->IsCollided(player->GetHitRect(prect.rect), e->GetHitRect(erect.rect)))
 				{
 					e->OnDead();
+					hud->AddScore(100);
 				}
 			}
 		}
 	}
+
+	hud->Update();
 	
 	// ポーズボタン押されたらポーズへ
 	if (p.IsTrigger(0, "pause"))
 	{
-		//SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
-
-		SceneManager::Instance().PushScene(std::make_unique<GamePlaying3DScene>());
+		SceneManager::Instance().PushScene(std::make_unique<PauseScene>());
 	}
 
 	++time;
@@ -266,6 +284,11 @@ void GamePlayingScene::Draw()
 
 	for (auto& enemy : enemies)
 	{
+		if (!enemy->GetIsAvailable())
+		{
+			continue;
+		}
+
 		auto pos = enemy->GetPos();
 		auto& range = camera->GetViewRange();
 
@@ -274,6 +297,8 @@ void GamePlayingScene::Draw()
 			enemy->Draw();
 		}
 	}
+
+	hud->Draw();
 
 #ifdef _DEBUG
 	DebugDraw();

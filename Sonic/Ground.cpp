@@ -1,6 +1,7 @@
 #include "Ground.h"
 #include <DxLib.h>
 #include <algorithm>
+#include "Actor/Actor.h"
 #include "Actor/Player.h"
 #include "Game.h"
 
@@ -26,9 +27,9 @@ void Ground::AddSegment(const Vector2f & lpos, const Vector2f & rpos, const Edge
 	segments.emplace_back(lpos, rpos, type);
 }
 
-int Ground::GetCurrentGroundY(float& grad) const
+int Ground::GetCurrentGroundY(Actor& actor, float& grad) const
 {
-	auto ppos = player.GetPos();
+	auto ppos = actor.GetPos();
 	auto lambda = [ppos](Terrain t) { return (t.s.posA.x <= ppos.x) && (ppos.x <= t.s.posB.x); };
 
 	// Ž©•ª‚Ì‚¢‚éÀ•W‚Ì’n–Ê‚ðŒ©‚Â‚¯‚é

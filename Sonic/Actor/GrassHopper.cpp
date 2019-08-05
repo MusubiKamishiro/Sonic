@@ -33,4 +33,7 @@ void GrassHopper::Draw()
 
 void GrassHopper::OnDead()
 {
+	angle = DX_PI_F;
+	isAvailable = false;
+	DxLib::PlaySoundMem(deadSE, DX_PLAYTYPE_BACK);
 }

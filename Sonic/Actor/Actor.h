@@ -72,6 +72,7 @@ protected:
 	bool turnFlag;	// 反転フラグ
 	float angle;	// 回転率
 	float accel;	// 加速度
+	Vector2f vel;	// 移動量
 	
 	std::string nowActionName;	// 現在のアクション名
 	int nowCutIndex;			// 現在のコマ(何番目のコマか)
@@ -110,5 +111,11 @@ public:
 	Rect GetHitRect(Rect& rc);
 
 	virtual void OnDead() = 0;
+
+	void AdjustY(float adjustY, float grad);
+
+	// 空中フラグ
+	// @param true時が空中
+	bool isAerial;
 };
 

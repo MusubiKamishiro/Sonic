@@ -130,6 +130,18 @@ void Actor::ChangeAction(const char * actname)
 	frame = 0;
 }
 
+void Actor::AdjustY(float adjustY, float grad)
+{
+	angle = atanf(grad);
+
+	vel.x += grad / std::hypot(1, grad);
+
+	if (adjustY > 0.0f)
+	{
+		pos.y = adjustY;
+	}
+}
+
 void Actor::Draw()
 {
 	auto& offset = camera.GetViewRange();
@@ -176,6 +188,7 @@ Actor::Actor(const Camera& camera) : camera(camera)
 	angle = 0.0f;
 	accel = 0.0f;
 	turnFlag = false;
+	isAerial = true;
 }
 
 

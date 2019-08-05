@@ -3,6 +3,7 @@
 #include "Geometry.h"
 
 class Player;
+class Actor;
 
 //端タイプ
 enum class EdgeType
@@ -40,7 +41,7 @@ public:
 	void AddSegment(const Vector2f& lpos, const Vector2f& rpos, const EdgeType& type);
 
 	// 現在のプレイヤー位置での「あるべき地面」の高さを返す。
-	int GetCurrentGroundY(float& grad)const;
+	int GetCurrentGroundY(Actor& actor, float& grad)const;
 
 	int GetCurrentDeadLine()const;
 

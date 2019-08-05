@@ -25,7 +25,10 @@ private:
 	bool loadFlag = false;
 	int ddr = 0;
 	int music;
+	int stage;
 	float stoptime;
+	int loadImg;
+	int loadTime;
 
 public:
 	GamePlaying3DScene();

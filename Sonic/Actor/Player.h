@@ -18,16 +18,14 @@ private:
 	void Jump(const Peripheral& p);		// ジャンプ
 	void JumpCheck(const Peripheral& p);// ジャンプチェック
 	void Ground(const Peripheral& p);	// 着地
-	void Damage(const Peripheral& p);	// 死亡
-
-	Vector2f vel;	// 移動量
+	void Dead(const Peripheral& p);	// 死亡
 
 	int jumpButtonPressing;	// ジャンプボタンが押されてる時間
 
 	int jumpSound;
 	int deadSound;
-
-
+	int respawnTime;
+	
 public:
 	Player(const Camera& camera);
 	~Player();
@@ -36,21 +34,20 @@ public:
 
 	void Draw();
 
-	void AdjustY(float adjustY, float grad);
 	void OnGround(const int groundY);
 	void OnDead();
 
 	Vector2f GetVel()const;
 	void AdjustMove(Vector2f speed);
 
-	// 空中フラグ
-	// @param true時が空中
-	bool isAerial;
-
 	// ブロックの上にいるかどうかの判定
 	// @param true時が乗ってる
 	bool onflag;
 
 	void AdjustPos(const Vector2f& offset);
+
+	void SetJumpPower();
+
+	bool deadflag = false;
 };
 

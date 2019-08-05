@@ -37,7 +37,7 @@ void Game::Initialize()
 		return;
 	}
 
-	DxLib::SetMainWindowText("Sonic The Hedgehog");		// タイトル
+	DxLib::SetMainWindowText("Sonic the Hedgehog");		// タイトル
 	DxLib::SetWindowIconID(IDI_ICON1);		// アイコン
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);	// 裏画面に描画
 

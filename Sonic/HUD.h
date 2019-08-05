@@ -2,10 +2,17 @@
 class HUD
 {
 private:
-	int coin;
+	int score;
+	int img;
 
 public:
 	HUD();
 	~HUD();
+
+	void AddScore(int inscore);
+
+	void Update();
+
+	void Draw();
 };
 

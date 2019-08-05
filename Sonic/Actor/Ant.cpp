@@ -42,5 +42,7 @@ void Ant::Draw()
 
 void Ant::OnDead()
 {
-	angle = 180.0f;
+	angle = DX_PI_F;
+	isAvailable = false;
+	DxLib::PlaySoundMem(deadSE, DX_PLAYTYPE_BACK);
 }

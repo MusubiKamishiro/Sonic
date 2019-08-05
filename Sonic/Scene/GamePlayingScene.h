@@ -8,6 +8,7 @@ class Camera;
 class BackGround;
 class Ground;
 class Stage;
+class HUD;
 class Collider;
 
 class OnetimeSpawner;
@@ -32,6 +33,7 @@ private:
 	std::shared_ptr<BackGround> bg;
 	std::shared_ptr<Ground> ground;
 	std::shared_ptr<Stage> stage;
+	std::shared_ptr<HUD> hud;
 	std::shared_ptr<Collider> collider;
 
 	std::vector<std::shared_ptr<Enemy>> enemies;
